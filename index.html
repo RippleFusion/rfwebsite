@@ -713,7 +713,7 @@
     footer { padding: 1.5rem; border-top: 1px solid var(--border); }
     footer p { text-align: center; font-size: 0.75rem; color: var(--ink-50); margin: 0; }
 
-    .founder { padding: 3rem var(--inset) 0; }
+    .founder { padding: 1rem var(--inset) 0; }
     .founder-grid { display: grid; grid-template-columns: 1fr; gap: 4.5rem; align-items: start; max-width: 60rem; }
     @media (min-width: 900px) { .founder-grid { grid-template-columns: minmax(0, 32rem) 1fr; gap: 6rem; max-width: none; } }
     /* Every photo container on the page (this one, meet-nina-photo, and
@@ -880,7 +880,7 @@
     .stat-icon { color: var(--cyan); opacity: 0.7; margin-bottom: 0.5rem; display: flex; justify-content: center; position: relative; z-index: 1; }
 
     /* The Problem */
-    .problem-section { padding: 3.5rem 0; background: var(--bg); }
+    .problem-section { padding: 3.5rem 0 1rem; background: var(--bg); }
     /* Shared body-paragraph size for every long-form prose block on the page
        (The Problem's .lede, Founder's .founder-bio p, Meet Nina's p.intro) —
        previously each had its own one-off value (.lede was a flat 18px with
@@ -912,6 +912,35 @@
     }
     @media (min-width: 900px) { .problem-image { max-width: none; } }
     .problem-image img { width: 100%; height: auto; display: block; object-fit: cover; margin: auto; }
+    /* The jigsaw's black is matched to --bg in the image itself; the soft edge fade hides any remaining seam. */
+    .problem-image {
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+      -webkit-mask-composite: source-in; mask-composite: intersect;
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+    }
+    /* Animated cyan lines: puzzle-glow.png is the jigsaw's light-lines alone. Three layers on top of the picture:
+       a slow pulse over every line, plus two bright bands that travel across it in opposite directions. */
+    .puzzle-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: url(images/puzzle-glow.png) center / 100% 100% no-repeat;
+      filter: brightness(1.5) drop-shadow(0 0 6px rgba(0, 229, 255, 0.9));
+    }
+    .puzzle-glow-pulse { opacity: 0; animation: puzzlePulse 3.6s ease-in-out infinite; }
+    .puzzle-glow-a, .puzzle-glow-b {
+      -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 300% 100%; mask-size: 300% 100%;
+      filter: brightness(3) drop-shadow(0 0 9px rgba(130, 250, 255, 1)) drop-shadow(0 0 3px #fff);   /* the travelling bands burn almost white */
+    }
+    .puzzle-glow-a {
+      -webkit-mask-image: linear-gradient(105deg, transparent 36%, #000 50%, transparent 64%); mask-image: linear-gradient(105deg, transparent 36%, #000 50%, transparent 64%);
+      animation: puzzleSweep 5.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+    .puzzle-glow-b {
+      -webkit-mask-image: linear-gradient(70deg, transparent 40%, #000 50%, transparent 60%); mask-image: linear-gradient(70deg, transparent 40%, #000 50%, transparent 60%);
+      animation: puzzleSweep 8s cubic-bezier(0.45, 0, 0.55, 1) infinite reverse; animation-delay: -3s;
+    }
+    @keyframes puzzleSweep { from { -webkit-mask-position: 0% 0; mask-position: 0% 0; } to { -webkit-mask-position: 100% 0; mask-position: 100% 0; } }
+    @keyframes puzzlePulse { 0%, 100% { opacity: 0.05; } 50% { opacity: 0.8; } }
+    @media (prefers-reduced-motion: reduce) { .puzzle-glow { animation: none; } .puzzle-glow-a, .puzzle-glow-b { display: none; } .puzzle-glow-pulse { opacity: 0.25; } }
     .gap-diagram { margin-top: 4.5rem; display: grid; grid-template-columns: 1fr; align-items: center; gap: 2rem; text-align: center; }
     @media (min-width: 860px) { .gap-diagram { grid-template-columns: 1fr auto 1fr; gap: 1.5rem; text-align: left; } }
     .gap-card { position: relative; padding: 1.75rem; border: 1px solid var(--border); overflow: hidden; background: rgba(255,255,255,0.015); transition: border-color 0.3s ease, transform 0.3s var(--ease-out-expo); }
@@ -1428,6 +1457,9 @@
           </div>
           <div class="problem-image reveal">
             <img src="images/puzzle-cropped.jpg" alt="" width="858" height="594" loading="lazy" decoding="async" />
+            <span class="puzzle-glow puzzle-glow-pulse" aria-hidden="true"></span>
+            <span class="puzzle-glow puzzle-glow-a" aria-hidden="true"></span>
+            <span class="puzzle-glow puzzle-glow-b" aria-hidden="true"></span>
           </div>
         </div>
       </div>
