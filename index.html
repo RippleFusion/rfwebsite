@@ -782,7 +782,13 @@
     @media (min-width: 900px) { .meet-nina-grid { grid-template-columns: 3fr 2fr; gap: 6rem; } }
     .meet-nina-photo { max-width: 26rem; justify-self: center; align-self: center; display: flex; align-items: center; justify-content: center; }
     @media (min-width: 900px) { .meet-nina-photo { max-width: none; } }
-    .meet-nina-photo { border-radius: 0.5rem; overflow: hidden; position: relative; aspect-ratio: 498 / 565; z-index: 1; background: transparent; }
+    .meet-nina-photo { border-radius: 0; overflow: visible; position: relative; aspect-ratio: 498 / 565; z-index: 1; background: transparent; }
+    /* The orb scene is not boxed in: its canvas extends well past the photo slot (centred on it), so the glow and the burst
+       fade out into the page like the hero's. Overflow is clipped at the section's edges so it can never cause sideways scroll. */
+    #meet-nina { overflow-x: clip; }
+    #meet-nina .meet-nina-photo { width: min(100%, 22rem); }
+    #ninaOrb { position: absolute; left: -80%; top: -65%; width: 260%; height: 230%; margin: 0; pointer-events: none; }
+    .nina-scan { display: none !important; }
     .meet-nina-photo img, .meet-nina-photo video, .meet-nina-photo canvas { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; margin: auto; }
     /* A rotating preview of the kind of thing Nina fields — not a real chat,
        just makes "AI-first digital employee" feel concrete rather than a
@@ -1562,7 +1568,6 @@
         </div>
         <div class="meet-nina-photo">
           <canvas id="ninaOrb" role="img" aria-label="Nina, Ripple Fusion's Digital Employee, shown as a glowing particle orb"></canvas>
-          <span class="nina-scan" aria-hidden="true"></span>
         </div>
       </div>
     </section>
@@ -2104,7 +2109,7 @@
   // Meet Nina: the same orb, melting into her portrait, without the wordmark
   (function () {
     const small = window.matchMedia('(max-width: 640px)').matches;
-    createOrbScene(document.getElementById('ninaOrb'), { cy: 0.5, R: 0.35, N: small ? 1800 : 3000, NB: small ? 7000 : 13000, wordmark: false, haloFrac: 0.5, pauseOffscreen: true });
+    createOrbScene(document.getElementById('ninaOrb'), { cy: 0.5, R: 0.13, N: small ? 1800 : 3000, NB: small ? 7000 : 13000, wordmark: false, haloFrac: 0.5, pauseOffscreen: true });
   })();
 
   // Land precisely on the section named in the URL (e.g. #contact) once the page has settled.
