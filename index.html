@@ -60,26 +60,6 @@
     a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
     .wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--inset); }
 
-    #preloader {
-      position: fixed; inset: 0; z-index: 10000; background: var(--bg);
-      transition: opacity 0.7s var(--ease-smooth), visibility 0.7s var(--ease-smooth);
-      pointer-events: none;
-    }
-    #preloaderOrb { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-    .no-js #preloader { display: none; }
-    #preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-    .preloader-skip {
-      opacity: 0; transform: translateY(8px); pointer-events: auto; cursor: pointer;
-      background: none; border: 1px solid rgba(255,255,255,0.25); border-radius: 999px;
-      color: var(--ink-70); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 0.7rem 1.4rem; transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s, border-color 0.3s ease, color 0.3s ease;
-    }
-    #preloader.show .preloader-skip { opacity: 1; transform: translateY(0); }
-    .preloader-skip:hover, .preloader-skip:focus-visible { border-color: var(--cyan); color: var(--cyan); }
-    @media (prefers-reduced-motion: reduce) {
-      #preloader { transition: opacity 0.2s linear; }
-      .preloader-skip { display: none; }
-    }
   /* ======================================================================
      HERO — pinned cinematic scene
      ====================================================================== */
@@ -1800,7 +1780,7 @@
     const introAlreadySeen = false;
 
     // ---------- Precise, self-correcting section landing ----------
-    // Shared by both the initial-load hash landing (hidePreloader, below)
+    // Shared by both the initial-load hash landing (below)
     // and every in-page nav click further down. A plain one-shot
     // scrollIntoView/scrollTo can still drift off target: webfonts, lazy
     // images, and the hero's own reserved 140vh spacer can all still be
@@ -1826,11 +1806,6 @@
       });
     }
 
-  // ---------- Preloader ----------
-  // Runs standalone and first, with its own safety timeout, so a later error
-  // anywhere else in this script can never leave it stuck on screen.
-  const preloader = document.getElementById('preloader');
-  const preloaderSkip = document.getElementById('preloaderSkip');
   // ---------- Orb hero ----------
   // Cyan particles gather into a slowly morphing orb that ripples and
   // stretches, then melt into a portrait of Nina built from her own photo.
@@ -2082,36 +2057,12 @@
     if (reduce) logo.addEventListener('load', () => setTimeout(() => requestAnimationFrame(frame), 50));
   })();
 
-  function hidePreloader() {
-    if (!preloader || preloader.classList.contains('done')) return;
-    preloader.classList.add('done');
-    setTimeout(() => { if (preloader.parentNode) preloader.remove(); }, 900); // matches #preloader's 0.7s fade-out
-    if (window.startHeroEntrance) window.startHeroEntrance();
-    // Loading is done — carry straight through to wherever the visitor
-    // actually meant to land: the URL's own hash if it points somewhere
-    // specific (e.g. a direct link to #the-problem or #contact, now that
-    // Services/About/Contact are sections on this same page), otherwise the
-    // house-hero section itself rather than leaving them parked on the
-    // pinned constellation scene. By the time this fires the pin has
-    // already dissolved to opacity 0 (see INTRO_FADE_START in the module
-    // script), so this scroll lands cleanly rather than fighting a
-    // still-visible scene.
-    const hashTarget = location.hash && location.hash !== '#top' ? document.querySelector(location.hash) : null;
-    preciseScrollTo(hashTarget || document.getElementById('houseHero'), true); // instant: it happens behind the preloader while it fades
-  }
-  if (preloader) {
-    if (prefersReducedMotion) {
-      setTimeout(hidePreloader, 0); // deferred so later same-script definitions (hero entrance) exist first
-    } else {
-      // ~3s particle-orb intro (canvas 2D, no dependencies), then it hands
-      // off exactly like the old cutscene did: rf:intro-complete hides the
-      // preloader and starts the house-hero entrance. The hero's Three.js
-      // constellation no longer plays an intro of its own.
-      requestAnimationFrame(() => preloader.classList.add('show'));
-      window.addEventListener('rf:intro-complete', hidePreloader);
-    }
-    setTimeout(hidePreloader, 6000); // absolute safety net if the orb script fails entirely
-  }
+  // Land precisely on the section named in the URL (e.g. #contact) once the page has settled.
+  window.addEventListener('load', () => {
+    let target = null;
+    try { target = location.hash && location.hash !== '#top' ? document.querySelector(location.hash) : null; } catch (e) {}
+    if (target) preciseScrollTo(target, true);
+  });
 
   // ==========================================================================
   // HERO — corner UI, entrance hook, reduced-motion fallback.
@@ -2155,7 +2106,6 @@
         if (!heroPin.classList.contains('visible') && !window.__rfThreeStarted) {
           heroSpacer.classList.add('reduced');
           heroPin.style.display = 'none';
-          hidePreloader();
         }
       }, 3500);
     }
@@ -2174,7 +2124,7 @@
             return;
           }
           heroPin.classList.add('entered');
-          // Staggered against the preloader's own 1.1s fade-out and the
+          // Staggered against the hero entrance and the
           // corner UI's 1s fade (0.2s delay) below, so skip-button-fading,
           // wordmark-revealing, tagline-revealing and corner-UI-appearing
           // all overlap into one continuous ~1.3s materialize rather than
