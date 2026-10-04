@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>document.documentElement.className = 'js';</script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
   <title>Ripple Fusion</title>
   <link rel="icon" type="image/png" href="data:image/png;base64,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" />
   <meta name="description" content="AI and data transformation advisory. Interim data, AI, and transformation leadership that turns ambitious ideas into practical, scalable solutions." />
@@ -599,11 +607,6 @@
       .hero-energy-spine, .hero-struct-glow-roof { display: none; }
       .hero-bg-wrap { clip-path: none; } /* iris wipe needs real motion to make sense; just show the video */
     }
-
-    /* ---------- Orb hero (replaces the pinned constellation + house video) ---------- */
-    .hero-pin, .hero-spacer, .hero-bg-wrap { display: none !important; }
-    #orbCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: 0; }
-    #houseHero { background: var(--bg); }
     .hero > .wrap { position: relative; z-index: 1; }
     .hero-headline {
       text-align: center; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 800; margin: 0 0 3rem;
@@ -1305,7 +1308,9 @@
 <div class="dot-grid"></div>
 <div class="spotlight" id="spotlight"></div>
 
-
+<div id="preloader" aria-hidden="true">
+  <canvas id="preloaderOrb"></canvas>
+</div>
 
 <div class="hero-pin" id="heroPin">
   <canvas class="hero-layer hero-layer-enter" id="heroThreeCanvas" style="transition-delay:0ms"></canvas>
@@ -1354,7 +1359,7 @@
 
   <nav class="nav" id="nav">
     <div class="wrap nav-inner">
-      <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Ripple Fusion" /></a>
+      <a href="classic.html" class="nav-logo"><img src="images/logo.png" alt="Ripple Fusion" /></a>
       <div class="nav-links">
         <a href="#top" data-nav="top">Home</a>
         <a href="#the-problem" data-nav="about">About</a>
@@ -1386,9 +1391,10 @@
          visibility is toggled directly via JS (see heroVisibilityIO). -->
     <div class="hero-energy-spine" id="heroEnergySpine"><div class="hero-energy-spine-fill" id="heroEnergySpineFill"></div></div>
     <section class="hero" id="houseHero">
-      <canvas id="orbCanvas" aria-hidden="true"></canvas>
       <div class="hero-bg-wrap" id="heroBgWrap">
-        
+        <video class="hero-bg" autoplay muted loop playsinline preload="metadata" poster="images/hero-home.jpg">
+          <source src="videos/hero-home.mp4" type="video/mp4" />
+        </video>
         <div class="hero-bg-shade"></div>
         <div class="hero-dof"></div>
         <div class="hero-clouds"></div>
@@ -1823,21 +1829,18 @@
   // anywhere else in this script can never leave it stuck on screen.
   const preloader = document.getElementById('preloader');
   const preloaderSkip = document.getElementById('preloaderSkip');
-  // ---------- Orb hero ----------
-  // Cyan particles gather into a slowly morphing orb that ripples and
-  // stretches, while a second stream of particles assembles the Ripple Fusion
-  // wordmark beneath it. Both keep moving for as long as the page is open.
-  // rf:intro-complete (which starts the headline/stats reveal) fires once the
-  // orb has formed.
-  (function () {
-    const cv = document.getElementById('orbCanvas');
+  // ---------- Orb intro ----------
+  // A cloud of cyan particles drifts in, gathers into a morphing orb that
+  // ripples and stretches, while a second stream of particles assembles the
+  // Ripple Fusion wordmark beneath it. Then everything bursts outward as the
+  // page takes over.
+  function runOrbIntro(onDone) {
+    const cv = document.getElementById('preloaderOrb');
     const ctx = cv && cv.getContext && cv.getContext('2d');
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setTimeout(() => window.dispatchEvent(new Event('rf:intro-complete')), reduce ? 0 : 1600);
-    if (!ctx) return;
+    if (!ctx) { onDone(); return; }
+    const DURATION = 3500, BURST_AT = 2750;
     const small = window.matchMedia('(max-width: 640px)').matches;
     const N = small ? 1800 : 3000;
-    const SLOW = 0.6; // morph speed. 1 = the original intro's pace
     let W = 0, H = 0, dpr = 1;
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1847,6 +1850,7 @@
     resize();
     window.addEventListener('resize', resize);
 
+    // Orb: Fibonacci sphere targets + random scattered start positions
     const pts = [];
     const golden = Math.PI * (3 - Math.sqrt(5));
     for (let i = 0; i < N; i++) {
@@ -1859,8 +1863,9 @@
       });
     }
 
-    // Wordmark: the real logo's pixels, sampled into particles.
-    let word = [], wordAspect = 65 / 526, wordReadyAt = 0;
+    // Wordmark: sample the real logo's pixels into particles. Positions are
+    // stored normalised (-0.5..0.5 across the width) so they scale to any screen.
+    let word = [], wordAspect = 65 / 526;
     const logo = new Image();
     logo.onload = () => {
       try {
@@ -1869,39 +1874,41 @@
         const oc = document.createElement('canvas'); oc.width = lw; oc.height = lh;
         const oc2 = oc.getContext('2d'); oc2.drawImage(logo, 0, 0, lw, lh);
         const data = oc2.getImageData(0, 0, lw, lh).data;
-        const out = [];
         for (let y = 0; y < lh; y++) for (let x = 0; x < lw; x++) {
           const i = (y * lw + x) * 4;
           const v = (data[i + 3] / 255) * Math.max(data[i], data[i + 1], data[i + 2]) / 255;
           if (v > 0.35 && Math.random() < 0.85) {
-            out.push({
+            word.push({
               x: x / lw - 0.5, y: (y - lh / 2) / lw,
               sx: (Math.random() - 0.5) * 2.4, sy: (Math.random() - 0.3) * 1.6,
-              d: 0.6 + Math.random() * 0.8, j: Math.random() * 6.28
+              d: 0.6 + Math.random() * 0.8, // when it starts flying in, seconds
+              j: Math.random() * 6.28
             });
           }
         }
-        word = out; wordReadyAt = performance.now();
       } catch (e) { word = []; }
     };
     logo.src = 'images/logo.png';
 
     const ease = t => 1 - Math.pow(1 - t, 3);
     const start = performance.now();
+    let finished = false;
     function frame(now) {
-      const t = reduce ? 4 : (now - start) / 1000;   // reduced motion: settle on a still frame
-      const mt = t * SLOW;                            // slowed clock, drives only the morphing
+      const ms = now - start, t = ms / 1000;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, W, H);
-      // keep the orb + wordmark in the space above the headline and stats
-      const cx = W / 2, cy = H * (small ? 0.27 : 0.29), R = Math.min(W, H) * (small ? 0.2 : 0.14);
+      const cx = W / 2, cy = H * (small ? 0.4 : 0.42), R = Math.min(W, H) * (small ? 0.24 : 0.2);
+      const burstT = Math.max(0, (ms - BURST_AT) / (DURATION - BURST_AT));
+      const burst = burstT * burstT;
+      const mt = t * 0.6; // slowed morph clock
       const pulse = 1 + Math.sin(mt * 3.2) * 0.03;
       const rot = mt * 0.7, cr = Math.cos(rot), sr = Math.sin(rot);
+      // whole-orb stretch and squash, so the silhouette keeps changing
       const stx = 1 + 0.14 * Math.sin(mt * 1.3), sty = 1 + 0.14 * Math.sin(mt * 1.3 + 2.1), stz = 1 + 0.14 * Math.sin(mt * 1.3 + 4.2);
       const rippleAmp = 0.07 + 0.06 * Math.sin(mt * 0.9);
 
-      const haloA = Math.min(t / 0.9, 1);
+      const haloA = Math.min(ms / 900, 1) * (1 - burstT);
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.4);
       g.addColorStop(0, 'rgba(0,229,255,' + (0.16 * haloA) + ')');
       g.addColorStop(1, 'rgba(0,229,255,0)');
@@ -1914,8 +1921,8 @@
         const dsp = 0.17 * Math.sin(2.6 * p.x + mt * 1.7) * Math.sin(2.4 * p.y - mt * 1.4)
                   + 0.1 * Math.sin(3.8 * p.z + mt * 1.1 + p.x * 2)
                   + 0.05 * Math.sin(7 * (p.x + p.y) + mt * 2.6)
-                  + rippleAmp * Math.sin(p.lat * 7 - mt * 4.5);
-        const rad = (1 + dsp) * pulse;
+                  + rippleAmp * Math.sin(p.lat * 7 - mt * 4.5);      // rings travelling pole to pole
+        const rad = (1 + dsp) * pulse * (1 + burst * 1.8);
         const x = p.sx + (p.x * rad * stx - p.sx) * k, y = p.sy + (p.y * rad * sty - p.sy) * k, z = p.sz + (p.z * rad * stz - p.sz) * k;
         const rx = x * cr + z * sr, rz = -x * sr + z * cr;
         const persp = 3.4 / (3.4 - rz);
@@ -1923,36 +1930,43 @@
         const depth = (rz + 1.7) / 3.4;
         const nz = Math.abs(p.z * cr - p.x * sr);
         const rim = Math.pow(1 - Math.min(nz, 1), 2);
-        const a = (0.22 + 0.5 * depth + 0.45 * rim) * Math.min(t / 0.5, 1);
+        const a = (0.22 + 0.5 * depth + 0.45 * rim) * Math.min(t / 0.5, 1) * (1 - burstT);
         if (a <= 0.01) continue;
         const size = (0.9 + 1.3 * depth) * p.s * (1 + rim * 0.4);
         ctx.fillStyle = rim > 0.35 ? 'rgba(160,245,255,' + a + ')' : 'rgba(0,229,255,' + a + ')';
         ctx.fillRect(px - size / 2, py - size / 2, size, size);
       }
 
+      // Wordmark particles
       if (word.length) {
-        const tw = Math.min(W * (small ? 0.7 : 0.34), 480);
+        const tw = Math.min(W * (small ? 0.78 : 0.4), 560);
         const wx = cx, wy = cy + R * 1.75 + tw * wordAspect * 0.5;
-        const tl = reduce ? 4 : (now - Math.min(wordReadyAt, now)) / 1000 + 0.6; // flight starts when the logo is ready
+        const wa = 1 - burstT;
         for (let i = 0; i < word.length; i++) {
           const w = word[i];
-          const k = ease(Math.min(Math.max((tl - w.d) / 1.0, 0), 1));
+          const k = ease(Math.min(Math.max((t - w.d) / 1.0, 0), 1));
           if (k <= 0) continue;
-          const wave = Math.sin(w.x * 14 - t * 3) * (1 - k) * 0.03 + Math.sin(w.x * 9 - mt * 2.4) * 0.006;
+          // a ripple runs left to right through the lettering as it settles
+          const wave = Math.sin(w.x * 14 - t * 5) * (1 - k) * 0.03 + Math.sin(w.x * 9 - t * 2.4) * 0.006;
           const tx = w.x * tw, ty = (w.y + wave) * tw;
           const fx = w.sx * W * 0.5, fy = w.sy * H * 0.4;
-          const px = wx + fx * (1 - k) + tx, py = wy + fy * (1 - k) + ty;
-          ctx.fillStyle = 'rgba(235,252,255,' + (0.25 + 0.65 * k) + ')';
+          const bx = burst * (w.x * 900 + Math.cos(w.j) * 200), by = burst * (Math.sin(w.j) * 260);
+          const px = wx + fx * (1 - k) + tx + bx, py = wy + fy * (1 - k) + ty + by;
+          const a = (0.25 + 0.65 * k) * wa;
+          ctx.fillStyle = 'rgba(235,252,255,' + a + ')';
           const size = 1 + 0.5 * k;
           ctx.fillRect(px - size / 2, py - size / 2, size, size);
         }
       }
-      if (!reduce) requestAnimationFrame(frame);
+
+      if (ms >= DURATION) {
+        if (!finished) { finished = true; window.removeEventListener('resize', resize); onDone(); }
+        return;
+      }
+      requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
-    if (reduce) logo.addEventListener('load', () => setTimeout(() => requestAnimationFrame(frame), 50));
-  })();
-
+  }
   function hidePreloader() {
     if (!preloader || preloader.classList.contains('done')) return;
     preloader.classList.add('done');
@@ -1980,6 +1994,7 @@
       // constellation no longer plays an intro of its own.
       requestAnimationFrame(() => preloader.classList.add('show'));
       window.addEventListener('rf:intro-complete', hidePreloader);
+      runOrbIntro(() => window.dispatchEvent(new Event('rf:intro-complete')));
     }
     setTimeout(hidePreloader, 6000); // absolute safety net if the orb script fails entirely
   }
@@ -2762,7 +2777,882 @@
   })();
   </script>
 
+<script type="module">
+  import * as THREE from 'three';
+  import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+  import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+  import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
+  const canvas = document.getElementById('heroThreeCanvas');
+  const heroSpacer = document.getElementById('heroSpacer');
+  const heroVignette = document.getElementById('heroVignette');
+  if (!canvas || !heroSpacer) throw new Error('Hero Three.js: required elements missing');
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches || window.matchMedia('(hover: none)').matches;
+  // Always play the intro — same-session skip reverted, mirrors the classic
+  // script above.
+  const introAlreadySeen = false;
+
+  // ---------- Scene / camera / renderer ----------
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x000000, 0.09); // cheap depth cue — distant shard fragments naturally darken
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  // Orbit camera: drag rotates, wheel/pinch zooms, independent of page scroll.
+  // ZOOM_MAX is the resting/zoomed-out default — pulled in from the old fixed
+  // 6.5 so the crystal reads as a real subject at rest instead of a small
+  // distant shape.
+  const ZOOM_MIN = 2.3;
+  const ZOOM_MAX = 4.4;
+  camera.position.set(0, 0, ZOOM_MAX);
+
+  // antialias:false and a capped 1.5x pixel ratio: bloom's own blur already
+  // softens hard edges, so MSAA's marginal benefit here is small relative to
+  // its cost — this is the "loading screen feels laggy" fix, since these
+  // multiply the cost of every fragment the (already GPU-heavy) bloom pass
+  // has to process.
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 1);
+
+  // Bloom is the single biggest lever for making a glowing cyan wireframe read as
+  // premium rather than flat. Skipped DOF/bokeh alongside it deliberately — two
+  // full-screen post passes stacked would cost more than this stage warrants.
+  // Rendered at 75% resolution (imperceptible once blurred/bloomed, real GPU saving).
+  const BLOOM_SCALE = 0.75;
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth * BLOOM_SCALE, window.innerHeight * BLOOM_SCALE), 0.9, 0.6, 0.15);
+  composer.addPass(bloomPass);
+
+  const REST_COLOR = new THREE.Color(0x00e5ff);
+  const ARRIVE_COLOR = new THREE.Color(0x22d3ee);
+  const MAX_RIPPLES = 4;
+  const RIPPLE_DECAY = 1.0; // must match FLASH_DECAY inside RIPPLE_FLASH_GLSL below
+  const RIPPLE_RISE_TIME = 0.15;
+
+  // Shared uniforms across every constellation material (nodes, edges, data
+  // pulses) — one source of truth for time/ripple state/depth range, updated
+  // once per frame in the render loop rather than duplicated per-material.
+  const sharedUniforms = {
+    uTime: { value: 0 },
+    uColor: { value: REST_COLOR.clone() },
+    uOpacity: { value: 0.9 },
+    uNearDist: { value: ZOOM_MIN },
+    uFarDist: { value: ZOOM_MAX + 1.6 },
+    uPixelRatio: { value: Math.min(window.devicePixelRatio || 1, 2) },
+    uRippleOrigin: { value: Array.from({ length: MAX_RIPPLES }, () => new THREE.Vector3()) },
+    uRippleStart: { value: new Array(MAX_RIPPLES).fill(-1000) },
+    uRippleAmp: { value: new Array(MAX_RIPPLES).fill(0) },
+    uCursorPoint: { value: new THREE.Vector3(0, 0, 9999) }, // far off-structure by default — no charge until cursor tracking is active
+  };
+
+  // The ripple-cascade formula shared by nodes and edges: rather than the old
+  // continuous sine-wave displacement (built for a solid mesh surface), this
+  // is a traveling brightness wavefront — cleaner for a discrete node/edge
+  // graph, and reads visually as activation genuinely spreading outward
+  // through the network rather than a generic surface ripple.
+  const RIPPLE_FLASH_GLSL = `
+    const float FLASH_SPEED = 3.2;
+    const float FLASH_WIDTH = 0.55;
+    const float FLASH_DECAY = 1.0;
+    float rippleFlash(vec3 p, vec3 origin[${MAX_RIPPLES}], float startTimes[${MAX_RIPPLES}], float amps[${MAX_RIPPLES}], float time) {
+      float flash = 0.0;
+      for (int i = 0; i < ${MAX_RIPPLES}; i++) {
+        float startTime = startTimes[i];
+        if (startTime > -500.0) {
+          float t = time - startTime;
+          if (t >= 0.0 && t < 6.0) {
+            float dist = distance(p, origin[i]);
+            float front = t * FLASH_SPEED;
+            float band = 1.0 - clamp(abs(dist - front) / FLASH_WIDTH, 0.0, 1.0);
+            flash += amps[i] * band * exp(-t * FLASH_DECAY);
+          }
+        }
+      }
+      return flash;
+    }
+  `;
+
+  // Cursor-proximity "charge" — a persistent (not decaying) brightening near
+  // wherever uCursorPoint currently sits, same shape of falloff as a ripple
+  // but with no time component. Shared by nodes and edges, same pattern as
+  // RIPPLE_FLASH_GLSL above. CURSOR_RADIUS ~20% of the constellation's own
+  // radius (1.5, see NODE_OUTER's fibonacciSphere call below).
+  const CURSOR_CHARGE_GLSL = `
+    const float CURSOR_RADIUS = 0.3;
+    float cursorCharge(vec3 p, vec3 cursor) {
+      return smoothstep(CURSOR_RADIUS, 0.0, distance(p, cursor));
+    }
+  `;
+
+  // ---------- Nodes: the constellation's ~200 glowing points ----------
+  const nodeVertexShader = `
+    uniform float uTime;
+    uniform float uPixelRatio;
+    uniform vec3 uRippleOrigin[${MAX_RIPPLES}];
+    uniform float uRippleStart[${MAX_RIPPLES}];
+    uniform float uRippleAmp[${MAX_RIPPLES}];
+    uniform vec3 uCursorPoint;
+    attribute float aSize;
+    attribute float aSeed;
+    varying float vFlash;
+    varying float vCharge;
+    varying float vCamDist;
+    varying float vSeed;
+    ${RIPPLE_FLASH_GLSL}
+    ${CURSOR_CHARGE_GLSL}
+    void main() {
+      vec4 worldPos = modelMatrix * vec4(position, 1.0);
+      vCamDist = distance(cameraPosition, worldPos.xyz);
+      vFlash = rippleFlash(position, uRippleOrigin, uRippleStart, uRippleAmp, uTime);
+      vCharge = cursorCharge(worldPos.xyz, uCursorPoint);
+      vSeed = aSeed;
+      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+      float depthScale = clamp(300.0 / -mvPosition.z, 0.3, 3.0);
+      gl_PointSize = aSize * uPixelRatio * depthScale * (1.0 + vFlash * 1.8 + vCharge * 0.9);
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  `;
+  const nodeFragmentShader = `
+    uniform vec3 uColor;
+    uniform float uOpacity;
+    uniform float uNearDist;
+    uniform float uFarDist;
+    uniform float uTime;
+    varying float vFlash;
+    varying float vCharge;
+    varying float vCamDist;
+    varying float vSeed;
+    void main() {
+      vec2 uv = gl_PointCoord - 0.5;
+      float d = length(uv);
+      if (d > 0.5) discard;
+      float core = smoothstep(0.5, 0.0, d);
+      float depthT = 1.0 - clamp((vCamDist - uNearDist) / max(uFarDist - uNearDist, 0.001), 0.0, 1.0);
+      float depthFactor = mix(0.35, 1.0, depthT);
+      float twinkle = 0.82 + 0.18 * sin(uTime * 1.6 + vSeed * 6.2831);
+      vec3 color = mix(uColor, vec3(1.0), min(vFlash, 1.0) * 0.6);
+      color = mix(color, vec3(1.0), vCharge * 0.45);
+      float alpha = core * uOpacity * depthFactor * twinkle * (1.0 + vFlash * 0.9 + vCharge * 0.5);
+      gl_FragColor = vec4(color, clamp(alpha, 0.0, 1.0));
+    }
+  `;
+
+  // Even coverage via a Fibonacci (golden-angle) sphere for the outer shell,
+  // plus a denser scattered inner cluster — two layers read as genuine depth
+  // and internal structure rather than one uniform ball of points, and it
+  // stays interesting up close once the user zooms in.
+  function fibonacciSphere(count, radius, jitter) {
+    const pts = [];
+    const golden = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < count; i++) {
+      const y = 1 - (i / (count - 1)) * 2;
+      const r = Math.sqrt(Math.max(0, 1 - y * y));
+      const theta = golden * i;
+      const v = new THREE.Vector3(Math.cos(theta) * r, y, Math.sin(theta) * r);
+      v.multiplyScalar(radius * (1 + (Math.random() - 0.5) * jitter));
+      pts.push(v);
+    }
+    return pts;
+  }
+  const NODE_OUTER = 160;
+  const NODE_INNER = 45;
+  const nodePoints = fibonacciSphere(NODE_OUTER, 1.5, 0.16);
+  for (let i = 0; i < NODE_INNER; i++) {
+    const v = new THREE.Vector3((Math.random() - 0.5), (Math.random() - 0.5), (Math.random() - 0.5)).normalize();
+    v.multiplyScalar(Math.random() * 0.85);
+    nodePoints.push(v);
+  }
+  const NODE_COUNT = nodePoints.length;
+  const HUB_COUNT = 14;
+  const hubIndices = new Set();
+  while (hubIndices.size < HUB_COUNT) hubIndices.add(Math.floor(Math.random() * NODE_COUNT));
+
+  const nodePositionArr = new Float32Array(NODE_COUNT * 3);
+  const nodeSizeArr = new Float32Array(NODE_COUNT);
+  const nodeSeedArr = new Float32Array(NODE_COUNT);
+  nodePoints.forEach((p, i) => {
+    nodePositionArr[i * 3] = p.x;
+    nodePositionArr[i * 3 + 1] = p.y;
+    nodePositionArr[i * 3 + 2] = p.z;
+    nodeSizeArr[i] = (hubIndices.has(i) ? 7.5 + Math.random() * 2.5 : 3 + Math.random() * 2);
+    nodeSeedArr[i] = Math.random();
+  });
+  const nodeGeo = new THREE.BufferGeometry();
+  nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePositionArr, 3));
+  nodeGeo.setAttribute('aSize', new THREE.BufferAttribute(nodeSizeArr, 1));
+  nodeGeo.setAttribute('aSeed', new THREE.BufferAttribute(nodeSeedArr, 1));
+  const nodeMat = new THREE.ShaderMaterial({
+    uniforms: sharedUniforms,
+    vertexShader: nodeVertexShader,
+    fragmentShader: nodeFragmentShader,
+    transparent: true,
+    depthWrite: false,
+  });
+  const nodesPoints = new THREE.Points(nodeGeo, nodeMat);
+  // Nodes, edges and data pulses share one group so the cinematic intro can
+  // scale/materialize the whole network as a unit. Ripple rings and burst
+  // orbs stay outside it — they're triggered independently and shouldn't be
+  // tied to the intro's formation scale.
+  const constellationGroup = new THREE.Group();
+  scene.add(constellationGroup);
+  constellationGroup.add(nodesPoints);
+
+  // ---------- Edges: sparse nearest-neighbor connections + a few long
+  // "spine" links tying the inner cluster to the outer shell ----------
+  const edgeVertexShader = `
+    uniform float uTime;
+    uniform vec3 uRippleOrigin[${MAX_RIPPLES}];
+    uniform float uRippleStart[${MAX_RIPPLES}];
+    uniform float uRippleAmp[${MAX_RIPPLES}];
+    uniform vec3 uCursorPoint;
+    varying float vFlash;
+    varying float vCharge;
+    varying float vCamDist;
+    ${RIPPLE_FLASH_GLSL}
+    ${CURSOR_CHARGE_GLSL}
+    void main() {
+      vec4 worldPos = modelMatrix * vec4(position, 1.0);
+      vCamDist = distance(cameraPosition, worldPos.xyz);
+      vFlash = rippleFlash(position, uRippleOrigin, uRippleStart, uRippleAmp, uTime);
+      vCharge = cursorCharge(worldPos.xyz, uCursorPoint);
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `;
+  const edgeFragmentShader = `
+    uniform vec3 uColor;
+    uniform float uOpacity;
+    uniform float uNearDist;
+    uniform float uFarDist;
+    varying float vFlash;
+    varying float vCharge;
+    varying float vCamDist;
+    void main() {
+      float depthT = 1.0 - clamp((vCamDist - uNearDist) / max(uFarDist - uNearDist, 0.001), 0.0, 1.0);
+      float depthFactor = mix(0.15, 0.75, depthT);
+      vec3 color = mix(uColor, vec3(1.0), min(vFlash, 1.0) * 0.5);
+      color = mix(color, vec3(1.0), vCharge * 0.35);
+      gl_FragColor = vec4(color, uOpacity * depthFactor * (0.35 + vFlash * 1.3 + vCharge * 0.6));
+    }
+  `;
+
+  function buildEdges(points, kNearest, spineCount) {
+    const edgeSet = new Set();
+    const pairs = [];
+    points.forEach((p, i) => {
+      const dists = points.map((q, j) => (i === j ? Infinity : p.distanceTo(q)));
+      const nearest = dists.map((d, j) => [d, j]).sort((a, b) => a[0] - b[0]).slice(0, kNearest);
+      nearest.forEach(([, j]) => {
+        const key = i < j ? `${i}_${j}` : `${j}_${i}`;
+        if (!edgeSet.has(key)) { edgeSet.add(key); pairs.push([i, j]); }
+      });
+    });
+    for (let s = 0; s < spineCount; s++) {
+      const i = NODE_OUTER + Math.floor(Math.random() * NODE_INNER);
+      const j = Math.floor(Math.random() * NODE_OUTER);
+      const key = i < j ? `${i}_${j}` : `${j}_${i}`;
+      if (!edgeSet.has(key)) { edgeSet.add(key); pairs.push([i, j]); }
+    }
+    return pairs;
+  }
+  const edgePairs = buildEdges(nodePoints, 2, 14);
+  const edgePositionArr = new Float32Array(edgePairs.length * 2 * 3);
+  edgePairs.forEach(([a, b], idx) => {
+    const pa = nodePoints[a], pb = nodePoints[b];
+    edgePositionArr.set([pa.x, pa.y, pa.z, pb.x, pb.y, pb.z], idx * 6);
+  });
+  const edgeGeo = new THREE.BufferGeometry();
+  edgeGeo.setAttribute('position', new THREE.BufferAttribute(edgePositionArr, 3));
+  const edgeMat = new THREE.ShaderMaterial({
+    uniforms: sharedUniforms,
+    vertexShader: edgeVertexShader,
+    fragmentShader: edgeFragmentShader,
+    transparent: true,
+    depthWrite: false,
+  });
+  const edgeLines = new THREE.LineSegments(edgeGeo, edgeMat);
+  constellationGroup.add(edgeLines);
+
+  // ---------- Data pulses: small bright points traveling a subset of edges,
+  // like packets moving through the network ----------
+  const PULSE_COUNT = 40;
+  const pulseEdgeIdx = Array.from({ length: PULSE_COUNT }, () => Math.floor(Math.random() * edgePairs.length));
+  const pulsePhase = Array.from({ length: PULSE_COUNT }, () => Math.random());
+  const pulseSpeed = Array.from({ length: PULSE_COUNT }, () => 0.25 + Math.random() * 0.45);
+  const pulsePositionArr = new Float32Array(PULSE_COUNT * 3);
+  const pulseGeo = new THREE.BufferGeometry();
+  pulseGeo.setAttribute('position', new THREE.BufferAttribute(pulsePositionArr, 3));
+  const pulseMat = new THREE.PointsMaterial({
+    color: 0xffffff, size: 5, sizeAttenuation: false, transparent: true, opacity: 0.9,
+    blending: THREE.AdditiveBlending, depthWrite: false,
+  });
+  const dataPulses = new THREE.Points(pulseGeo, pulseMat);
+  constellationGroup.add(dataPulses);
+
+  function updateDataPulses(dt) {
+    const posAttr = pulseGeo.attributes.position;
+    for (let i = 0; i < PULSE_COUNT; i++) {
+      pulsePhase[i] += pulseSpeed[i] * dt;
+      if (pulsePhase[i] > 1) pulsePhase[i] -= 1;
+      const [a, b] = edgePairs[pulseEdgeIdx[i]];
+      const pa = nodePoints[a], pb = nodePoints[b];
+      const t = pulsePhase[i];
+      posAttr.setXYZ(i, pa.x + (pb.x - pa.x) * t, pa.y + (pb.y - pa.y) * t, pa.z + (pb.z - pa.z) * t);
+    }
+    posAttr.needsUpdate = true;
+  }
+
+  // ---------- Burst orbs: "things come out of" a ripple's origin point ----------
+  const BURST_POOL = 96;
+  const burstVertexShader = `
+    attribute float aLife;
+    attribute float aSize;
+    uniform float uPixelRatio;
+    varying float vLife;
+    void main() {
+      vLife = aLife;
+      vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+      gl_PointSize = aSize * uPixelRatio * clamp(300.0 / -mvPosition.z, 0.3, 3.0) * aLife;
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  `;
+  const burstFragmentShader = `
+    uniform vec3 uColor;
+    varying float vLife;
+    void main() {
+      vec2 uv = gl_PointCoord - 0.5;
+      float d = length(uv);
+      if (d > 0.5) discard;
+      float core = smoothstep(0.5, 0.0, d);
+      gl_FragColor = vec4(mix(uColor, vec3(1.0), 0.4), core * vLife);
+    }
+  `;
+  const burstPositionArr = new Float32Array(BURST_POOL * 3);
+  const burstLifeArr = new Float32Array(BURST_POOL);
+  const burstSizeArr = new Float32Array(BURST_POOL);
+  const burstVelocity = Array.from({ length: BURST_POOL }, () => new THREE.Vector3());
+  const burstSpawnTime = new Float32Array(BURST_POOL).fill(-1000);
+  const burstLifespan = new Float32Array(BURST_POOL);
+  const burstGeo = new THREE.BufferGeometry();
+  burstGeo.setAttribute('position', new THREE.BufferAttribute(burstPositionArr, 3));
+  burstGeo.setAttribute('aLife', new THREE.BufferAttribute(burstLifeArr, 1));
+  burstGeo.setAttribute('aSize', new THREE.BufferAttribute(burstSizeArr, 1));
+  const burstMat = new THREE.ShaderMaterial({
+    uniforms: sharedUniforms,
+    vertexShader: burstVertexShader,
+    fragmentShader: burstFragmentShader,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+  });
+  const burstPoints = new THREE.Points(burstGeo, burstMat);
+  scene.add(burstPoints);
+  let burstCursor = 0;
+
+  function spawnBurst(origin, count) {
+    for (let n = 0; n < count; n++) {
+      const idx = burstCursor;
+      burstCursor = (burstCursor + 1) % BURST_POOL;
+      const dir = new THREE.Vector3((Math.random() - 0.5), (Math.random() - 0.5), (Math.random() - 0.5)).normalize();
+      burstVelocity[idx].copy(dir).multiplyScalar(0.6 + Math.random() * 1.1);
+      burstPositionArr[idx * 3] = origin.x;
+      burstPositionArr[idx * 3 + 1] = origin.y;
+      burstPositionArr[idx * 3 + 2] = origin.z;
+      burstSpawnTime[idx] = motionElapsed;
+      burstLifespan[idx] = 0.9 + Math.random() * 0.6;
+      burstSizeArr[idx] = 3 + Math.random() * 3;
+    }
+    burstGeo.attributes.aSize.needsUpdate = true;
+  }
+
+  function updateBursts(dt) {
+    const posAttr = burstGeo.attributes.position;
+    const lifeAttr = burstGeo.attributes.aLife;
+    for (let i = 0; i < BURST_POOL; i++) {
+      const age = motionElapsed - burstSpawnTime[i];
+      if (age < 0 || age > burstLifespan[i]) { lifeAttr.setX(i, 0); continue; }
+      burstVelocity[i].multiplyScalar(0.97);
+      posAttr.setX(i, posAttr.getX(i) + burstVelocity[i].x * dt);
+      posAttr.setY(i, posAttr.getY(i) + burstVelocity[i].y * dt);
+      posAttr.setZ(i, posAttr.getZ(i) + burstVelocity[i].z * dt);
+      lifeAttr.setX(i, 1 - age / burstLifespan[i]);
+    }
+    posAttr.needsUpdate = true;
+    lifeAttr.needsUpdate = true;
+  }
+
+  const ambient = new THREE.AmbientLight(0x22d3ee, 0.6);
+  scene.add(ambient);
+
+  // Secondary drifting shard fragments — small ambient background debris.
+  // Fixed, modest size/opacity/radius rather than growing with any "progress"
+  // value: with a free-orbiting camera there's no single "forward axis" left
+  // to keep them clear of (the user can rotate to face any direction), so
+  // the safety margin now comes from staying small and dim at every angle,
+  // and from sitting further out than ZOOM_MIN so they never get large even
+  // at full zoom-in.
+  const SHARD_COUNT = 7;
+  const SHARD_SPREAD = 3.1;
+  const shards = [];
+  for (let i = 0; i < SHARD_COUNT; i++) {
+    const geo = new THREE.TetrahedronGeometry(0.08 + Math.random() * 0.08);
+    const mat = new THREE.MeshBasicMaterial({ color: REST_COLOR.clone(), wireframe: true, transparent: true, opacity: 0.22 });
+    const shard = new THREE.Mesh(geo, mat);
+    const dir = new THREE.Vector3((Math.random() - 0.5), (Math.random() - 0.5), (Math.random() - 0.5)).normalize();
+    shard.userData.dir = dir;
+    shard.userData.spin = (Math.random() - 0.5) * 0.02;
+    shard.position.copy(dir).multiplyScalar(SHARD_SPREAD);
+    scene.add(shard);
+    shards.push(shard);
+  }
+
+  // ---------- Background atmosphere: sparse, dim points filling the volume
+  // around the constellation so the scene doesn't read as a shape floating
+  // in a void. Positions are static — the "very-slowly-drifting" feel comes
+  // from rotating the whole group a fraction of a degree per frame (one
+  // transform update) rather than animating 90 individual point positions.
+  const BG_ATMOSPHERE_COUNT = 90;
+  const bgPositionArr = new Float32Array(BG_ATMOSPHERE_COUNT * 3);
+  for (let i = 0; i < BG_ATMOSPHERE_COUNT; i++) {
+    const dir = new THREE.Vector3((Math.random() - 0.5), (Math.random() - 0.5), (Math.random() - 0.5)).normalize();
+    const radius = 4 + Math.random() * 4; // well outside the constellation (radius 1.5) and the shards (radius 3.1)
+    bgPositionArr[i * 3] = dir.x * radius;
+    bgPositionArr[i * 3 + 1] = dir.y * radius;
+    bgPositionArr[i * 3 + 2] = dir.z * radius;
+  }
+  const bgGeo = new THREE.BufferGeometry();
+  bgGeo.setAttribute('position', new THREE.BufferAttribute(bgPositionArr, 3));
+  const bgMat = new THREE.PointsMaterial({
+    color: 0x4fb8cc, size: 1.6, sizeAttenuation: true, transparent: true, opacity: 0.22, depthWrite: false,
+  });
+  const bgAtmosphere = new THREE.Points(bgGeo, bgMat);
+  scene.add(bgAtmosphere);
+
+  // ---------- Ripple system: ambient loop + interaction (click/tap) ----------
+  // Timed against `motionElapsed` (declared below, advances only while the
+  // motion-on toggle is on) rather than the wall clock, so toggling motion
+  // off pauses ripples mid-decay instead of letting them silently skip ahead.
+  const rippleSlots = Array.from({ length: MAX_RIPPLES }, () => ({ active: false, startTime: -1000 }));
+  const RIPPLE_LIFETIME = Math.log(100) / RIPPLE_DECAY; // ~4.6s at DECAY=1.0 — when amplitude contribution drops below ~1%
+  const RIPPLE_AMBIENT_AMPLITUDE = 0.24; // mid-high of the suggested 0.15-0.3 range — now a secondary detail under the shockwave ring
+  const RIPPLE_INTERACTION_AMPLITUDE = RIPPLE_AMBIENT_AMPLITUDE * 1.4; // within the suggested 1.3-1.5x band
+
+  function spawnRipple(origin, amplitude) {
+    let slot = rippleSlots.findIndex(r => !r.active);
+    if (slot === -1) {
+      slot = rippleSlots.reduce((oldest, r, i, arr) => (r.startTime < arr[oldest].startTime ? i : oldest), 0);
+    }
+    rippleSlots[slot].active = true;
+    rippleSlots[slot].startTime = motionElapsed;
+    sharedUniforms.uRippleOrigin.value[slot].copy(origin);
+    sharedUniforms.uRippleStart.value[slot] = motionElapsed;
+    sharedUniforms.uRippleAmp.value[slot] = amplitude;
+    spawnBurst(origin, amplitude >= RIPPLE_INTERACTION_AMPLITUDE - 0.001 ? 22 : 10);
+  }
+
+  function updateRipples() {
+    rippleSlots.forEach((r, i) => {
+      if (r.active && motionElapsed - r.startTime > RIPPLE_LIFETIME) {
+        r.active = false;
+        sharedUniforms.uRippleStart.value[i] = -1000; // lets the shader's t>-500 guard skip this slot
+      }
+    });
+  }
+
+  // ---------- Shockwave ring: the "star of the scene" ripple visual ----------
+  // A thin, fast, unmistakable expanding ring per active ripple slot,
+  // billboarded to always face the camera, anchored to the ripple's origin —
+  // now in world space directly since the constellation has no parent
+  // transform to convert through.
+  const RING_MIN_SCALE = 0.08;
+  const RING_MAX_SCALE = 3.4;
+  const rippleRings = Array.from({ length: MAX_RIPPLES }, () => {
+    const ringGeo = new THREE.RingGeometry(0.94, 1.0, 64); // thin band — was 0.86-1.0
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: REST_COLOR.clone(),
+      transparent: true,
+      opacity: 0,
+      side: THREE.DoubleSide,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false,
+    });
+    const ring = new THREE.Mesh(ringGeo, ringMat);
+    ring.visible = false;
+    scene.add(ring);
+    return ring;
+  });
+
+  function updateRippleRings() {
+    rippleSlots.forEach((r, i) => {
+      const ring = rippleRings[i];
+      if (!r.active) { ring.visible = false; return; }
+      const t = motionElapsed - r.startTime;
+      if (t < 0 || t > RIPPLE_LIFETIME) { ring.visible = false; return; }
+      const progress = t / RIPPLE_LIFETIME;
+      const rise = Math.min(t / RIPPLE_RISE_TIME, 1);
+      ring.visible = true;
+      ring.position.copy(sharedUniforms.uRippleOrigin.value[i]);
+      ring.quaternion.copy(camera.quaternion); // billboard — always faces the camera
+      ring.scale.setScalar(RING_MIN_SCALE + progress * RING_MAX_SCALE);
+      // Amplitude-scaled brightness so an interaction ripple's ring reads
+      // visibly stronger than an ambient one.
+      const ampFactor = sharedUniforms.uRippleAmp.value[i] / RIPPLE_AMBIENT_AMPLITUDE;
+      ring.material.opacity = (1 - progress) * 0.65 * rise * Math.min(ampFactor, 1.5);
+    });
+  }
+
+  const RIPPLE_ORIGIN_CENTER = new THREE.Vector3(0, 0, 0);
+  let nextAmbientRippleAt = 4 + Math.random() * 3; // first ambient ripple 4-7s in, then re-rolled each time below
+  function maybeSpawnAmbientRipple() {
+    if (motionElapsed >= nextAmbientRippleAt) {
+      spawnRipple(RIPPLE_ORIGIN_CENTER, RIPPLE_AMBIENT_AMPLITUDE);
+      nextAmbientRippleAt = motionElapsed + 4 + Math.random() * 3;
+    }
+  }
+
+  // Interaction ripples only make sense where the render loop actually runs
+  // continuously (reduced-motion renders one static frame — a ripple couldn't
+  // be seen animating there regardless), so the listener is skipped entirely
+  // in that mode rather than raycasting for no visible effect.
+  const raycaster = new THREE.Raycaster();
+  raycaster.params.Points.threshold = 0.12; // generous — nodes are small points, not a solid surface to hit precisely
+  if (!prefersReducedMotion) {
+    const clickNdc = new THREE.Vector2();
+    canvas.addEventListener('click', e => {
+      if (dragMoved) { dragMoved = false; return; } // a completed drag-to-rotate, not an intentional click
+      clickNdc.set((e.clientX / window.innerWidth) * 2 - 1, -(e.clientY / window.innerHeight) * 2 + 1);
+      raycaster.setFromCamera(clickNdc, camera);
+      const hit = raycaster.intersectObject(nodesPoints, false)[0];
+      const origin = hit ? hit.point.clone() : RIPPLE_ORIGIN_CENTER.clone();
+      spawnRipple(origin, RIPPLE_INTERACTION_AMPLITUDE);
+    });
+  }
+
+  // ---------- Cursor-proximity "charge" ----------
+  // Raycasts against a virtual sphere matching the constellation's own
+  // radius (cheaper and more continuous than hit-testing the sparse node
+  // points directly, which would flicker as the cursor crosses gaps between
+  // them) — falls back to the closest point on the ray to the origin,
+  // projected onto that sphere, whenever the ray misses it outright.
+  // Throttled to every 3rd frame; the actual uniform is a separately-lerped
+  // point so the brightened region still trails the cursor smoothly every
+  // frame rather than snapping in 3-frame steps.
+  let cursorTargetPoint = new THREE.Vector3(0, 0, 9999);
+  const cursorCurrentPoint = new THREE.Vector3(0, 0, 9999);
+  let updateCursorTarget = () => {};
+  if (!isCoarsePointer && !prefersReducedMotion) {
+    let rawCursorX = 0, rawCursorY = 0;
+    window.addEventListener('mousemove', e => {
+      rawCursorX = (e.clientX / window.innerWidth) * 2 - 1;
+      rawCursorY = -(e.clientY / window.innerHeight) * 2 + 1;
+    }, { passive: true });
+
+    const cursorNdc = new THREE.Vector2();
+    const cursorSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), 1.5); // matches NODE_OUTER's fibonacciSphere radius
+    let cursorFrameCounter = 0;
+    updateCursorTarget = () => {
+      cursorFrameCounter++;
+      if (cursorFrameCounter % 3 !== 0) return;
+      cursorNdc.set(rawCursorX, rawCursorY);
+      raycaster.setFromCamera(cursorNdc, camera);
+      const sphereHit = raycaster.ray.intersectSphere(cursorSphere, cursorTargetPoint);
+      if (!sphereHit) {
+        raycaster.ray.closestPointToPoint(RIPPLE_ORIGIN_CENTER, cursorTargetPoint);
+        if (cursorTargetPoint.lengthSq() > 0.0001) cursorTargetPoint.normalize().multiplyScalar(1.5);
+      }
+    };
+  }
+
+  // ---------- Pinned-scroll progress ----------
+  let spacerRange = 1;
+  function measureSpacer() {
+    spacerRange = Math.max(heroSpacer.offsetHeight - window.innerHeight, 1);
+  }
+  measureSpacer();
+
+  function getScrollProgress() {
+    const rect = heroSpacer.getBoundingClientRect();
+    const raw = -rect.top / spacerRange;
+    return { progress: Math.min(Math.max(raw, 0), 1), active: rect.bottom > 0 && raw < 1.02 };
+  }
+
+  // ---------- Orbit controls: drag to rotate, wheel/pinch to zoom ----------
+  // Pointer Events unify mouse and single-finger touch drag in one handler.
+  // Only raw target values are written here; the render loop lerps toward
+  // them each frame, same pattern as everything else in this file.
+  let lastInputTime = performance.now();
+  let targetYaw = 0, targetPitch = 0.16;
+  let targetZoom = ZOOM_MAX;
+  let isDragging = false, dragMoved = false;
+  let dragLastX = 0, dragLastY = 0;
+  const DRAG_SENSITIVITY = 0.006;
+  const DRAG_MOVE_THRESHOLD = 4; // px — below this, a pointerup is treated as a click (spawns a ripple), not a completed drag
+
+  canvas.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'touch' && e.isPrimary === false) return; // second touch point is for pinch-zoom, handled separately
+    isDragging = true;
+    dragMoved = false;
+    dragLastX = e.clientX;
+    dragLastY = e.clientY;
+    lastInputTime = performance.now();
+  });
+  window.addEventListener('pointermove', e => {
+    if (!isDragging) return;
+    const dx = e.clientX - dragLastX;
+    const dy = e.clientY - dragLastY;
+    if (Math.abs(dx) + Math.abs(dy) > DRAG_MOVE_THRESHOLD) dragMoved = true;
+    dragLastX = e.clientX;
+    dragLastY = e.clientY;
+    targetYaw -= dx * DRAG_SENSITIVITY;
+    targetPitch = Math.max(-1.2, Math.min(1.2, targetPitch - dy * DRAG_SENSITIVITY));
+    lastInputTime = performance.now();
+  }, { passive: true });
+  window.addEventListener('pointerup', () => { isDragging = false; });
+
+  // Wheel zoom — prevented (so the page doesn't scroll) only while actually
+  // changing the zoom; once fully zoomed out and the user keeps scrolling to
+  // zoom out further, the event is left alone so it becomes normal page
+  // scroll, carrying the visitor past the hero without a separate gesture.
+  const ZOOM_SPEED = 0.0022;
+  canvas.addEventListener('wheel', e => {
+    const zoomingOutAtLimit = targetZoom >= ZOOM_MAX - 0.001 && e.deltaY > 0;
+    if (!zoomingOutAtLimit) {
+      e.preventDefault();
+      targetZoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, targetZoom + e.deltaY * ZOOM_SPEED * targetZoom));
+    }
+    lastInputTime = performance.now();
+  }, { passive: false });
+
+  // Pinch-to-zoom (two-finger touch) — single-finger drag is already handled
+  // by the pointer events above, which fire per-finger; this only reacts
+  // when a second touch point is present.
+  let pinchStartDist = null;
+  if (isCoarsePointer) {
+    canvas.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) {
+        isDragging = false;
+        pinchStartDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchmove', e => {
+      if (e.touches.length === 2 && pinchStartDist) {
+        const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        targetZoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, targetZoom - (dist - pinchStartDist) * 0.01));
+        pinchStartDist = dist;
+        lastInputTime = performance.now();
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchend', e => { if (e.touches.length < 2) pinchStartDist = null; });
+  }
+
+  // ---------- Resize (debounced) ----------
+  let resizeTimer = null;
+  function handleResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    composer.setSize(window.innerWidth, window.innerHeight);
+    bloomPass.resolution.set(window.innerWidth * BLOOM_SCALE, window.innerHeight * BLOOM_SCALE); // composer.setSize resets this to full-res otherwise
+    measureSpacer();
+  }
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(handleResize, 150);
+  });
+
+  // ---------- Single shared render loop ----------
+  const heroPinEl = document.getElementById('heroPin');
+  const heroNavEl = document.getElementById('nav');
+  const clock = new THREE.Clock(); // delta-time based, so spin speed stays consistent across 60Hz/120Hz displays
+  let orbitYaw = 0, orbitPitch = 0.16, zoomDistance = ZOOM_MAX;
+  let lastOrbitYaw = 0, lastZoomDistance = ZOOM_MAX;
+  let inputVelocityPulse = 0;
+  let motionElapsed = 0; // advances only while motion is on — ripple timing rides this, not clock.elapsedTime
+
+  // ---------- Cinematic intro: the constellation forming IS the loading
+  // screen. Runs once (~8s): camera pulls in from a wide establishing angle
+  // while the network scales up from nothing and two scripted ripples fire.
+  // Skippable via the preloader's "Skip intro" button (rf:skip-intro event);
+  // rf:intro-complete tells the classic script to hide the preloader and
+  // reveal the wordmark/corner UI exactly like it always has.
+  const INTRO_DURATION = 5.0; // full cutscene length, incl. fade-out — lands on houseHero right at 5s
+  const INTRO_FADE_START = 4.3; // scene holds at full opacity until here, then dissolves quickly
+  const INTRO_FADE_DURATION = INTRO_DURATION - INTRO_FADE_START; // short/snappy, not a slow dissolve — done exactly at INTRO_DURATION
+  const INTRO_START_YAW = -1.15;
+  const INTRO_START_PITCH = 0.55;
+  const INTRO_START_ZOOM = ZOOM_MAX * 2.3;
+  let introActive = false; // the constellation cutscene is replaced by the orb preloader (#preloader); dead intro code below is intentionally left in place
+  let introElapsed = 0;
+  let introRipplesFired = 0;
+
+  if (introActive) {
+    orbitYaw = INTRO_START_YAW;
+    orbitPitch = INTRO_START_PITCH;
+    zoomDistance = INTRO_START_ZOOM;
+    constellationGroup.scale.setScalar(0.02);
+    sharedUniforms.uOpacity.value = 0;
+  } else if (introAlreadySeen && !prefersReducedMotion) {
+    // Nothing to animate in, but the classic script is still waiting on
+    // rf:intro-complete to hide the preloader — finishIntro()'s own guard
+    // (if (!introActive) return) would no-op here since introActive never
+    // became true this time, so fire that same completion event directly.
+    window.dispatchEvent(new Event('rf:intro-complete'));
+  }
+
+  function easeOutExpo(t) { return t >= 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+  function finishIntro() {
+    if (!introActive) return;
+    introActive = false;
+    orbitYaw = 0; orbitPitch = 0.16; zoomDistance = ZOOM_MAX;
+    targetYaw = 0; targetPitch = 0.16; targetZoom = ZOOM_MAX;
+    constellationGroup.scale.setScalar(1);
+    // Deliberately NOT clearing heroPinEl's inline opacity/transition here:
+    // at this instant the scroll position (and therefore the 'visible'
+    // class) hasn't changed yet, so clearing them would let the CSS
+    // .hero-pin.visible{opacity:1} rule snap the fixed full-viewport pin
+    // back to fully opaque for a moment — covering houseHero right after it
+    // just finished dissolving. renderFrame() clears them safely later,
+    // once scroll has actually carried the pin out of its active range.
+    // Explicit buffer before anything downstream (scroll, video) starts —
+    // makes "wait until fully faded" a guarantee rather than relying on
+    // this frame's opacity math landing at exactly 0.
+    setTimeout(() => window.dispatchEvent(new Event('rf:intro-complete')), 250);
+  }
+  window.addEventListener('rf:skip-intro', finishIntro);
+
+  function updateIntro(dt) {
+    introElapsed += dt;
+    const camT = easeOutExpo(Math.min(introElapsed / INTRO_DURATION, 1));
+    orbitYaw = INTRO_START_YAW + (0 - INTRO_START_YAW) * camT;
+    orbitPitch = INTRO_START_PITCH + (0.16 - INTRO_START_PITCH) * camT;
+    zoomDistance = INTRO_START_ZOOM + (ZOOM_MAX - INTRO_START_ZOOM) * camT;
+
+    const formT = easeOutExpo(Math.min(introElapsed / 1.6, 1)); // network materializes over the first 1.6s
+    constellationGroup.scale.setScalar(0.02 + formT * 0.98);
+    sharedUniforms.uOpacity.value = Math.min(formT * 0.95, 0.95);
+
+    if (introElapsed > 1.2 && introRipplesFired === 0) { spawnRipple(RIPPLE_ORIGIN_CENTER, RIPPLE_INTERACTION_AMPLITUDE); introRipplesFired = 1; }
+    if (introElapsed > 2.4 && introRipplesFired === 1) { spawnRipple(RIPPLE_ORIGIN_CENTER, RIPPLE_INTERACTION_AMPLITUDE); introRipplesFired = 2; }
+
+    // Gradual dissolve instead of the pin's usual quick 0.25s scroll-linked
+    // snap — driven every frame so it reads as a continuous fade, finishing
+    // at exactly opacity 0 the moment INTRO_DURATION elapses.
+    if (introElapsed > INTRO_FADE_START) {
+      const fadeT = Math.min((introElapsed - INTRO_FADE_START) / INTRO_FADE_DURATION, 1);
+      heroPinEl.style.transition = 'none';
+      heroPinEl.style.opacity = String(1 - fadeT);
+    }
+
+    if (introElapsed >= INTRO_DURATION) finishIntro();
+  }
+
+  function renderFrame() {
+    window.__rfThreeStarted = true;
+    const dt = Math.min(clock.getDelta(), 0.05);
+    const { progress, active } = getScrollProgress();
+
+    heroPinEl.classList.toggle('visible', active);
+    heroPinEl.classList.toggle('corner-visible', active && !introActive); // keep the intro clean — just the orb and the skip button
+    // Safe now to hand opacity back to CSS: intro is over and scroll has
+    // carried the pin out of range, so clearing the inline override can't
+    // cause a visible snap. Lets scrolling back up later re-reveal the pin
+    // normally, governed by .hero-pin.visible again.
+    if (!introActive && !active && heroPinEl.style.opacity !== '') {
+      heroPinEl.style.opacity = '';
+      heroPinEl.style.transition = '';
+    }
+    if (heroNavEl) heroNavEl.classList.toggle('hero-active', active);
+    if (heroVignette) heroVignette.style.opacity = String(0.35 + progress * 0.35);
+
+    if (window.heroMotionOn !== false) {
+      motionElapsed += dt;
+      sharedUniforms.uTime.value = motionElapsed;
+      updateRipples();
+      updateRippleRings();
+      updateDataPulses(dt);
+      updateBursts(dt);
+      updateCursorTarget();
+      cursorCurrentPoint.lerp(cursorTargetPoint, 0.12);
+      sharedUniforms.uCursorPoint.value.copy(cursorCurrentPoint);
+      if (active) maybeSpawnAmbientRipple();
+
+      if (introActive) {
+        updateIntro(dt);
+      } else {
+        // Gentle ambient auto-orbit once idle for a couple seconds — keeps
+        // the scene visibly alive without fighting the user's own drag input.
+        const idleFor = performance.now() - lastInputTime;
+        if (!isDragging && idleFor > 2000) targetYaw += 0.05 * dt;
+
+        orbitYaw += (targetYaw - orbitYaw) * 0.08;
+        orbitPitch += (targetPitch - orbitPitch) * 0.08;
+        zoomDistance += (targetZoom - zoomDistance) * 0.08;
+      }
+
+      camera.position.x = zoomDistance * Math.cos(orbitPitch) * Math.sin(orbitYaw);
+      camera.position.y = zoomDistance * Math.sin(orbitPitch);
+      camera.position.z = zoomDistance * Math.cos(orbitPitch) * Math.cos(orbitYaw);
+      camera.lookAt(0, 0, 0);
+
+      // Depth-fade recalibrates to the live zoom distance so near/far edge
+      // brightness stays correctly framed at any zoom level.
+      sharedUniforms.uNearDist.value = Math.max(zoomDistance - 1.8, 0.2);
+      sharedUniforms.uFarDist.value = zoomDistance + 1.8;
+
+      // Input-velocity reaction: fast dragging/zooming briefly boosts glow/
+      // bloom, decaying back to rest when input slows or stops — the same
+      // "reacts to what you're doing" accent the old scroll-velocity pulse
+      // gave, just driven by orbit/zoom speed instead of scroll speed.
+      const zoomVelocity = Math.abs(zoomDistance - lastZoomDistance);
+      const yawVelocity = Math.abs(orbitYaw - lastOrbitYaw);
+      inputVelocityPulse += ((zoomVelocity * 6 + yawVelocity * 2) - inputVelocityPulse) * 0.15;
+      lastZoomDistance = zoomDistance;
+      lastOrbitYaw = orbitYaw;
+
+      // zoomT: 0 fully zoomed out (resting default), 1 fully zoomed in —
+      // drives overall brightness/bloom/color the way scroll-progress used
+      // to on the old scroll-dolly hero.
+      const zoomT = Math.max(0, Math.min(1, 1 - (zoomDistance - ZOOM_MIN) / (ZOOM_MAX - ZOOM_MIN)));
+
+      if (!introActive) {
+        sharedUniforms.uOpacity.value = Math.min(0.75 + zoomT * 0.25 + inputVelocityPulse * 0.15, 1);
+      }
+      const targetColor = REST_COLOR.clone().lerp(ARRIVE_COLOR, zoomT);
+      sharedUniforms.uColor.value.lerp(targetColor, 0.05);
+
+      shards.forEach(shard => {
+        shard.rotation.x += shard.userData.spin * (dt * 60);
+        shard.rotation.y += shard.userData.spin * 1.3 * (dt * 60);
+      });
+      bgAtmosphere.rotation.y += 0.006 * dt;
+      bgAtmosphere.rotation.x += 0.002 * dt;
+
+      bloomPass.strength = 0.75 + zoomT * 0.5 + inputVelocityPulse * 0.3;
+    }
+
+    composer.render();
+    requestAnimationFrame(renderFrame);
+  }
+
+  if (prefersReducedMotion) {
+    // Settled resting frame, single static frame — no rAF loop, no drag/zoom/
+    // auto-orbit/pulses/bursts at all. Shards stay at the fixed ambient state
+    // they were created with.
+    camera.position.set(0, ZOOM_MAX * Math.sin(0.16), ZOOM_MAX * Math.cos(0.16));
+    camera.lookAt(0, 0, 0);
+    sharedUniforms.uNearDist.value = ZOOM_MAX - 1.8;
+    sharedUniforms.uFarDist.value = ZOOM_MAX + 1.8;
+    sharedUniforms.uOpacity.value = 0.85;
+    composer.render();
+  } else {
+    requestAnimationFrame(renderFrame);
+  }
+
+  console.log('%cRipple Fusion', 'color:#00e5ff;font-weight:bold;font-size:16px;letter-spacing:2px;', '\nBuilt with data, not decoration. Curious how this scene works? Ask.');
+</script>
 
 </body>
 </html>
