@@ -1830,14 +1830,17 @@
   const preloader = document.getElementById('preloader');
   const preloaderSkip = document.getElementById('preloaderSkip');
   // ---------- Orb intro ----------
-  // A cloud of cyan particles drifts in, gathers into a softly morphing orb,
-  // breathes for a moment, then bursts outward as the page takes over.
+  // A cloud of cyan particles drifts in, gathers into a morphing orb that
+  // ripples and stretches, while a second stream of particles assembles the
+  // Ripple Fusion wordmark beneath it. Then everything bursts outward as the
+  // page takes over.
   function runOrbIntro(onDone) {
     const cv = document.getElementById('preloaderOrb');
     const ctx = cv && cv.getContext && cv.getContext('2d');
     if (!ctx) { onDone(); return; }
-    const DURATION = 3000, BURST_AT = 2250;
-    const N = window.matchMedia('(max-width: 640px)').matches ? 1800 : 3000;
+    const DURATION = 3500, BURST_AT = 2750;
+    const small = window.matchMedia('(max-width: 640px)').matches;
+    const N = small ? 1800 : 3000;
     let W = 0, H = 0, dpr = 1;
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1846,19 +1849,47 @@
     }
     resize();
     window.addEventListener('resize', resize);
-    // Fibonacci sphere targets + random scattered start positions
+
+    // Orb: Fibonacci sphere targets + random scattered start positions
     const pts = [];
     const golden = Math.PI * (3 - Math.sqrt(5));
     for (let i = 0; i < N; i++) {
       const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i;
       const sr = 1.6 + Math.random() * 2.2, a = Math.random() * Math.PI * 2, b = Math.acos(2 * Math.random() - 1);
       pts.push({
-        x: Math.cos(th) * r, y: y, z: Math.sin(th) * r,
+        x: Math.cos(th) * r, y: y, z: Math.sin(th) * r, lat: Math.acos(y),
         sx: sr * Math.sin(b) * Math.cos(a), sy: sr * Math.sin(b) * Math.sin(a), sz: sr * Math.cos(b),
-        d: Math.random() * 0.45,           // gather delay, in fractions of the gather phase
-        s: 0.7 + Math.random() * 0.9       // size jitter
+        d: Math.random() * 0.45, s: 0.7 + Math.random() * 0.9
       });
     }
+
+    // Wordmark: sample the real logo's pixels into particles. Positions are
+    // stored normalised (-0.5..0.5 across the width) so they scale to any screen.
+    let word = [], wordAspect = 65 / 526;
+    const logo = new Image();
+    logo.onload = () => {
+      try {
+        const lw = 300, lh = Math.max(1, Math.round(lw * logo.naturalHeight / logo.naturalWidth));
+        wordAspect = lh / lw;
+        const oc = document.createElement('canvas'); oc.width = lw; oc.height = lh;
+        const oc2 = oc.getContext('2d'); oc2.drawImage(logo, 0, 0, lw, lh);
+        const data = oc2.getImageData(0, 0, lw, lh).data;
+        for (let y = 0; y < lh; y++) for (let x = 0; x < lw; x++) {
+          const i = (y * lw + x) * 4;
+          const v = (data[i + 3] / 255) * Math.max(data[i], data[i + 1], data[i + 2]) / 255;
+          if (v > 0.35 && Math.random() < 0.85) {
+            word.push({
+              x: x / lw - 0.5, y: (y - lh / 2) / lw,
+              sx: (Math.random() - 0.5) * 2.4, sy: (Math.random() - 0.3) * 1.6,
+              d: 0.6 + Math.random() * 0.8, // when it starts flying in, seconds
+              j: Math.random() * 6.28
+            });
+          }
+        }
+      } catch (e) { word = []; }
+    };
+    logo.src = 'images/logo.png';
+
     const ease = t => 1 - Math.pow(1 - t, 3);
     const start = performance.now();
     let finished = false;
@@ -1867,37 +1898,66 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, W, H);
-      const cx = W / 2, cy = H / 2, R = Math.min(W, H) * (W < 640 ? 0.26 : 0.2);
+      const cx = W / 2, cy = H * (small ? 0.4 : 0.42), R = Math.min(W, H) * (small ? 0.24 : 0.2);
       const burstT = Math.max(0, (ms - BURST_AT) / (DURATION - BURST_AT));
       const burst = burstT * burstT;
-      const pulse = 1 + Math.sin(t * 3.2) * 0.025;
-      const rot = t * 0.6, cr = Math.cos(rot), sr = Math.sin(rot);
-      // soft halo behind the orb
+      const pulse = 1 + Math.sin(t * 3.2) * 0.03;
+      const rot = t * 0.7, cr = Math.cos(rot), sr = Math.sin(rot);
+      // whole-orb stretch and squash, so the silhouette keeps changing
+      const stx = 1 + 0.14 * Math.sin(t * 1.3), sty = 1 + 0.14 * Math.sin(t * 1.3 + 2.1), stz = 1 + 0.14 * Math.sin(t * 1.3 + 4.2);
+      const rippleAmp = 0.07 + 0.06 * Math.sin(t * 0.9);
+
       const haloA = Math.min(ms / 900, 1) * (1 - burstT);
-      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.2);
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.4);
       g.addColorStop(0, 'rgba(0,229,255,' + (0.16 * haloA) + ')');
       g.addColorStop(1, 'rgba(0,229,255,0)');
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
+
       for (let i = 0; i < N; i++) {
         const p = pts[i];
         const k = ease(Math.min(Math.max((t / 1.5 - p.d) / (1 - p.d * 0.5), 0), 1));
-        // morphing surface
-        const dsp = 0.1 * Math.sin(3 * p.x + t * 1.5) * Math.sin(3 * p.y - t * 1.2) + 0.06 * Math.sin(4 * p.z + t * 0.9);
+        const dsp = 0.17 * Math.sin(2.6 * p.x + t * 1.7) * Math.sin(2.4 * p.y - t * 1.4)
+                  + 0.1 * Math.sin(3.8 * p.z + t * 1.1 + p.x * 2)
+                  + 0.05 * Math.sin(7 * (p.x + p.y) + t * 2.6)
+                  + rippleAmp * Math.sin(p.lat * 7 - t * 4.5);      // rings travelling pole to pole
         const rad = (1 + dsp) * pulse * (1 + burst * 1.8);
-        let x = p.sx + (p.x * rad - p.sx) * k, y = p.sy + (p.y * rad - p.sy) * k, z = p.sz + (p.z * rad - p.sz) * k;
+        const x = p.sx + (p.x * rad * stx - p.sx) * k, y = p.sy + (p.y * rad * sty - p.sy) * k, z = p.sz + (p.z * rad * stz - p.sz) * k;
         const rx = x * cr + z * sr, rz = -x * sr + z * cr;
         const persp = 3.4 / (3.4 - rz);
         const px = cx + rx * R * persp, py = cy + y * R * persp;
-        const depth = (rz + 1.6) / 3.2;                       // 0 far .. 1 near
-        const nz = Math.abs(p.z * cr - p.x * sr);             // surface facing, for rim light
+        const depth = (rz + 1.7) / 3.4;
+        const nz = Math.abs(p.z * cr - p.x * sr);
         const rim = Math.pow(1 - Math.min(nz, 1), 2);
-        let a = (0.22 + 0.5 * depth + 0.45 * rim) * Math.min(t / 0.5, 1) * (1 - burstT);
+        const a = (0.22 + 0.5 * depth + 0.45 * rim) * Math.min(t / 0.5, 1) * (1 - burstT);
         if (a <= 0.01) continue;
         const size = (0.9 + 1.3 * depth) * p.s * (1 + rim * 0.4);
         ctx.fillStyle = rim > 0.35 ? 'rgba(160,245,255,' + a + ')' : 'rgba(0,229,255,' + a + ')';
         ctx.fillRect(px - size / 2, py - size / 2, size, size);
       }
+
+      // Wordmark particles
+      if (word.length) {
+        const tw = Math.min(W * (small ? 0.78 : 0.4), 560);
+        const wx = cx, wy = cy + R * 1.75 + tw * wordAspect * 0.5;
+        const wa = 1 - burstT;
+        for (let i = 0; i < word.length; i++) {
+          const w = word[i];
+          const k = ease(Math.min(Math.max((t - w.d) / 1.0, 0), 1));
+          if (k <= 0) continue;
+          // a ripple runs left to right through the lettering as it settles
+          const wave = Math.sin(w.x * 14 - t * 5) * (1 - k) * 0.03 + Math.sin(w.x * 9 - t * 2.4) * 0.006;
+          const tx = w.x * tw, ty = (w.y + wave) * tw;
+          const fx = w.sx * W * 0.5, fy = w.sy * H * 0.4;
+          const bx = burst * (w.x * 900 + Math.cos(w.j) * 200), by = burst * (Math.sin(w.j) * 260);
+          const px = wx + fx * (1 - k) + tx + bx, py = wy + fy * (1 - k) + ty + by;
+          const a = (0.25 + 0.65 * k) * wa;
+          ctx.fillStyle = 'rgba(235,252,255,' + a + ')';
+          const size = 1 + 0.5 * k;
+          ctx.fillRect(px - size / 2, py - size / 2, size, size);
+        }
+      }
+
       if (ms >= DURATION) {
         if (!finished) { finished = true; window.removeEventListener('resize', resize); onDone(); }
         return;
