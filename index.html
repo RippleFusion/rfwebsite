@@ -175,7 +175,10 @@
     .hero-pin.static .hero-hotspot { display: none; }
   }
 
-    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: opacity 0.4s ease; }
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: opacity 0.4s ease, background-color 0.3s ease, box-shadow 0.3s ease; }
+    /* Over the hero the nav floats on the orb. Once you scroll away it gets a solid bar, so landing on a section from the menu
+       never shows a sliver of the previous section above it. */
+    .nav.scrolled { background-color: var(--bg); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06); }
     .nav.hero-active { opacity: 0; pointer-events: none; }
     /* Grid, not flex: with three tracks of equal 1fr width, the middle one
        (nav-links) sits mathematically centered on the bar regardless of
@@ -1097,6 +1100,10 @@
 
     /* Contact */
     .contact-section { position: relative; background: #060606; overflow: hidden; padding: 8rem 0; }
+    /* Tall at least as the viewport below the nav, so the menu's "Contact" can always scroll it right up under the bar
+       (otherwise on tall screens the section above peeks out). Extra height is shared above and below the content. */
+    #contact { min-height: calc(100vh - 5rem); min-height: calc(100svh - 5rem); display: flex; flex-direction: column; justify-content: center; }
+    #contact > .wrap { width: 100%; }
     /* Every section's .wrap (the nav's and the hero's included, since they
        both carry the .wrap class too) now gets its left/right inset purely
        from the base ".wrap { padding: 0 var(--inset) }" rule up top — that
@@ -1843,10 +1850,11 @@
     // makes the landing hold, regardless of what caused the drift.
     function preciseScrollTo(target, instant) {
       if (!target) return;
-      const isHero = target.id === 'houseHero';
+      const isHero = target.id === 'houseHero' || target.id === 'top';
       const computeY = () => {
+        if (isHero) return 0;   // Home: the very top of the page
         const navEl = document.getElementById('nav');
-        const navOffset = isHero ? 0 : (navEl ? navEl.getBoundingClientRect().height : 80);
+        const navOffset = navEl ? navEl.getBoundingClientRect().height : 80;
         return Math.max(target.getBoundingClientRect().top + window.scrollY - navOffset, 0);
       };
       window.scrollTo({ top: computeY(), behavior: (prefersReducedMotion || instant) ? 'auto' : 'smooth' });
@@ -2248,23 +2256,6 @@
       heroMenuOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
     }
-    // ---------- Mobile nav menu (the persistent post-hero nav, separate from heroMenuToggle above) ----------
-    const navMobileToggle = document.getElementById('navMobileToggle');
-    const navMobileOverlay = document.getElementById('navMobileOverlay');
-    if (navMobileToggle && navMobileOverlay) {
-      const closeMobileNav = () => {
-        navMobileOverlay.classList.remove('open');
-        navMobileToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      };
-      navMobileToggle.addEventListener('click', () => {
-        const open = navMobileOverlay.classList.toggle('open');
-        navMobileToggle.setAttribute('aria-expanded', String(open));
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      navMobileOverlay.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileNav(); });
-    }
     if (heroHotspot) {
       heroHotspot.addEventListener('click', () => {
         preciseScrollTo(document.getElementById('houseHero'));
@@ -2550,6 +2541,12 @@
         history.replaceState(null, '', hash);
       });
     });
+
+    // ---------- Solid nav bar once past the top of the hero ----------
+    const navBar = document.getElementById('nav');
+    const syncNavBar = () => { if (navBar) navBar.classList.toggle('scrolled', window.scrollY > 40); };
+    window.addEventListener('scroll', syncNavBar, { passive: true });
+    syncNavBar();
 
     // ---------- Nav scroll-spy: highlight whichever section is in view ----------
     const navLinks = document.querySelectorAll('.nav-links a[data-nav]');
