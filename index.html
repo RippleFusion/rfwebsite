@@ -1833,9 +1833,10 @@
   const preloaderSkip = document.getElementById('preloaderSkip');
   // ---------- Orb hero ----------
   // Cyan particles gather into a slowly morphing orb that ripples and
-  // stretches. On a loop it relaxes into a human face and back again. A
-  // second stream of particles assembles the Ripple Fusion wordmark beneath
-  // it, and the headline types itself in at the bottom of the page.
+  // stretches, then melt into a portrait of Nina built from her own photo.
+  // The portrait holds, bursts outward, and the whole thing resets and gathers
+  // again. A second stream of particles assembles the Ripple Fusion wordmark
+  // beneath it, and the headline types itself in at the bottom of the page.
   // rf:intro-complete (which unlocks the rest of the hero's reveals) fires
   // once the orb has formed.
   (function () {
@@ -1844,7 +1845,7 @@
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     setTimeout(() => window.dispatchEvent(new Event('rf:intro-complete')), reduce ? 0 : 1600);
 
-    // ---------- Typewriter headline: type in, hold, undo, type back in ----------
+    // ---------- Typewriter headline: type in, hold ~10s, undo, type again — on a loop ----------
     (function () {
       const el = document.getElementById('twText');
       if (!el || reduce) return;
@@ -1853,14 +1854,15 @@
       const wait = ms => new Promise(r => setTimeout(r, ms));
       async function type() { for (let i = 1; i <= full.length; i++) { el.textContent = full.slice(0, i); await wait(75); } }
       async function undo() { for (let i = full.length - 1; i >= 0; i--) { el.textContent = full.slice(0, i); await wait(38); } }
-      (async () => { await wait(1800); await type(); await wait(3200); await undo(); await wait(600); await type(); })();
+      (async () => { await wait(1800); for (;;) { await type(); await wait(10000); await undo(); await wait(600); } })();   // type, hold ~10s, undo, repeat
     })();
 
     if (!ctx) return;
     const small = window.matchMedia('(max-width: 640px)').matches;
     const N = small ? 2400 : 4500;
-    const SLOW = 0.6;     // morph speed. 1 = the original intro's pace
-    const CYCLE = 14;     // seconds per orb -> face -> orb loop
+    const SLOW = 0.6;          // morph speed. 1 = the original intro's pace
+    // One loop (seconds): gather + orb, melt into Nina, hold, explode, reset.
+    const CYCLE = 13, T_FACE0 = 3.5, T_FACE1 = 5.7, T_BURST = 11, T_BURST_LEN = 1.2;
     let W = 0, H = 0, dpr = 1;
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -1888,6 +1890,7 @@
     }
     const smooth = (a, b, x) => { const t = Math.min(Math.max((x - a) / (b - a), 0), 1); return t * t * (3 - 2 * t); };
 
+    // ---- Particles: an orb shell plus extra particles that only exist in the portrait ----
     const pts = [];
     const golden = Math.PI * (3 - Math.sqrt(5));
     function addPoint(i, n, faceOnly) {
@@ -1910,9 +1913,42 @@
       });
     }
     for (let i = 0; i < N; i++) addPoint(i, N, false);
-    const NB = small ? 5200 : 13000;                     // extra particles that only exist on the face, for fine detail
+    const NB = small ? 10000 : 26000;                     // extra particles that only exist on the face, for fine detail
     for (let i = 0; i < NB; i++) addPoint(i, NB, true);
     const NP = pts.length;
+
+
+    // ---- Nina's portrait: her photo sampled into particle targets ----
+    // Brighter pixels attract more particles, so tone comes from density as well as brightness.
+    let photoReady = false;
+    const photo = new Image();
+    photo.onload = () => {
+      try {
+        const w = 249, h = Math.round(249 * photo.naturalHeight / photo.naturalWidth);
+        const oc = document.createElement('canvas'); oc.width = w; oc.height = h;
+        const oc2 = oc.getContext('2d'); oc2.drawImage(photo, 0, 0, w, h);
+        const d = oc2.getImageData(0, 0, w, h).data;
+        const lum = new Float32Array(w * h), cdf = new Float32Array(w * h);
+        let acc = 0;
+        for (let i = 0; i < w * h; i++) {
+          const l = Math.pow((0.299 * d[i * 4] + 0.587 * d[i * 4 + 1] + 0.114 * d[i * 4 + 2]) / 255, 0.75);   // lift the midtones so skin and hair both read
+          lum[i] = l; acc += l > 0.1 ? l : 0; cdf[i] = acc;
+        }
+        const PH = 2.7, PW = PH * w / h;               // portrait size, in orb-radius units
+        for (let n = 0; n < NP; n++) {
+          const r = Math.random() * acc;
+          let lo = 0, hi = w * h - 1;
+          while (lo < hi) { const m = (lo + hi) >> 1; if (cdf[m] < r) lo = m + 1; else hi = m; }
+          const ix = lo % w, iy = (lo / w) | 0, p = pts[n];
+          p.tx = ((ix + Math.random()) / w - 0.5) * PW;
+          p.ty = -((iy + Math.random()) / h - 0.5) * PH + 0.04;
+          p.tz = (lum[lo] - 0.4) * 0.55;               // brighter = nearer, for a little parallax as it sways
+          p.lum = lum[lo];
+        }
+        photoReady = true;
+      } catch (e) { photoReady = false; }
+    };
+    photo.src = 'images/nina.jpg';
 
     // Wordmark: the real logo's pixels, sampled into particles.
     let word = [], wordAspect = 65 / 526, wordReadyAt = 0;
@@ -1943,28 +1979,33 @@
 
     const ease = t => 1 - Math.pow(1 - t, 3);
     const start = performance.now();
+    let lastNow = start, slowEma = 16, thin = false;   // if a device can't keep up, draw every other detail particle
     function frame(now) {
+      slowEma = slowEma * 0.95 + Math.min(now - lastNow, 100) * 0.05; lastNow = now;
+      if (!thin && slowEma > 40) thin = true;
       const t = reduce ? 4 : (now - start) / 1000;   // reduced motion: settle on a still orb
       const mt = t * SLOW;                            // slowed clock, drives only the morphing
-      // 0 = orb, 1 = face. Orb until ~3.5s, relaxes into the face, holds, then back.
-      const tc = t % CYCLE;
-      let f = reduce ? 0 : smooth(3.5, 5.7, tc) - smooth(9.2, 11.4, tc);
+      const cyc = Math.floor(t / CYCLE), tc = t - cyc * CYCLE;   // time within this loop
+      const f = reduce ? 0 : smooth(T_FACE0, T_FACE1, tc);       // 0 = orb, 1 = Nina
+      const bt = reduce ? 0 : Math.min(Math.max((tc - T_BURST) / T_BURST_LEN, 0), 1);   // explosion progress
+      const burst = bt * bt;
+      const photoMode = photoReady;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, W, H);
       // the orb fills the page above the headline; the wordmark sits beneath it
-      const cx = W / 2, cy = H * (small ? 0.37 : 0.4), R0 = Math.min(W, H) * (small ? 0.31 : 0.23), R = R0 * (1 + 0.25 * f);
+      const cx = W / 2, cy = H * (small ? 0.37 : 0.4), R0 = Math.min(W, H) * (small ? 0.31 : 0.23), R = R0 * (1 + (photoMode ? 0 : 0.25) * f);
       const pulse = 1 + Math.sin(mt * 3.2) * 0.03 * (1 - f);
-      // spin freely as an orb; swing round to face the viewer (with a gentle sway) as the face forms
+      // spin freely as an orb; swing round to face the viewer (with a gentle sway) as the portrait forms
       const rb = ((mt * 0.7 + Math.PI) % (Math.PI * 2)) - Math.PI;
-      const rot = (1 - f) * rb + f * 0.28 * Math.sin(mt * 1.1);
+      const rot = (1 - f) * rb + f * (photoMode ? 0.16 : 0.28) * Math.sin(mt * 1.1);
       const cr = Math.cos(rot), sr = Math.sin(rot);
-      const live = 1 - 0.8 * f;                        // the face keeps a little life, but far less wobble than the orb
+      const live = 1 - 0.8 * f;
       const stx = 1 + 0.14 * live * Math.sin(mt * 1.3), sty = 1 + 0.14 * live * Math.sin(mt * 1.3 + 2.1), stz = 1 + 0.14 * live * Math.sin(mt * 1.3 + 4.2);
       const rippleAmp = (0.07 + 0.06 * Math.sin(mt * 0.9)) * live;
 
-      const haloA = Math.min(t / 0.9, 1);
-      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.4);
+      const haloA = Math.min(tc / 0.9, 1) * (1 - bt);
+      const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R0 * 2.4);
       g.addColorStop(0, 'rgba(0,229,255,' + (0.16 * haloA) + ')');
       g.addColorStop(1, 'rgba(0,229,255,0)');
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
@@ -1972,44 +2013,55 @@
 
       for (let i = 0; i < NP; i++) {
         const p = pts[i];
-        if (p.face && f < 0.02) continue;
-        const k = ease(Math.min(Math.max((t / 1.5 - p.d) / (1 - p.d * 0.5), 0), 1));
+        if (p.face && (f < 0.02 || (thin && (i & 1)))) continue;
+        const k = ease(Math.min(Math.max((tc / 1.5 - p.d) / (1 - p.d * 0.5), 0), 1));   // gathers again at the start of every loop
         const dsp = (0.17 * Math.sin(2.6 * p.x + mt * 1.7) * Math.sin(2.4 * p.y - mt * 1.4)
                   + 0.1 * Math.sin(3.8 * p.z + mt * 1.1 + p.x * 2)
                   + 0.05 * Math.sin(7 * (p.x + p.y) + mt * 2.6)) * live
                   + rippleAmp * Math.sin(p.lat * 7 - mt * 4.5);
         const rad = (1 + dsp) * pulse;
-        // blend the orb position into the head position
         const ox = p.x * rad * stx, oy = p.y * rad * sty, oz = p.z * rad * stz;
-        const tx = ox + (p.fx * (1 + dsp * 0.4) - ox) * f, ty = oy + (p.fy * (1 + dsp * 0.4) - oy) * f, tz = oz + (p.fz * (1 + dsp * 0.4) - oz) * f;
-        const x = p.sx + (tx - p.sx) * k, y = p.sy + (ty - p.sy) * k, z = p.sz + (tz - p.sz) * k;
+        const usePhoto = photoMode && p.tx !== undefined;
+        const fx = usePhoto ? p.tx : p.fx * (1 + dsp * 0.4), fy = usePhoto ? p.ty : p.fy * (1 + dsp * 0.4), fz = usePhoto ? p.tz : p.fz * (1 + dsp * 0.4);
+        const tx = ox + (fx - ox) * f, ty = oy + (fy - oy) * f, tz = oz + (fz - oz) * f;
+        let x = p.sx + (tx - p.sx) * k, y = p.sy + (ty - p.sy) * k, z = p.sz + (tz - p.sz) * k;
+        if (burst > 0) { const e = 1 + burst * 1.8; x = x * e + p.sx * burst * 0.6; y = y * e + p.sy * burst * 0.6; z = z * e + p.sz * burst * 0.6; }
         const rx = x * cr + z * sr, rz = -x * sr + z * cr;
         const persp = 3.4 / (3.4 - rz);
         const px = cx + rx * R * persp, py = cy - y * R * persp;   // head space: +y is up
         const depth = (rz + 1.7) / 3.4;
         const nz = Math.abs(p.z * cr - p.x * sr);
         const rim = Math.pow(1 - Math.min(nz, 1), 2);
-        // light the face's relief: proud features glow, hollows (eye sockets, mouth line) fall dark
-        const lit = f * (p.rel * 3.2 + p.shade * 0.35);
-        let a = (0.22 + 0.5 * depth + 0.45 * rim * (1 - 0.6 * f) + lit) * Math.min(t / 0.5, 1);
-        if (p.face) {
-          // dedicated face particles: brightness follows the lit relief, so nose, brows, cheeks and lips read; sockets and the mouth line stay dark
-          a = f * Math.min(Math.max(0.16 + 0.5 * depth + lit * 1.3, 0), 1) * Math.min(t / 0.5, 1);
+        let a, size, white = false;
+        if (usePhoto) {
+          // orb brightness fades into the photo's own tones as the portrait forms
+          const orbA = (0.22 + 0.5 * depth + 0.45 * rim);
+          const photoA = 0.2 + 0.8 * p.lum;
+          a = (orbA * (1 - f) + photoA * f) * Math.min(tc / 0.5, 1);
+          if (p.face) a = f * photoA * Math.min(tc / 0.5, 1);
+          size = ((0.9 + 1.3 * depth) * (1 - f) + (0.9 + 0.8 * p.lum) * f) * p.s * (p.face ? 1.05 : 1) * (1 + rim * 0.4 * (1 - f));
+          white = f > 0.5;
         } else {
-          // the orb's own shell recedes as the face forms: the back fades out, the front dims so it doesn't drown the features
-          a *= Math.max(1 - f * (0.9 * (1 - smooth(-0.35, 0.3, rz)) + 0.65 * smooth(0, 0.5, rz)), 0.06);
+          const lit = f * (p.rel * 3.2 + p.shade * 0.35);
+          a = (0.22 + 0.5 * depth + 0.45 * rim * (1 - 0.6 * f) + lit) * Math.min(tc / 0.5, 1);
+          if (p.face) a = f * Math.min(Math.max(0.16 + 0.5 * depth + lit * 1.3, 0), 1) * Math.min(tc / 0.5, 1);
+          else a *= Math.max(1 - f * (0.9 * (1 - smooth(-0.35, 0.3, rz)) + 0.65 * smooth(0, 0.5, rz)), 0.06);
+          size = (0.9 + 1.3 * depth) * p.s * (1 + rim * 0.4) * (p.face ? 1.5 : 1);
+          white = (rim > 0.35 && f < 0.5) || lit > 0.12;
         }
+        a *= 1 - bt;
         if (a <= 0.01) continue;
         if (a > 1) a = 1;
-        const size = (0.9 + 1.3 * depth) * p.s * (1 + rim * 0.4) * (p.face ? 1.5 : 1);
-        ctx.fillStyle = (rim > 0.35 && f < 0.5) || lit > 0.12 ? 'rgba(160,245,255,' + a + ')' : 'rgba(0,229,255,' + a + ')';
+        ctx.fillStyle = white ? 'rgba(210,248,255,' + a + ')' : 'rgba(0,229,255,' + a + ')';
         ctx.fillRect(px - size / 2, py - size / 2, size, size);
       }
 
       if (word.length) {
         const tw = Math.min(W * (small ? 0.7 : 0.4), 620);
         const wx = cx, wy = cy + R0 * (small ? 1.75 : 1.6) + tw * wordAspect * 0.5;
-        const tl = reduce ? 4 : (now - Math.min(wordReadyAt, now)) / 1000 + 0.6; // flight starts when the logo is ready
+        // flight starts at the beginning of each loop (or when the logo is ready, on the first), so it always assembles on screen
+        const cycleStart = start + cyc * CYCLE * 1000;
+        const tl = reduce ? 4 : (now - Math.min(Math.max(cycleStart, wordReadyAt), now)) / 1000 + 0.6;
         for (let i = 0; i < word.length; i++) {
           const w = word[i];
           const k = ease(Math.min(Math.max((tl - w.d) / 1.0, 0), 1));
@@ -2017,8 +2069,9 @@
           const wave = Math.sin(w.x * 14 - t * 3) * (1 - k) * 0.03 + Math.sin(w.x * 9 - mt * 2.4) * 0.006;
           const tx = w.x * tw, ty = (w.y + wave) * tw;
           const fx = w.sx * W * 0.5, fy = w.sy * H * 0.4;
-          const px = wx + fx * (1 - k) + tx, py = wy + fy * (1 - k) + ty;
-          ctx.fillStyle = 'rgba(235,252,255,' + (0.25 + 0.65 * k) + ')';
+          const bx = burst * (w.x * 900 + Math.cos(w.j) * 200), by = burst * (Math.sin(w.j) * 260);
+          const px = wx + fx * (1 - k) + tx + bx, py = wy + fy * (1 - k) + ty + by;
+          ctx.fillStyle = 'rgba(235,252,255,' + ((0.25 + 0.65 * k) * (1 - bt)) + ')';
           const size = 1 + 0.5 * k;
           ctx.fillRect(px - size / 2, py - size / 2, size, size);
         }
