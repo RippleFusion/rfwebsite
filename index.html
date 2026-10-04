@@ -777,15 +777,17 @@
     @media (min-width: 900px) { .founder-photo img { height: calc(100% - 2rem); } }
 
     .meet-nina { padding: 3rem var(--inset); }
-    #meet-nina { padding-top: 0; margin-top: -1.5rem; }
+    #meet-nina { padding-top: 0; margin-top: -1.5rem; }   /* the same pull-up as before; flow-root on the wrapper keeps it from moving the wrapper's own edge */
     .meet-nina-grid { display: grid; grid-template-columns: 1fr; gap: 4.5rem; align-items: start; max-width: 60rem; }
     @media (min-width: 900px) { .meet-nina-grid { grid-template-columns: 3fr 2fr; gap: 6rem; } }
     .meet-nina-photo { max-width: 26rem; justify-self: center; align-self: center; display: flex; align-items: center; justify-content: center; }
     @media (min-width: 900px) { .meet-nina-photo { max-width: none; } }
-    .meet-nina-photo { border-radius: 0; overflow: visible; position: relative; aspect-ratio: 498 / 565; z-index: 1; background: transparent; }
+    .meet-nina-photo { border-radius: 0; overflow: visible; position: relative; aspect-ratio: 498 / 565; z-index: 2; background: transparent; }   /* above the neighbouring sections' edge fades, so the glow crosses into them */
     /* The orb scene is not boxed in: its canvas extends well past the photo slot (centred on it), so the glow and the burst
        fade out into the page like the hero's. Overflow is clipped at the section's edges so it can never cause sideways scroll. */
-    #meet-nina { overflow-x: clip; }
+    /* Same treatment as the sections around it: a full-width solid background, so the page's faint grid doesn't run through here.
+       The orb's canvas overflows its slot on purpose, so clip sideways at the viewport edges only. */
+    .meet-nina-bleed { position: relative; display: flow-root; background: var(--bg); overflow-x: clip; }
     #meet-nina .meet-nina-photo { width: min(100%, 22rem); }
     #ninaOrb { position: absolute; left: -80%; top: -65%; width: 260%; height: 230%; margin: 0; pointer-events: none; }
     .nina-scan { display: none !important; }
@@ -1214,9 +1216,22 @@
     .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, rgba(0,229,255,0.5), var(--cyan-alt)); z-index: 200; pointer-events: none; box-shadow: 0 0 8px rgba(0,229,255,0.5); }
     .scroll-progress::after { content: ""; position: absolute; top: -1px; right: 0; width: 6px; height: 4px; border-radius: 2px; background: var(--ink); box-shadow: 0 0 6px 2px rgba(0,229,255,0.9); }
 
-    .section-glow { position: absolute; border-radius: 50%; filter: blur(140px); pointer-events: none; z-index: 0; }
+    .section-glow { position: absolute; border-radius: 50%; filter: blur(140px); pointer-events: none; z-index: -2; }
     .section-glow-a { top: -10%; left: -8%; width: 420px; height: 420px; background: rgba(0,229,255,0.06); }
     .section-glow-b { bottom: -10%; right: -8%; width: 380px; height: 380px; background: rgba(22,78,99,0.14); }
+    /* The glows above are blurred circles that overhang each section and are sliced flat by its overflow:hidden, which left a straight
+       step at every section boundary. These strips fade the section's own background back in over its top and bottom edges, so the
+       glow dissolves instead of being cut. (Content sits above them: it is in .wrap, which has z-index 1.) */
+    /* each of these sections is its own stacking context, so the glow (-2) and edge fades (-1) stay beneath its content */
+    #trusted-by, #private-equity, #how-i-work, #capabilities { isolation: isolate; }
+    #trusted-by, #private-equity { --sec-bg: var(--bg-alt); }
+    #how-i-work, #capabilities { --sec-bg: var(--bg); }
+    #trusted-by::before, #private-equity::before, #how-i-work::before, #capabilities::before,
+    #trusted-by::after,  #private-equity::after,  #how-i-work::after,  #capabilities::after {
+      content: ''; position: absolute; left: 0; right: 0; height: 160px; pointer-events: none; z-index: -1;
+    }
+    #trusted-by::before, #private-equity::before, #how-i-work::before, #capabilities::before { top: 0; background: linear-gradient(to bottom, var(--sec-bg), transparent); }
+    #trusted-by::after,  #private-equity::after,  #how-i-work::after,  #capabilities::after  { bottom: 0; background: linear-gradient(to top, var(--sec-bg), transparent); }
     .capability-section, #how-i-work, .clients-section { position: relative; overflow: hidden; }
     .capability-section > .wrap, #how-i-work > .wrap, .clients-section > .wrap { position: relative; z-index: 1; }
 
@@ -1551,6 +1566,7 @@
       </div>
     </section>
 
+    <div class="meet-nina-bleed">
     <section id="meet-nina" class="meet-nina wrap">
       <div class="meet-nina-grid">
         <div>
@@ -1571,6 +1587,7 @@
         </div>
       </div>
     </section>
+    </div>
 
 
     <!-- About: How I Work -->
@@ -2004,7 +2021,11 @@
 
       const haloA = Math.min(tc / 0.9, 1) * (1 - bt);
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, o.haloFrac ? Math.min(W, H) * o.haloFrac : R0 * 2.4);
+      // eased falloff so the glow dissolves into the page with no visible edge or ring
       g.addColorStop(0, 'rgba(0,229,255,' + (0.16 * haloA) + ')');
+      g.addColorStop(0.3, 'rgba(0,229,255,' + (0.10 * haloA) + ')');
+      g.addColorStop(0.6, 'rgba(0,229,255,' + (0.035 * haloA) + ')');
+      g.addColorStop(0.85, 'rgba(0,229,255,' + (0.008 * haloA) + ')');
       g.addColorStop(1, 'rgba(0,229,255,0)');
       ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
       ctx.globalCompositeOperation = 'lighter';
