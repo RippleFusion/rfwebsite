@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ripple Fusion</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,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" />
+  <meta name="description" content="AI and data transformation advisory. Interim data, AI, and transformation leadership that turns ambitious ideas into practical, scalable solutions." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Ripple Fusion — AI and Data Transformation Advisory" />
+  <meta property="og:image" content="images/hero-home.jpg" />
+  <style>
+    :root {
+      --bg: #080808; --bg-alt: #060606; --cyan: #00e5ff; --cyan-alt: #22d3ee; --cyan-deep: #164e63;
+      --ink: #ffffff; --ink-50: rgba(255,255,255,0.5); --ink-40: rgba(255,255,255,0.46); --ink-30: rgba(255,255,255,0.46);
+      --border: rgba(255,255,255,0.1);
+      --ink-70: rgba(255,255,255,0.7);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+      /* Single source of truth for every section/nav/hero's left+right
+         inset. Everything that needs to line up on the same vertical edge
+         reads this ONE variable instead of each carrying its own copy of
+         1.5rem/3rem/5rem at its own media queries — those independent
+         copies are what kept drifting out of sync with each other.
+         Only ONE breakpoint now, at 640px (phone vs everything else) —
+         the previous second step at 1024px was the real bug: real iPads
+         span roughly 768–1366px CSS width across models and both
+         orientations, so 1024px sat *inside* that range and silently
+         changed the inset between an iPad's own portrait and landscape
+         views. Collapsing to a single value from 640px up means every
+         iPad, in either orientation, and desktop too, all get the exact
+         same inset — nothing left to diverge. */
+      --inset: 1.5rem;
+    }
+    @media (min-width: 640px) { :root { --inset: 4rem; } }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: system-ui, -apple-system, sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--inset); }
+
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: opacity 0.4s ease; }
+    /* Grid, not flex: with three tracks of equal 1fr width, the middle one
+       (nav-links) sits mathematically centered on the bar regardless of
+       whether the outer two have matching content — flex's space-between
+       only centers a middle item when both neighbors are the same width. */
+    .nav-inner { height: 5rem; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.75rem; }
+    .nav-inner .nav-logo { justify-self: start; }
+    .nav-inner .nav-links { justify-self: center; }
+    .nav-inner .nav-right { justify-self: end; }
+    .nav-inner span { font-weight: 800; letter-spacing: 0.05em; font-size: 1.25rem; }
+    .nav-logo { flex-shrink: 0; }
+    .nav-logo img { height: 1.5rem; width: auto; opacity: 0.9; }
+    .nav-logo:hover img { opacity: 1; }
+    .nav-links {
+      display: none; align-items: center; gap: 1rem; padding: 0.6rem 1.1rem;
+      background: rgba(217,217,217,0.15); border-radius: 999px; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+    @media (min-width: 760px) { .nav-links { display: flex; } }
+    @media (min-width: 1024px) { .nav-links { gap: 2rem; padding: 0.75rem 1.75rem; } }
+    .nav-links a { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-50); transition: color 0.3s ease; white-space: nowrap; }
+    @media (min-width: 1024px) { .nav-links a { font-size: 11px; letter-spacing: 0.3em; } }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--cyan); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .btn-ghost {
+      display: none;
+      padding: 0.7rem 1.5rem; background: rgba(217,217,217,0.15); border: 1px solid var(--border);
+      border-radius: 999px; font-size: 0.8rem; letter-spacing: 0.05em; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      transition: background .3s ease; white-space: nowrap;
+    }
+    @media (min-width: 1024px) { .btn-ghost { display: inline-block; } }
+    .btn-ghost:hover { background: rgba(217,217,217,0.28); }
+
+    /* Mobile nav toggle + full-screen menu — .nav-links pill takes over from
+       760px, so the hamburger only stands in below that. */
+    .nav-mobile-toggle {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+      width: 2.75rem; height: 2.75rem; background: none; border: 1px solid var(--border); cursor: pointer; padding: 0; flex-shrink: 0;
+    }
+    @media (min-width: 760px) { .nav-mobile-toggle { display: none; } }
+    .nav-mobile-toggle span { display: block; width: 1.1rem; height: 1px; background: var(--ink); transition: transform 0.3s ease, opacity 0.3s ease; }
+    .nav-mobile-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-mobile-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-mobile-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-mobile-overlay {
+      position: fixed; inset: 0; z-index: 90; background: rgba(8,8,8,0.98);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+      opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .nav-mobile-overlay.open { opacity: 1; visibility: visible; }
+    .nav-mobile-overlay a { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em; color: var(--ink); }
+    .nav-mobile-overlay a:hover { color: var(--cyan); }
+    .nav-mobile-overlay .btn-cyan { display: inline-block; }
+    @media (min-width: 760px) { .nav-mobile-overlay { display: none !important; } }
+
+    .btn-cyan {
+      display: inline-block; padding: 0.9rem 1.75rem; background: var(--cyan); color: #041014;
+      border-radius: 999px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.03em;
+      transition: opacity .3s ease;
+    }
+    .btn-cyan:hover { opacity: 0.85; }
+
+    /* ---------- New front page: orb hero ---------- */
+    .orb-hero {
+      position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
+      padding: 0 var(--inset) clamp(2.5rem, 8vh, 5rem);
+    }
+    #orbCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    .orb-headline {
+      position: relative; margin: 0; text-align: center; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 800;
+      text-wrap: balance; text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+      opacity: 0; transform: translateY(16px); animation: orbRise 1s var(--ease-out-expo) 2.4s forwards;
+    }
+    @keyframes orbRise { to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      .orb-headline { animation: none; opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="wrap nav-inner">
+      <a href="home.html" class="nav-logo"><img src="images/logo.png" alt="Ripple Fusion" /></a>
+      <div class="nav-links">
+        <a href="home.html" data-nav="top" class="active">Home</a>
+        <a href="index.html#the-problem" data-nav="about">About</a>
+        <a href="index.html#capabilities" data-nav="services">Services</a>
+        <a href="index.html#contact" data-nav="contact">Contact</a>
+      </div>
+      <div class="nav-right">
+        <a href="index.html#contact" class="btn-ghost">Speak with Nina</a>
+        <button type="button" class="nav-mobile-toggle" id="navMobileToggle" aria-expanded="false" aria-controls="navMobileOverlay" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-overlay" id="navMobileOverlay">
+    <a href="home.html">Home</a>
+    <a href="index.html#the-problem">About</a>
+    <a href="index.html#capabilities">Services</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#contact" class="btn-cyan">Speak with Nina</a>
+  </div>
+
+  <main>
+    <section class="orb-hero" id="top">
+      <canvas id="orbCanvas" aria-hidden="true"></canvas>
+      <h1 class="orb-headline">Data, AI &amp; Transformation</h1>
+    </section>
+  </main>
+
+  <script>
+    // ---------- Mobile menu (same behaviour as the main site) ----------
+    (function () {
+      const toggle = document.getElementById('navMobileToggle');
+      const overlay = document.getElementById('navMobileOverlay');
+      if (!toggle || !overlay) return;
+      const close = () => { overlay.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', () => {
+        const open = overlay.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    })();
+
+    // ---------- Orb hero ----------
+    // Cyan particles gather into a slowly morphing orb that ripples and
+    // stretches, while a second stream of particles assembles the Ripple
+    // Fusion wordmark beneath it. Both then keep moving for as long as the page is open.
+    (function () {
+      const cv = document.getElementById('orbCanvas');
+      const ctx = cv && cv.getContext && cv.getContext('2d');
+      if (!ctx) return;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const small = window.matchMedia('(max-width: 640px)').matches;
+      const N = small ? 1800 : 3000;
+      const SLOW = 0.6; // morph speed. 1 = the original intro's pace
+      let W = 0, H = 0, dpr = 1;
+      function resize() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = cv.clientWidth; H = cv.clientHeight;
+        cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const pts = [];
+      const golden = Math.PI * (3 - Math.sqrt(5));
+      for (let i = 0; i < N; i++) {
+        const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i;
+        const sr = 1.6 + Math.random() * 2.2, a = Math.random() * Math.PI * 2, b = Math.acos(2 * Math.random() - 1);
+        pts.push({
+          x: Math.cos(th) * r, y: y, z: Math.sin(th) * r, lat: Math.acos(y),
+          sx: sr * Math.sin(b) * Math.cos(a), sy: sr * Math.sin(b) * Math.sin(a), sz: sr * Math.cos(b),
+          d: Math.random() * 0.45, s: 0.7 + Math.random() * 0.9
+        });
+      }
+
+      // Wordmark: the real logo's pixels, sampled into particles.
+      let word = [], wordAspect = 65 / 526, wordReadyAt = 0;
+      const logo = new Image();
+      logo.onload = () => {
+        try {
+          const lw = 300, lh = Math.max(1, Math.round(lw * logo.naturalHeight / logo.naturalWidth));
+          wordAspect = lh / lw;
+          const oc = document.createElement('canvas'); oc.width = lw; oc.height = lh;
+          const oc2 = oc.getContext('2d'); oc2.drawImage(logo, 0, 0, lw, lh);
+          const data = oc2.getImageData(0, 0, lw, lh).data;
+          const out = [];
+          for (let y = 0; y < lh; y++) for (let x = 0; x < lw; x++) {
+            const i = (y * lw + x) * 4;
+            const v = (data[i + 3] / 255) * Math.max(data[i], data[i + 1], data[i + 2]) / 255;
+            if (v > 0.35 && Math.random() < 0.85) {
+              out.push({
+                x: x / lw - 0.5, y: (y - lh / 2) / lw,
+                sx: (Math.random() - 0.5) * 2.4, sy: (Math.random() - 0.3) * 1.6,
+                d: 0.6 + Math.random() * 0.8, j: Math.random() * 6.28
+              });
+            }
+          }
+          word = out; wordReadyAt = performance.now();
+        } catch (e) { word = []; }
+      };
+      logo.src = 'images/logo.png';
+
+      const ease = t => 1 - Math.pow(1 - t, 3);
+      const start = performance.now();
+      function frame(now) {
+        const t = reduce ? 4 : (now - start) / 1000;   // reduced motion: settle on a still frame
+        const mt = t * SLOW;                            // slowed clock, drives only the morphing
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.clearRect(0, 0, W, H);
+        const cx = W / 2, cy = H * (small ? 0.37 : 0.38), R = Math.min(W, H) * (small ? 0.22 : 0.17);
+        const pulse = 1 + Math.sin(mt * 3.2) * 0.03;
+        const rot = mt * 0.7, cr = Math.cos(rot), sr = Math.sin(rot);
+        const stx = 1 + 0.14 * Math.sin(mt * 1.3), sty = 1 + 0.14 * Math.sin(mt * 1.3 + 2.1), stz = 1 + 0.14 * Math.sin(mt * 1.3 + 4.2);
+        const rippleAmp = 0.07 + 0.06 * Math.sin(mt * 0.9);
+
+        const haloA = Math.min(t / 0.9, 1);
+        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.4);
+        g.addColorStop(0, 'rgba(0,229,255,' + (0.16 * haloA) + ')');
+        g.addColorStop(1, 'rgba(0,229,255,0)');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+        ctx.globalCompositeOperation = 'lighter';
+
+        for (let i = 0; i < N; i++) {
+          const p = pts[i];
+          const k = ease(Math.min(Math.max((t / 1.5 - p.d) / (1 - p.d * 0.5), 0), 1));
+          const dsp = 0.17 * Math.sin(2.6 * p.x + mt * 1.7) * Math.sin(2.4 * p.y - mt * 1.4)
+                    + 0.1 * Math.sin(3.8 * p.z + mt * 1.1 + p.x * 2)
+                    + 0.05 * Math.sin(7 * (p.x + p.y) + mt * 2.6)
+                    + rippleAmp * Math.sin(p.lat * 7 - mt * 4.5);
+          const rad = (1 + dsp) * pulse;
+          const x = p.sx + (p.x * rad * stx - p.sx) * k, y = p.sy + (p.y * rad * sty - p.sy) * k, z = p.sz + (p.z * rad * stz - p.sz) * k;
+          const rx = x * cr + z * sr, rz = -x * sr + z * cr;
+          const persp = 3.4 / (3.4 - rz);
+          const px = cx + rx * R * persp, py = cy + y * R * persp;
+          const depth = (rz + 1.7) / 3.4;
+          const nz = Math.abs(p.z * cr - p.x * sr);
+          const rim = Math.pow(1 - Math.min(nz, 1), 2);
+          const a = (0.22 + 0.5 * depth + 0.45 * rim) * Math.min(t / 0.5, 1);
+          if (a <= 0.01) continue;
+          const size = (0.9 + 1.3 * depth) * p.s * (1 + rim * 0.4);
+          ctx.fillStyle = rim > 0.35 ? 'rgba(160,245,255,' + a + ')' : 'rgba(0,229,255,' + a + ')';
+          ctx.fillRect(px - size / 2, py - size / 2, size, size);
+        }
+
+        if (word.length) {
+          const tw = Math.min(W * (small ? 0.78 : 0.4), 560);
+          const wx = cx, wy = cy + R * 1.75 + tw * wordAspect * 0.5;
+          // start each particle's flight from when the logo became available, so it always assembles on screen
+          const tl = reduce ? 4 : (now - Math.min(wordReadyAt, now)) / 1000 + 0.6;
+          for (let i = 0; i < word.length; i++) {
+            const w = word[i];
+            const k = ease(Math.min(Math.max((tl - w.d) / 1.0, 0), 1));
+            if (k <= 0) continue;
+            const wave = Math.sin(w.x * 14 - t * 3) * (1 - k) * 0.03 + Math.sin(w.x * 9 - mt * 2.4) * 0.006;
+            const tx = w.x * tw, ty = (w.y + wave) * tw;
+            const fx = w.sx * W * 0.5, fy = w.sy * H * 0.4;
+            const px = wx + fx * (1 - k) + tx, py = wy + fy * (1 - k) + ty;
+            ctx.fillStyle = 'rgba(235,252,255,' + (0.25 + 0.65 * k) + ')';
+            const size = 1 + 0.5 * k;
+            ctx.fillRect(px - size / 2, py - size / 2, size, size);
+          }
+        }
+        if (!reduce) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+      if (reduce) { logo.addEventListener('load', () => setTimeout(() => requestAnimationFrame(frame), 50)); }
+    })();
+  </script>
+</body>
+</html>

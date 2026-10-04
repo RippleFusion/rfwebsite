@@ -1901,11 +1901,12 @@
       const cx = W / 2, cy = H * (small ? 0.4 : 0.42), R = Math.min(W, H) * (small ? 0.24 : 0.2);
       const burstT = Math.max(0, (ms - BURST_AT) / (DURATION - BURST_AT));
       const burst = burstT * burstT;
-      const pulse = 1 + Math.sin(t * 3.2) * 0.03;
-      const rot = t * 0.7, cr = Math.cos(rot), sr = Math.sin(rot);
+      const mt = t * 0.6; // slowed morph clock
+      const pulse = 1 + Math.sin(mt * 3.2) * 0.03;
+      const rot = mt * 0.7, cr = Math.cos(rot), sr = Math.sin(rot);
       // whole-orb stretch and squash, so the silhouette keeps changing
-      const stx = 1 + 0.14 * Math.sin(t * 1.3), sty = 1 + 0.14 * Math.sin(t * 1.3 + 2.1), stz = 1 + 0.14 * Math.sin(t * 1.3 + 4.2);
-      const rippleAmp = 0.07 + 0.06 * Math.sin(t * 0.9);
+      const stx = 1 + 0.14 * Math.sin(mt * 1.3), sty = 1 + 0.14 * Math.sin(mt * 1.3 + 2.1), stz = 1 + 0.14 * Math.sin(mt * 1.3 + 4.2);
+      const rippleAmp = 0.07 + 0.06 * Math.sin(mt * 0.9);
 
       const haloA = Math.min(ms / 900, 1) * (1 - burstT);
       const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 2.4);
@@ -1917,10 +1918,10 @@
       for (let i = 0; i < N; i++) {
         const p = pts[i];
         const k = ease(Math.min(Math.max((t / 1.5 - p.d) / (1 - p.d * 0.5), 0), 1));
-        const dsp = 0.17 * Math.sin(2.6 * p.x + t * 1.7) * Math.sin(2.4 * p.y - t * 1.4)
-                  + 0.1 * Math.sin(3.8 * p.z + t * 1.1 + p.x * 2)
-                  + 0.05 * Math.sin(7 * (p.x + p.y) + t * 2.6)
-                  + rippleAmp * Math.sin(p.lat * 7 - t * 4.5);      // rings travelling pole to pole
+        const dsp = 0.17 * Math.sin(2.6 * p.x + mt * 1.7) * Math.sin(2.4 * p.y - mt * 1.4)
+                  + 0.1 * Math.sin(3.8 * p.z + mt * 1.1 + p.x * 2)
+                  + 0.05 * Math.sin(7 * (p.x + p.y) + mt * 2.6)
+                  + rippleAmp * Math.sin(p.lat * 7 - mt * 4.5);      // rings travelling pole to pole
         const rad = (1 + dsp) * pulse * (1 + burst * 1.8);
         const x = p.sx + (p.x * rad * stx - p.sx) * k, y = p.sy + (p.y * rad * sty - p.sy) * k, z = p.sz + (p.z * rad * stz - p.sz) * k;
         const rx = x * cr + z * sr, rz = -x * sr + z * cr;
