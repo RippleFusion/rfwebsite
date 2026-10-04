@@ -588,7 +588,8 @@
     .tw-caret { display: inline-block; width: 0.07em; height: 0.9em; margin-left: 0.1em; background: var(--cyan); vertical-align: -0.08em; animation: twBlink 1s steps(1) infinite; }
     @keyframes twBlink { 50% { opacity: 0; } }
     @media (prefers-reduced-motion: reduce) { .tw-caret { display: none; } }
-    .founder-stats { margin-top: 1.25rem; margin-bottom: 2rem; }
+    .founder-stats { margin-top: -0.5rem; margin-bottom: 1rem; }
+    @media (max-width: 899px) { .founder-stats { margin-top: 2rem; } }
     .hero > .wrap { position: relative; z-index: 1; }
     .hero-headline {
       text-align: center; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 800; margin: 0 0 3rem;
