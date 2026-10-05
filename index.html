@@ -774,7 +774,7 @@
        fade out into the page like the hero's. Overflow is clipped at the section's edges so it can never cause sideways scroll. */
     /* Same treatment as the sections around it: a full-width solid background, so the page's faint grid doesn't run through here.
        The orb's canvas overflows its slot on purpose, so clip sideways at the viewport edges only. */
-    .meet-nina-bleed { position: relative; display: flow-root; background: var(--bg); overflow-x: clip; }
+    .meet-nina-bleed { position: relative; display: flow-root; background: var(--bg); overflow: clip; }   /* the orb's canvas is larger than its slot: clip it to this section so it can never draw over the sections above or below */
     #meet-nina .meet-nina-photo { width: min(100%, 22rem); }
     #ninaOrb { position: absolute; left: -80%; top: -65%; width: 260%; height: 230%; margin: 0; pointer-events: none; }
     .nina-scan { display: none !important; }
@@ -978,9 +978,10 @@
     @media (prefers-reduced-motion: reduce) { .cap-rail-line::before, .cap-rail.live .cap-rail-fill::after { animation: none; } }
     /* Closing line of the Services section: the network of experts behind each engagement. */
     .network-note { margin-top: 3rem; display: grid; gap: 1rem 4rem; grid-template-columns: 1fr; position: relative; z-index: 1; }
-    @media (min-width: 900px) { .network-note { grid-template-columns: 2fr 3fr; align-items: start; } }
     .network-note .eyebrow { margin-bottom: 0.75rem; }
-    .network-note h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin: 0; text-wrap: balance; }
+    .network-note h3 { font-size: 1.5rem; font-weight: 700; line-height: 1.25; margin: 0; text-wrap: balance; }
+    /* On wide screens the heading is one line that starts at the same left edge and runs out to the right edge of the boxes above. */
+    @media (min-width: 1100px) { .network-note h3 { font-size: clamp(1.4rem, 2.15vw, 1.95rem); white-space: nowrap; text-align: justify; text-align-last: justify; text-wrap: nowrap; } }
     .network-note > p { margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; color: var(--ink-50); max-width: 42rem; }
     .cap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; perspective: 1200px; position: relative; z-index: 1; }
     @media (min-width: 640px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -1714,7 +1715,7 @@
         <div class="network-note reveal">
           <div>
             <p class="eyebrow">Extended Network</p>
-            <h3>The right expertise, when the work calls for it</h3>
+            <h3>The right expertise, brought in whenever the work calls for it</h3>
           </div>
           <p>I have access to a network of experts who have worked with me across many of the disciplines above, along with cutting-edge AI developers from recent engagements. They can be brought in to supplement the work where it is needed.</p>
         </div>
