@@ -2883,10 +2883,12 @@
           });
           const data = await res.json();
           if (res.ok && (data.success === true || data.success === 'true')) { showSent(); return; }
-          throw new Error('rejected');
+          // The service answered but refused the message: say so here rather than leaving the site.
+          if (btn) btn.disabled = false;
+          if (err) { err.textContent = 'Sorry, that did not send. Please email ian@ianlloyd.com directly.'; err.style.display = 'block'; }
         } catch (_) {
           if (btn) btn.disabled = false;
-          form.submit();   // normal post as a fallback
+          form.submit();   // could not reach the service at all: fall back to the normal post
         }
       });
     }
