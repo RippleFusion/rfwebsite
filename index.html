@@ -965,10 +965,14 @@
     @keyframes capHeadPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
     @media (prefers-reduced-motion: reduce) { .cap-rail-line::before, .cap-rail.live .cap-rail-fill::after { animation: none; } }
     /* Closing line of the Services section: the network of experts behind each engagement. */
-    .network-note { margin-top: 3rem; position: relative; z-index: 1; }
+    /* Same 3-column grid and gap as the boxes above: the heading column is exactly as wide as box 1 (it stops at box 1's right outer edge)
+       and the text starts on box 2's left edge and runs to the right edge of box 3. */
+    .network-note { margin-top: 3rem; display: grid; grid-template-columns: 1fr; gap: 1rem 1.5rem; position: relative; z-index: 1; }
+    @media (min-width: 640px) { .network-note { grid-template-columns: repeat(2, 1fr); align-items: start; } }
+    @media (min-width: 1024px) { .network-note { grid-template-columns: repeat(3, 1fr); } .network-note > p { grid-column: 2 / -1; } }
     .network-note .eyebrow { margin-bottom: 0.75rem; }
-    .network-note h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin: 0 0 0.75rem; }
-    .network-note > p:last-child { margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; color: var(--ink-50); }
+    .network-note h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin: 0; }
+    .network-note > p { margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; color: var(--ink-50); }
     .cap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; perspective: 1200px; position: relative; z-index: 1; }
     @media (min-width: 640px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -1005,6 +1009,15 @@
       opacity: 0; pointer-events: none;
     }
     .cap-card:hover .cap-card-icon::after { animation: cap-icon-ripple 0.7s var(--ease-out-expo); }
+    /* The same icon behaviour on every box that has one: How I Engage cards and the stats boxes. */
+    .engage-card:hover .cap-card-icon::before { inset: -9px; border-color: rgba(0,229,255,0.3); }
+    .engage-card:hover .cap-card-icon { transform: scale(1.12) rotate(-6deg); background: rgba(0,229,255,0.16); border-color: rgba(0,229,255,0.45); box-shadow: 0 0 28px rgba(0,229,255,0.22); }
+    .engage-card:hover .cap-card-icon::after { animation: cap-icon-ripple 0.7s var(--ease-out-expo); }
+    .stat-icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; border: 1px solid var(--cyan); opacity: 0; pointer-events: none; }
+    .stat-icon svg { transition: transform 0.35s var(--ease-out-expo), filter 0.3s ease; }
+    .hero-stat:hover .stat-icon svg { transform: scale(1.2) rotate(-6deg); filter: drop-shadow(0 0 6px rgba(0,229,255,0.7)); }
+    .hero-stat:hover .stat-icon::after { animation: cap-icon-ripple 0.7s var(--ease-out-expo); }
+    @media (prefers-reduced-motion: reduce) { .engage-card:hover .cap-card-icon::after, .hero-stat:hover .stat-icon::after { animation: none; } }
     @keyframes cap-icon-ripple { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(2.1); } }
     /* Cursor-proximity glow — the icon brightens as the pointer nears it,
        driven by the --proximity custom property set in JS. Uses filter
@@ -1270,8 +1283,8 @@
        the other card sections, kept to the site's one accent colour so it
        still reads as the same page rather than a bolted-on extra. ---------- */
     .pe-section { position: relative; overflow: hidden; }
-    .pe-trendline { position: absolute; inset: 0; height: 100%; width: 100%; opacity: 0.12; pointer-events: none; }
-    .pe-trendline path { fill: none; stroke: var(--cyan); stroke-width: 1.5; stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; transition: stroke-dashoffset 1.8s var(--ease-out-expo) 0.2s; }
+    .pe-trendline { position: absolute; inset: 0; height: 100%; width: 100%; opacity: 0.07; pointer-events: none; z-index: 0; }
+    .pe-trendline path { fill: none; stroke: var(--cyan); stroke-width: 1; stroke-linecap: round; stroke-dasharray: 1400; stroke-dashoffset: 1400; transition: stroke-dashoffset 1.8s var(--ease-out-expo) 0.2s; }
     .pe-section.in-view .pe-trendline path { stroke-dashoffset: 0; }
     #private-equity .client-logo { width: 9.5rem; height: 2.75rem; box-sizing: border-box; padding: 0.5rem 1rem; }
     #private-equity .client-logo img { max-width: 100%; max-height: 100%; width: auto; height: auto; }
@@ -1282,25 +1295,13 @@
        small irregular flickers and no travelling motion at all. */
     .trusted-line { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 1s ease; }
     .pe-section.in-view .trusted-line { opacity: 1; }
-    .trusted-line-flow { fill: none; stroke: var(--cyan); stroke-width: 1; stroke-linecap: round; opacity: 0.15; filter: drop-shadow(0 0 2px rgba(0,229,255,0.6)); animation: trusted-flicker 6s linear infinite; transition: filter 0.4s ease; }
-    /* Small, irregular brightness blips off a near-invisible baseline —
-       reads as an unstable live current rather than a clean mechanical
-       repeat, without anything actually travelling along the line. */
-    @keyframes trusted-flicker {
-      0%, 100% { opacity: 0.15; }
-      4% { opacity: 0.4; } 5% { opacity: 0.15; }
-      6% { opacity: 0.3; } 7% { opacity: 0.15; }
-      38% { opacity: 0.15; } 39% { opacity: 0.45; } 40% { opacity: 0.15; }
-      61% { opacity: 0.15; } 62% { opacity: 0.35; } 63% { opacity: 0.15; }
-      84% { opacity: 0.15; } 85% { opacity: 0.4; } 86% { opacity: 0.15; }
-    }
-    /* Scroll-reactive energy: JS toggles .charging on #trusted-by while the
-       page is scrolling fast; flicker briefly speeds up and the glow
-       brightens, then eases back once scrolling settles. */
-    #trusted-by.charging .trusted-line-flow { animation-duration: 1.6s; filter: drop-shadow(0 0 5px rgba(0,229,255,0.9)); }
-    @media (prefers-reduced-motion: reduce) {
-      .trusted-line-flow { animation: none; opacity: 0.15; }
-    }
+    /* The line is only there to catch the eye once: it draws itself in as the section arrives, then rests as a very faint line in the
+       background, behind the tiles. No glow, no flicker, no reaction to scrolling. */
+    .trusted-line-flow { fill: none; stroke: var(--cyan); stroke-width: 1; stroke-linecap: round; opacity: 0.07; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 2.6s var(--ease-out-expo) 0.3s; }
+    .pe-section.in-view .trusted-line-flow { stroke-dashoffset: 0; }
+    @media (prefers-reduced-motion: reduce) { .trusted-line-flow { transition: none; stroke-dashoffset: 0; } }
+    /* Opaque tiles, so both background lines pass behind them and never across a logo. */
+    .pe-section .client-item { background: #070707; }
 
     /* FAQ */
     .faq-section { padding: 7rem 0; background: var(--bg); }
@@ -1700,8 +1701,10 @@
           <div class="cap-card" style="--card-i:5"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">06</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="cap-part" style="--part-i:1">Adoption &amp; Change</h3><p class="cap-part" style="--part-i:2">People who actually use what is built. Training, communication and change support that turn delivery into lasting adoption.</p></div>
         </div>
         <div class="network-note reveal">
-          <p class="eyebrow">Extended Network</p>
-          <h3>Access to a wider network</h3>
+          <div>
+            <p class="eyebrow">Extended Network</p>
+            <h3>A wider network of experts and AI developers to draw on</h3>
+          </div>
           <p>I have access to a network of experts who have worked with me across many of the disciplines above, along with cutting-edge AI developers from recent engagements, who can supplement a project where it helps.</p>
         </div>
       </div>
