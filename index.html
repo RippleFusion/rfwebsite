@@ -1096,10 +1096,10 @@
     .client-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); }
 
     /* Contact */
-    .contact-section { position: relative; background: #060606; overflow: hidden; padding: 8rem 0; }
+    .contact-section { position: relative; background: #060606; overflow: hidden; padding: 3.5rem 0 6rem; }
     /* Tall at least as the viewport below the nav, so the menu's "Contact" can always scroll it right up under the bar
-       (otherwise on tall screens the section above peeks out). Extra height is shared above and below the content. */
-    #contact { min-height: calc(100vh - 5rem); min-height: calc(100svh - 5rem); display: flex; flex-direction: column; justify-content: center; }
+       (otherwise on tall screens the section above peeks out). Any extra height goes below the content, so the space above the heading stays the same on every screen. */
+    #contact { min-height: calc(100vh - 5rem); min-height: calc(100svh - 5rem); display: flex; flex-direction: column; justify-content: flex-start; }
     #contact > .wrap { width: 100%; }
     /* Every section's .wrap (the nav's and the hero's included, since they
        both carry the .wrap class too) now gets its left/right inset purely
@@ -1122,7 +1122,7 @@
     @media (min-width: 1024px) { .contact-intro h2 { font-size: 3.75rem; } }
     .contact-intro h2 .grad { color: transparent; background: linear-gradient(90deg, var(--cyan), var(--cyan-alt)); -webkit-background-clip: text; background-clip: text; }
     .contact-intro h2 .tag { display: block; margin-top: 0.5rem; color: var(--ink); font-size: 0.6em; font-weight: 600; text-transform: none; }
-    .contact-intro .lead { max-width: 42rem; margin: 0 auto; font-size: 1.125rem; line-height: 1.625; color: var(--ink-70); font-weight: 500; }
+    .contact-intro .lead { max-width: 42rem; margin: 3rem auto 0; font-size: 1.125rem; line-height: 1.625; color: var(--ink-70); font-weight: 500; }
     .contact-intro .sub { max-width: 36rem; margin: 0.5rem auto 0; font-size: 0.875rem; line-height: 1.625; color: var(--ink-40); }
     .availability-badge {
       display: inline-flex; align-items: center; gap: 0.6rem; margin: 1.75rem 0 0; padding: 0.6rem 1.1rem;
