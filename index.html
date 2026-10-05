@@ -976,6 +976,12 @@
     @keyframes capTrackSweep { 0% { background-position: -30% 0; } 100% { background-position: 130% 0; } }
     @keyframes capHeadPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
     @media (prefers-reduced-motion: reduce) { .cap-rail-line::before, .cap-rail.live .cap-rail-fill::after { animation: none; } }
+    /* Closing line of the Services section: the network of experts behind each engagement. */
+    .network-note { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); display: grid; gap: 1rem 4rem; grid-template-columns: 1fr; position: relative; z-index: 1; }
+    @media (min-width: 900px) { .network-note { grid-template-columns: 2fr 3fr; align-items: start; } }
+    .network-note .eyebrow { margin-bottom: 0.75rem; }
+    .network-note h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin: 0; text-wrap: balance; }
+    .network-note > p { margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; color: var(--ink-50); max-width: 42rem; }
     .cap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; perspective: 1200px; position: relative; z-index: 1; }
     @media (min-width: 640px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -1712,6 +1718,13 @@
           <div class="cap-card" style="--card-i:3"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">04</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3 class="cap-part" style="--part-i:1">Delivery Leadership</h3><p class="cap-part" style="--part-i:2">Hands-on leadership across the full programme lifecycle, with the pace and discipline to turn a plan into results that last.</p></div>
           <div class="cap-card" style="--card-i:4"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">05</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 class="cap-part" style="--part-i:1">Governance &amp; Risk</h3><p class="cap-part" style="--part-i:2">Guardrails that let the board say yes. Clear accountability, managed risk and responsible use of data and AI, without slowing delivery.</p></div>
           <div class="cap-card" style="--card-i:5"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">06</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="cap-part" style="--part-i:1">Adoption &amp; Change</h3><p class="cap-part" style="--part-i:2">People who actually use what is built. Training, communication and change support that turn delivery into lasting adoption.</p></div>
+        </div>
+        <div class="network-note reveal">
+          <div>
+            <p class="eyebrow">Extended Network</p>
+            <h3>The right expertise, when the work calls for it</h3>
+          </div>
+          <p>Behind every engagement sits a trusted network of specialists. Experts who have worked on previous programmes across many of the disciplines above, together with cutting-edge AI developers from recent engagements, are brought in only where the work needs them.</p>
         </div>
       </div>
     </section>
