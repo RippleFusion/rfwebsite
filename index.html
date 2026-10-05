@@ -1147,6 +1147,11 @@
     .contact-row .label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-30); margin: 0 0 0.125rem; }
     .contact-row .value { font-size: 0.9rem; color: var(--ink); margin: 0; white-space: pre-line; }
     .location-list { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; color: var(--ink); display: flex; flex-direction: column; gap: 0.15rem; }
+    /* "Follow" + the particle wordmark that ripples, dissolves and re-forms. Without JS (or if the logo can't load) the plain words show. */
+    .follow-title { display: flex; align-items: center; gap: 0.9rem; }
+    #followWordmark { display: none; height: 2.2rem; width: 8.4rem; flex: none; }
+    .follow-title.has-canvas #followWordmark { display: block; }
+    .follow-title.has-canvas .follow-fallback { display: none; }
     .location-time { display: inline-block; margin-left: 0.6rem; font-size: 0.75rem; color: var(--ink-40); font-variant-numeric: tabular-nums; }
     .social-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
     .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
@@ -1731,15 +1736,13 @@
                 <div>
                   <p class="label">Locations</p>
                   <ul class="location-list">
-                    <li>United Kingdom (London)<span class="location-time" data-tz="Europe/London"></span></li>
-                    <li>UAE (Dubai)<span class="location-time" data-tz="Asia/Dubai"></span></li>
-                    <li>EU (Aarhus, Denmark)<span class="location-time" data-tz="Europe/Copenhagen"></span></li>
+                    <li>United Kingdom (London)</li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class="contact-block">
-              <h3>Follow Us</h3>
+              <h3 class="follow-title" aria-label="Follow Ripple Fusion"><span aria-hidden="true">Follow</span> <canvas id="followWordmark" aria-hidden="true"></canvas><span class="follow-fallback" aria-hidden="true">Ripple Fusion</span></h3>
               <div class="social-row">
                 <a href="https://www.linkedin.com/company/ripplefusion" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="icon-box">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
@@ -2910,5 +2913,56 @@
 
 
 
+
+  <script>
+    // ---------- Contact: "Follow" + dissolving Ripple Fusion wordmark ----------
+    // The real logo is sampled into particles that settle into the lettering, ripple gently, then dissolve outwards
+    // and re-form, on a loop. Same dotted lettering as the hero wordmark, at about the size of the "Follow" text.
+    (function () {
+      const title = document.querySelector('.follow-title'), cv = document.getElementById('followWordmark');
+      const ctx = cv && cv.getContext && cv.getContext('2d');
+      if (!title || !ctx) return;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const img = new Image(); let parts = [], W = 0, H = 0, dpr = 1, running = false, visible = false, t0 = 0;
+      const ease = t => 1 - Math.pow(1 - t, 3), CYCLE = 8.2;
+      function size() { dpr = Math.min(window.devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+      function build() {
+        const lw = 200, lh = Math.max(1, Math.round(lw * img.naturalHeight / img.naturalWidth)), oc = document.createElement('canvas'); oc.width = lw * 2; oc.height = lh * 2;
+        const o = oc.getContext('2d'); o.drawImage(img, 0, 0, oc.width, oc.height); const d = o.getImageData(0, 0, oc.width, oc.height).data;
+        for (let y = 0; y < oc.height; y++) for (let x = 0; x < oc.width; x++) {
+          const i = (y * oc.width + x) * 4, v = (d[i + 3] / 255) * Math.max(d[i], d[i + 1], d[i + 2]) / 255;
+          if (v > 0.35 && Math.random() < 0.6) parts.push({ x: x / oc.width, y: y / oc.height, a: Math.random() * 6.28, r: 0.4 + Math.random(), d: Math.random() * 0.8, s: 0.6 + Math.random() * 0.6 });
+        }
+      }
+      function frame(now) {
+        if (!visible) { running = false; return; }
+        const t = ((now - t0) / 1000) % CYCLE;
+        // 0 -> 1.4 form, hold with a ripple until 5.4, 5.4 -> 7.0 dissolve, brief empty beat, repeat
+        ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
+        const padY = H * 0.28, lh = H - 2 * padY, tm = now / 1000;
+        for (let i = 0; i < parts.length; i++) {
+          const p = parts[i];
+          const form = reduce ? 1 : ease(Math.min(Math.max((t - p.d * 0.6) / 1.2, 0), 1));
+          const gone = reduce ? 0 : ease(Math.min(Math.max((t - 5.4 - p.d * 0.7) / 1.5, 0), 1));
+          const k = form * (1 - gone); if (k <= 0.01) continue;
+          const hx = p.x * W, hy = padY + p.y * lh;
+          let x = hx, y = hy + (reduce ? 0 : Math.sin(hx * 0.22 - tm * 2.6) * 0.9 * form);               // ripple running through the letters
+          const out = (1 - form) * 1 + gone;                                                               // how far from home
+          x += Math.cos(p.a) * out * p.r * 16; y += Math.sin(p.a) * out * p.r * 9 - gone * 7;              // drift away / in
+          const al = (0.25 + 0.7 * k) * (1 - gone * 0.9);
+          ctx.fillStyle = 'rgba(235,252,255,' + al + ')';
+          const z = p.s * 1.15; ctx.fillRect((x - z / 2) * dpr, (y - z / 2) * dpr, z * dpr, z * dpr);
+        }
+        if (!reduce) requestAnimationFrame(frame); else running = false;
+      }
+      function start() { if (running || !parts.length) return; running = true; requestAnimationFrame(n => { t0 = n; frame(n); }); }
+      img.onload = () => {
+        try { build(); } catch (e) { return; }
+        title.classList.add('has-canvas'); size(); window.addEventListener('resize', size);
+        new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) { t0 = performance.now(); start(); } }, { threshold: 0.2 }).observe(cv);
+      };
+      img.src = 'images/logo.png';
+    })();
+  </script>
 </body>
 </html>
