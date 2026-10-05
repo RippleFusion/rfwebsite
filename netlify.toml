@@ -1,0 +1,17 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/about"
+  to = "/#the-problem"
+  status = 302
+
+[[redirects]]
+  from = "/services"
+  to = "/#how-i-work"
+  status = 302
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
