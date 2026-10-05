@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /signup.html
 
-Sitemap: https://example.com/sitemap.xml
+Sitemap: https://ripplefusion.com/sitemap.xml
