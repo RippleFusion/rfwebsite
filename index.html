@@ -2153,7 +2153,7 @@
   window.addEventListener('load', () => {
     let target = null;
     try { target = location.hash && location.hash !== '#top' ? document.querySelector(location.hash) : null; } catch (e) {}
-    if (target) preciseScrollTo(target, true);
+    if (target) { preciseScrollTo(target, true); history.replaceState(null, '', location.pathname + location.search); }
   });
 
   // ==========================================================================
@@ -2528,7 +2528,7 @@
         if (!target) return;
         e.preventDefault();
         preciseScrollTo(target);
-        history.replaceState(null, '', hash);
+        history.replaceState(null, '', location.pathname + location.search);   // keep the address bar clean (no #section)
       });
     });
 
@@ -2902,7 +2902,7 @@
               <p>Thanks, you'll hear back soon.</p>
             </div>
           </div>`;
-        history.replaceState({}, '', url.origin + url.pathname + '#contact');
+        history.replaceState({}, '', url.origin + url.pathname);
       }
     }
 
