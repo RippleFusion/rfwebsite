@@ -767,7 +767,8 @@
     @media (min-width: 900px) { .founder-photo img { height: calc(100% - 2rem); } }
 
     .meet-nina { padding: 3rem var(--inset); }
-    #meet-nina { padding-top: 0; margin-top: -1.5rem; }   /* the same pull-up as before; flow-root on the wrapper keeps it from moving the wrapper's own edge */
+    #meet-nina { padding-top: 0; }
+    .meet-nina-bleed { margin-top: -1.5rem; }   /* the pull-up lives on the clipping wrapper, so the "Meet Nina" label is not cut off at its top edge */
     .meet-nina-grid { display: grid; grid-template-columns: 1fr; gap: 4.5rem; align-items: start; max-width: 60rem; }
     @media (min-width: 900px) { .meet-nina-grid { grid-template-columns: 3fr 2fr; gap: 6rem; } }
     .meet-nina-photo { max-width: 26rem; justify-self: center; align-self: center; display: flex; align-items: center; justify-content: center; }
