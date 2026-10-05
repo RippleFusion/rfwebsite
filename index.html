@@ -1214,7 +1214,6 @@
     /* Dot-grid, spotlight, click-ripple, back-to-top —
        ported wholesale from services.html/about.html, gated the same way
        (skipped on touch devices and reduced-motion). */
-    .dot-grid { position: fixed; top: -10vh; left: 0; right: 0; bottom: -10vh; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px); background-size: 80px 80px; }
     .click-ripple { position: fixed; z-index: 9998; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; border: 1px solid rgba(0,229,255,0.6); pointer-events: none; animation: click-ripple-expand 0.6s var(--ease-out-expo) forwards; }
     @keyframes click-ripple-expand { from { transform: scale(1); opacity: 0.8; } to { transform: scale(18); opacity: 0; } }
     @media (prefers-reduced-motion: reduce) {
@@ -1358,7 +1357,6 @@
 </head>
 <body>
 
-<div class="dot-grid"></div>
 
 
 
@@ -2817,23 +2815,11 @@
     // ---------- Spotlight + dot-grid parallax + magnetic buttons ----------
     // (custom cursor removed — native cursor is used everywhere now)
     if (!isCoarsePointer && !prefersReducedMotion) {
-      const dotGrid = document.querySelector('.dot-grid');
 
       let targetX = window.innerWidth / 2, targetY = window.innerHeight / 2;
 
       window.addEventListener('mousemove', e => {
         targetX = e.clientX; targetY = e.clientY;
-      }, { passive: true });
-
-      let parallaxTicking = false;
-      function applyParallax() {
-        dotGrid.style.transform = `translateY(${window.scrollY * 0.12}px)`;
-        parallaxTicking = false;
-      }
-      window.addEventListener('scroll', () => {
-        if (parallaxTicking) return;
-        parallaxTicking = true;
-        requestAnimationFrame(applyParallax);
       }, { passive: true });
 
       document.querySelectorAll('[data-magnetic]').forEach(btn => {
