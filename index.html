@@ -1159,7 +1159,9 @@
     .contact-row .value { font-size: 0.9rem; color: var(--ink); margin: 0; white-space: pre-line; }
     .location-list { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; color: var(--ink); display: flex; flex-direction: column; gap: 0.15rem; }
     /* "Follow" + the particle wordmark that ripples, dissolves and re-forms. Without JS (or if the logo can't load) the plain words show. */
-    .follow-title { display: flex; align-items: center; gap: 0.9rem; }
+    .follow-title { display: flex; align-items: center; gap: 0.9rem; justify-content: center; }
+    /* The block is only as wide as the row of social icons, so "Follow Ripple Fusion" centres exactly from the LinkedIn box to the Substack box. */
+    .follow-block { width: fit-content; }
     #followWordmark { display: none; height: 2.2rem; width: 8.4rem; flex: none; }
     .follow-title.has-canvas #followWordmark { display: block; }
     .follow-title.has-canvas .follow-fallback { display: none; }
@@ -1749,7 +1751,7 @@
                 </div>
               </div>
             </div>
-            <div class="contact-block">
+            <div class="contact-block follow-block">
               <h3 class="follow-title" aria-label="Follow Ripple Fusion"><span aria-hidden="true">Follow</span> <canvas id="followWordmark" aria-hidden="true"></canvas><span class="follow-fallback" aria-hidden="true">Ripple Fusion</span></h3>
               <div class="social-row">
                 <a href="https://www.linkedin.com/company/ripplefusion" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="icon-box">
