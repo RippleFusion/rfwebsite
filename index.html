@@ -955,14 +955,25 @@
     }
 
     /* Capability Pillars */
-    .capability-section { padding: 3.5rem 0; background: var(--bg-alt); }
-    .cap-rail { max-width: 56rem; margin: 3rem 0 0; position: relative; z-index: 1; }
+    .capability-section { padding: 0.5rem 0 3.5rem; background: var(--bg-alt); }
+    .cap-rail { max-width: 56rem; margin: 1.25rem 0 0; position: relative; z-index: 1; }
     .cap-rail-line { position: relative; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
     .cap-rail-fill { position: absolute; inset: 0; width: 0%; background: linear-gradient(90deg, var(--cyan), var(--cyan-alt)); transition: width 0.15s linear; }
     .cap-rail-ticks { display: flex; justify-content: space-between; margin-top: 0.6rem; }
     .cap-rail-ticks span { font-size: 10px; letter-spacing: 0.15em; color: var(--ink-40); font-variant-numeric: tabular-nums; transition: color 0.3s ease; }
     .cap-rail-ticks span.active { color: var(--cyan); }
-    .cap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; perspective: 1200px; position: relative; z-index: 1; }
+    /* Alive rail: a glowing head rides the end of the fill, a light slowly travels along the track, and the active label lifts. */
+    .cap-rail-line { overflow: visible; }
+    .cap-rail-fill { overflow: visible; }
+    .cap-rail-fill::after { content: ''; position: absolute; right: -4px; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: #d8fbff; box-shadow: 0 0 10px 3px rgba(0,229,255,0.85), 0 0 22px 6px rgba(0,229,255,0.4); opacity: 0; transition: opacity 0.3s ease; }
+    .cap-rail.live .cap-rail-fill::after { opacity: 1; animation: capHeadPulse 1.6s ease-in-out infinite; }
+    .cap-rail-line::before { content: ''; position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(0,229,255,0.55), transparent) 0 0 / 22% 100% no-repeat; animation: capTrackSweep 3.6s ease-in-out infinite; }
+    .cap-rail-ticks span { transition: color 0.3s ease, transform 0.35s var(--ease-out-expo), text-shadow 0.3s ease; }
+    .cap-rail-ticks span.active { transform: translateY(-3px); text-shadow: 0 0 12px rgba(0,229,255,0.7); }
+    @keyframes capTrackSweep { 0% { background-position: -30% 0; } 100% { background-position: 130% 0; } }
+    @keyframes capHeadPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+    @media (prefers-reduced-motion: reduce) { .cap-rail-line::before, .cap-rail.live .cap-rail-fill::after { animation: none; } }
+    .cap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; perspective: 1200px; position: relative; z-index: 1; }
     @media (min-width: 640px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
     .cap-card { position: relative; padding: 2rem; border: 1px solid var(--border); overflow: hidden; background: rgba(255,255,255,0.015); transform-style: preserve-3d; will-change: transform; transition: border-color 0.3s ease, box-shadow 0.35s ease, transform 0.15s ease-out; }
@@ -1670,7 +1681,7 @@
       <div class="wrap">
         <div class="reveal">
           <p class="eyebrow">Capability Pillars</p>
-          <h2 class="heading-underline">Six areas of practical, hands-on delivery.</h2>
+          <h2 class="heading-underline">Transformation, data and AI, led from strategy to adoption.</h2>
         </div>
         <div class="cap-rail">
           <div class="cap-rail-line"><div class="cap-rail-fill" id="capRailFill"></div></div>
@@ -1679,12 +1690,12 @@
           </div>
         </div>
         <div class="cap-grid" id="capGrid">
-          <div class="cap-card" style="--card-i:0"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">01</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><h3 class="cap-part" style="--part-i:1">AI &amp; Data Strategy</h3><p class="cap-part" style="--part-i:2">Assessing opportunity, prioritising use cases, and building a roadmap the board will actually back.</p></div>
-          <div class="cap-card" style="--card-i:1"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">02</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3 class="cap-part" style="--part-i:1">Data Foundations</h3><p class="cap-part" style="--part-i:2">The unglamorous plumbing — pipelines, governance, quality — that every AI initiative quietly depends on.</p></div>
-          <div class="cap-card" style="--card-i:2"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">03</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 7"/></svg></div><h3 class="cap-part" style="--part-i:1">Applied AI</h3><p class="cap-part" style="--part-i:2">From proof of concept to production — models and agents built for the messiness of real business processes.</p></div>
-          <div class="cap-card" style="--card-i:3"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">04</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3 class="cap-part" style="--part-i:1">Delivery Leadership</h3><p class="cap-part" style="--part-i:2">Hands-on programme leadership through the full lifecycle, with the discipline to scale it properly.</p></div>
-          <div class="cap-card" style="--card-i:4"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">05</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 class="cap-part" style="--part-i:1">Governance &amp; Risk</h3><p class="cap-part" style="--part-i:2">Structure and pace, without slowing innovation down — the guardrails a board needs to say yes.</p></div>
-          <div class="cap-card" style="--card-i:5"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">06</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="cap-part" style="--part-i:1">Adoption &amp; Change</h3><p class="cap-part" style="--part-i:2">Making sure the people the work is for actually use it — training, communication, and change support.</p></div>
+          <div class="cap-card" style="--card-i:0"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">01</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><h3 class="cap-part" style="--part-i:1">AI &amp; Data Strategy</h3><p class="cap-part" style="--part-i:2">A clear transformation roadmap that puts data and AI where they create real value, with priorities and a business case the board will back.</p></div>
+          <div class="cap-card" style="--card-i:1"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">02</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3 class="cap-part" style="--part-i:1">Data Foundations</h3><p class="cap-part" style="--part-i:2">The data foundations every transformation depends on. Pipelines, quality and governance built properly, so analytics and AI can be trusted.</p></div>
+          <div class="cap-card" style="--card-i:2"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">03</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 7"/></svg></div><h3 class="cap-part" style="--part-i:1">Applied AI</h3><p class="cap-part" style="--part-i:2">AI taken from proof of concept into production, embedded in real business processes and measured against the outcomes that matter.</p></div>
+          <div class="cap-card" style="--card-i:3"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">04</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3 class="cap-part" style="--part-i:1">Delivery Leadership</h3><p class="cap-part" style="--part-i:2">Hands-on leadership across the full programme lifecycle, with the pace and discipline to turn a plan into results that last.</p></div>
+          <div class="cap-card" style="--card-i:4"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">05</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 class="cap-part" style="--part-i:1">Governance &amp; Risk</h3><p class="cap-part" style="--part-i:2">Guardrails that let the board say yes. Clear accountability, managed risk and responsible use of data and AI, without slowing delivery.</p></div>
+          <div class="cap-card" style="--card-i:5"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">06</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="cap-part" style="--part-i:1">Adoption &amp; Change</h3><p class="cap-part" style="--part-i:2">People who actually use what is built. Training, communication and change support that turn delivery into lasting adoption.</p></div>
         </div>
       </div>
     </section>
@@ -2757,6 +2768,21 @@
         requestAnimationFrame(() => { updateCapRail(); capRailTicking = false; });
       }, { passive: true });
       updateCapRail();
+
+      // Move across the six boxes and the rail follows: its fill runs to the matching label and that label lights up.
+      // Leaving the grid hands control back to the scroll-driven fill. (Touch devices keep the scroll-driven version.)
+      const capCards = document.querySelectorAll('#capGrid .cap-card'), capRail = document.querySelector('.cap-rail');
+      if (capCards.length && capRail && !isCoarsePointer) {
+        const stopAt = i => { const t = capRailTicks[i], r = capRail.getBoundingClientRect(), tr = t.getBoundingClientRect(); return Math.min(Math.max((tr.left + tr.width / 2 - r.left) / r.width, 0), 1); };
+        capCards.forEach((card, i) => {
+          card.addEventListener('mouseenter', () => {
+            capRail.classList.add('live');
+            capRailFill.style.width = (stopAt(i) * 100) + '%';
+            capRailTicks.forEach((t, k) => t.classList.toggle('active', k === i));
+          });
+        });
+        document.getElementById('capGrid').addEventListener('mouseleave', () => { capRail.classList.remove('live'); updateCapRail(); });
+      }
     }
 
     // ---------- Gap-diagram connectors ----------
