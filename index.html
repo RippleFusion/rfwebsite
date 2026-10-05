@@ -1120,10 +1120,10 @@
     .contact-section.in-view .contact-glow-a, .contact-section.in-view .contact-glow-b { opacity: 1; transform: scale(1); }
     @media (prefers-reduced-motion: reduce) { .js .contact-glow-a, .js .contact-glow-b { opacity: 1 !important; transform: none !important; } }
     .contact-intro { margin-bottom: 5rem; position: relative; text-align: center; }
-    .contact-intro h2 { font-size: 3rem; text-transform: uppercase; font-weight: 900; line-height: 1; margin-bottom: 1.5rem; }
+    .contact-intro h2 { font-size: 3rem; text-transform: uppercase; font-weight: 900; line-height: 1; margin-top: 1rem; margin-bottom: 1.5rem; }
     @media (min-width: 1024px) { .contact-intro h2 { font-size: 3.75rem; } }
     .contact-intro h2 .grad { color: transparent; background: linear-gradient(90deg, var(--cyan), var(--cyan-alt)); -webkit-background-clip: text; background-clip: text; }
-    .contact-intro h2 .tag { display: block; margin-top: 0.5rem; color: var(--ink); font-size: 0.6em; font-weight: 600; text-transform: none; }
+    .contact-intro h2 .tag { display: block; margin-top: 1.5rem; color: var(--ink); font-size: 0.6em; font-weight: 600; text-transform: none; }
     .contact-intro .lead { max-width: 42rem; margin: 3rem auto 0; font-size: 1.125rem; line-height: 1.625; color: var(--ink-70); font-weight: 500; }
     .contact-intro .sub { max-width: 36rem; margin: 0.5rem auto 0; font-size: 0.875rem; line-height: 1.625; color: var(--ink-40); }
     .availability-badge {
@@ -1140,11 +1140,14 @@
     @media (prefers-reduced-motion: reduce) { .availability-pulse::before { animation: none; opacity: 0.4; } }
     .contact-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; position: relative; }
     @media (min-width: 1024px) { .contact-grid { grid-template-columns: 2fr 3fr; gap: 5rem; } }
+    /* The form and details sit in a narrower column, centred on the page, and the copyright line shares the same left and right edges. */
+    .contact-grid, .contact-foot { max-width: 60rem; margin-left: auto; margin-right: auto; }
+    .contact-intro .eyebrow { margin-bottom: 0.25rem; }
     .contact-block { margin-bottom: 2.5rem; }
     /* Desktop: the details column is inset from the page edge and spans exactly the form's height, so "Contact Details" lines up with
        FULL NAME at the top and the social icons line up with the bottom of the SEND MESSAGE button. */
     @media (min-width: 1024px) {
-      .contact-grid > div:first-child { display: flex; flex-direction: column; justify-content: space-between; padding-left: 2.5rem; }
+      .contact-grid > div:first-child { display: flex; flex-direction: column; justify-content: space-between; }
       .contact-grid > div:first-child .contact-block:last-child { margin-bottom: 0; }
     }
     .contact-block h3 { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 1.5rem; }
@@ -1179,8 +1182,8 @@
     .form-success .check { width: 4rem; height: 4rem; margin: 0 auto 1.5rem; border: 2px solid var(--cyan); display: flex; align-items: center; justify-content: center; color: var(--cyan); }
     .form-success h3 { font-size: 1.25rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 0.75rem; }
     .form-success p { font-size: 0.875rem; color: var(--ink-40); margin: 0; }
-    .contact-foot { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 0.75rem; }
-    @media (min-width: 768px) { .contact-foot { flex-direction: row; } }
+    .contact-foot { margin-top: 1.5rem; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+    @media (min-width: 768px) { .contact-foot { flex-direction: row; align-items: center; } }
     .status-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--ink-50); }
     .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; flex-shrink: 0; box-shadow: 0 0 6px rgba(74,222,128,0.6); }
     .contact-foot p { font-size: 0.75rem; letter-spacing: 0.05em; color: var(--ink-50); margin: 0; }
@@ -1230,8 +1233,6 @@
        ====================================================================== */
     /* A "live readout" feel rather than a plain loading bar — a brighter
        leading edge (like a signal head) plus a soft trailing glow. */
-    .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, rgba(0,229,255,0.5), var(--cyan-alt)); z-index: 200; pointer-events: none; box-shadow: 0 0 8px rgba(0,229,255,0.5); }
-    .scroll-progress::after { content: ""; position: absolute; top: -1px; right: 0; width: 6px; height: 4px; border-radius: 2px; background: var(--ink); box-shadow: 0 0 6px 2px rgba(0,229,255,0.9); }
 
     .section-glow { position: absolute; border-radius: 50%; filter: blur(140px); pointer-events: none; z-index: -2; }
     .section-glow-a { top: -10%; left: -8%; width: 420px; height: 420px; background: rgba(0,229,255,0.06); }
@@ -1354,7 +1355,6 @@
 </head>
 <body>
 
-<div class="scroll-progress" id="scrollProgress"></div>
 <div class="dot-grid"></div>
 <div class="spotlight" id="spotlight"></div>
 
@@ -1592,8 +1592,8 @@
             <p class="founder-name"><span id="ninaTypedName">Hi, I'm Nina. How can I help today?</span><span class="nina-cursor" id="ninaCursor" aria-hidden="true"></span></p>
           </div>
           <div class="founder-bio reveal-group">
-            <p class="reveal">Most transformation execs talk about AI. I built an AI-first business around one. Nina runs lead gen, socials, ops and finance, end to end, every day, no shortcuts.</p>
-            <p class="reveal">Backed by 20+ years leading transformation for global organisations, I built my own business AI-first with the same governance, delivery discipline and measurable outcomes I bring to clients. Nina is how it runs in practice.</p>
+            <p class="reveal">Most transformation leaders talk about AI. I built an AI-first business around it. Nina runs lead generation, social media, operations and finance, end to end, every day, with no shortcuts.</p>
+            <p class="reveal">Behind it are 20+ years leading transformation for global organisations, and the same governance, delivery discipline and measurable outcomes I bring to every client engagement.</p>
             <p class="reveal">Click to say &ldquo;hello&rdquo;, she might just say it back<button type="button" class="nina-ask-dots-inline" id="ninaAsk" aria-label="Say hello to Nina"><span></span><span></span><span></span></button></p>
             <span class="nina-ask-response" id="ninaAskResponse" aria-live="polite"></span>
           </div>
@@ -2870,23 +2870,6 @@
       });
     }
 
-    // ---------- Global scroll-progress bar ----------
-    const scrollProgress = document.getElementById('scrollProgress');
-    if (scrollProgress) {
-      function updateScrollProgress() {
-        const total = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = total > 0 ? Math.min(Math.max(window.scrollY / total, 0), 1) : 0;
-        scrollProgress.style.width = (progress * 100) + '%';
-      }
-      let progressTicking = false;
-      window.addEventListener('scroll', () => {
-        if (progressTicking) return;
-        progressTicking = true;
-        requestAnimationFrame(() => { updateScrollProgress(); progressTicking = false; });
-      }, { passive: true });
-      window.addEventListener('resize', updateScrollProgress);
-      updateScrollProgress();
-    }
 
     // ---------- Contact form ----------
     const nextField = document.getElementById('cf-next');
