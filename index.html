@@ -956,7 +956,9 @@
 
     /* Capability Pillars */
     .capability-section { padding: 0 0 3.5rem; background: var(--bg-alt); }
-    #how-i-engage { padding-bottom: 0.5rem; }   /* closes up the gap before Capability Pillars */
+    #how-i-engage { padding-bottom: 0.5rem; }
+    /* hairline above Capability Pillars, the same line as the one above the How I Work boxes */
+    .cap-topline { height: 1px; background: var(--border); margin: 1.5rem 0; }   /* closes up the gap before Capability Pillars */
     .cap-rail { max-width: 56rem; margin: 1.25rem 0 0; position: relative; z-index: 1; }
     .cap-rail-line { position: relative; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
     .cap-rail-fill { position: absolute; inset: 0; width: 0%; background: linear-gradient(90deg, var(--cyan), var(--cyan-alt)); transition: width 0.15s linear; }
@@ -1685,6 +1687,7 @@
     <!-- Services: Capability Pillars -->
     <section id="capabilities" class="capability-section"><div class="section-glow section-glow-a"></div><div class="section-glow section-glow-b"></div>
       <div class="wrap">
+        <div class="cap-topline" aria-hidden="true"></div>
         <div class="reveal">
           <p class="eyebrow">Capability Pillars</p>
           <h2 class="heading-underline">Transformation, data and AI, led from strategy to adoption.</h2>
@@ -1759,7 +1762,7 @@
                 <a href="https://www.facebook.com/realripplefusion" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="icon-box">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                 </a>
-                <a href="https://realripplefusion.substack.com" target="_blank" rel="noopener noreferrer" aria-label="Substack" class="icon-box">
+                <a href="https://ripplefusion.substack.com" target="_blank" rel="noopener noreferrer" aria-label="Substack" class="icon-box">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.5H2v2.5h20V5.5zM2 10.5v8.5l10-4.5 10 4.5v-8.5H2zM22 2H2v2h20V2z"/></svg>
                 </a>
               </div>
