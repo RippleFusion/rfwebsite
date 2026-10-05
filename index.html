@@ -2117,7 +2117,12 @@
       visible = false;
       new IntersectionObserver(es => {
         visible = es[0].isIntersecting;
-        if (visible && paused) { paused = false; start = lastNow = performance.now(); if (!raf) raf = requestAnimationFrame(frame); }   // each visit starts the sequence from the beginning
+        if (visible && paused) {
+          paused = false;
+          if (o.keepClock) { lastNow = performance.now(); resize(); glow = null; buildGlow(); }   // carry on where it left off, on a freshly sized canvas
+          else start = lastNow = performance.now();   // each visit starts the sequence from the beginning
+          if (!raf) raf = requestAnimationFrame(frame);
+        }
       }, { threshold: 0.05 }).observe(cv);
     }
     raf = requestAnimationFrame(frame);
@@ -2140,7 +2145,7 @@
       async function undo() { for (let i = full.length - 1; i >= 0; i--) { el.textContent = full.slice(0, i); await wait(38); } }
       (async () => { await wait(1800); for (;;) { await type(); await wait(10000); await undo(); await wait(600); } })();   // type, hold ~10s, undo, repeat
     })();
-    createOrbScene(document.getElementById('orbCanvas'), {});
+    createOrbScene(document.getElementById('orbCanvas'), { pauseOffscreen: true, keepClock: true });
   })();
 
   // Meet Nina: the same orb, melting into her portrait, without the wordmark
