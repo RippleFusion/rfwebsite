@@ -2859,6 +2859,37 @@
     // ---------- Contact form ----------
     const nextField = document.getElementById('cf-next');
     const wrap = document.getElementById('contact-form-wrap');
+    const showSent = () => {
+      wrap.innerHTML = `
+          <div class="form-success">
+            <div>
+              <div class="check"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+              <h3>Message Received</h3>
+              <p>Thanks, you'll hear back soon.</p>
+            </div>
+          </div>`;
+    };
+    // Send in the background so visitors stay on the site (no hop to formsubmit.co); if that fails, fall back to the normal form post.
+    const form = document.getElementById('contact-form');
+    if (form && wrap && window.fetch) {
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const btn = document.getElementById('cf-submit'), err = document.getElementById('cf-error');
+        if (btn) btn.disabled = true;
+        if (err) err.style.display = 'none';
+        try {
+          const res = await fetch('https://formsubmit.co/ajax/ian@ianlloyd.com', {
+            method: 'POST', headers: { 'Accept': 'application/json' }, body: new FormData(form)
+          });
+          const data = await res.json();
+          if (res.ok && (data.success === true || data.success === 'true')) { showSent(); return; }
+          throw new Error('rejected');
+        } catch (_) {
+          if (btn) btn.disabled = false;
+          form.submit();   // normal post as a fallback
+        }
+      });
+    }
     if (nextField && wrap) {
       const url = new URL(window.location.href);
       nextField.value = url.origin + url.pathname + '?sent=true#contact';
