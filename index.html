@@ -1037,7 +1037,7 @@
 
     /* How I Engage / How I Work */
     .engage-section { padding: 3.5rem 0; background: var(--bg); }
-    #how-i-work { padding-top: 0; padding-bottom: 0.5rem; margin-top: -2.5rem; }
+    #how-i-work { padding-top: 0; padding-bottom: 2rem; margin-top: -2.5rem; }
     #private-equity { padding-top: 0; margin-top: -3rem; }
     .engage-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 4rem; }
     #how-i-engage .engage-grid { margin-top: 1rem; }   /* tighter gap under "Choose the level of involvement you need"; How I Work keeps the larger gap */
@@ -1265,7 +1265,7 @@
     @media (min-width: 640px) { #how-i-work .engage-grid { grid-template-columns: repeat(2,1fr); } }
     @media (min-width: 1024px) { #how-i-work .engage-grid { grid-template-columns: repeat(3,1fr); } }
     #how-i-work .engage-card {
-      background: none; border: none; border-bottom: 1px solid var(--border); padding: 2.5rem 0.5rem;
+      background: none; border: none; padding: 2.5rem 0.5rem;
       transition: background 0.3s ease;
     }
     /* Matches the 1024px breakpoint where #how-i-work .engage-grid actually
@@ -1274,8 +1274,7 @@
        tablet/iPad tier, so a stray vertical divider showed up on the
        right-hand card of that row with nothing to its right to divide. */
     @media (min-width: 1024px) {
-      #how-i-work .engage-card { border-bottom: none; border-right: 1px solid var(--border); padding: 0 2rem; }
-      #how-i-work .engage-card:last-child { border-right: none; }
+      #how-i-work .engage-card { border-bottom: none; border-right: none; padding: 0 2rem; }   /* no divider lines between the three columns */
     }
     #how-i-work .engage-card:hover { transform: none; box-shadow: none; border-color: var(--border); background: rgba(0,229,255,0.02); }
     #how-i-work .cap-card-glow { display: none; }
