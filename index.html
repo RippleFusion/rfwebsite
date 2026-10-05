@@ -713,6 +713,8 @@
     .founder-photo { max-width: 26rem; justify-self: center; align-self: center; display: flex; align-items: center; justify-content: center; }
     @media (min-width: 900px) { .founder-photo { max-width: none; align-self: stretch; align-items: flex-end; transform: translate(-2rem, -2rem); } }
     .founder-hello { font-size: clamp(3rem, 9vw, 6.5rem); font-weight: 800; color: var(--cyan); margin: 0 0 0.5rem; line-height: 1; }
+    /* "Hi there!" is longer than "Hello", so Nina's heading is a little smaller to stay on one line. */
+    #meet-nina .founder-hello { font-size: clamp(2.6rem, 8vw, 4.6rem); white-space: nowrap; }
     .founder-name { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 600; margin: 0 0 1.75rem; }
     /* Typewriter cursor — a steady blink, only "on" while text is actively
        being typed in by JS (see the intro cutscene script). */
@@ -1588,8 +1590,8 @@
         <div>
           <div class="reveal">
             <p class="eyebrow">Meet Nina</p>
-            <h2 class="founder-hello">Hello</h2>
-            <p class="founder-name"><span id="ninaTypedName">Hello, I'm Nina &mdash; how can I help today?</span><span class="nina-cursor" id="ninaCursor" aria-hidden="true"></span></p>
+            <h2 class="founder-hello">Hi there!</h2>
+            <p class="founder-name"><span id="ninaTypedName">Hi, I'm Nina. How can I help today?</span><span class="nina-cursor" id="ninaCursor" aria-hidden="true"></span></p>
           </div>
           <div class="founder-bio reveal-group">
             <p class="reveal">Most transformation execs talk about AI. I built an AI-first business around one. Nina runs lead gen, socials, ops and finance, end to end, every day, no shortcuts.</p>
@@ -2720,7 +2722,7 @@
       const askBtn = document.getElementById('ninaAsk');
       const response = document.getElementById('ninaAskResponse');
       if (!askBtn || !response) return;
-      const replies = ['Hello! 👋', 'Hi there — I’m Nina.', 'Hey — good to meet you.'];
+      const replies = ['Hello! 👋', 'Hi there, I’m Nina.', 'Hey, good to meet you.'];
       let hideTimeout;
       askBtn.addEventListener('click', () => {
         response.textContent = replies[Math.floor(Math.random() * replies.length)];
