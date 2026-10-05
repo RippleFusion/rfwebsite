@@ -855,18 +855,6 @@
        (motion/menu toggles pinned to the viewport corners) so cards feel
        like they belong to the same visual system as the hero. */
     .cap-card, .engage-card, .client-item { position: relative; }
-    .cap-card::before, .cap-card::after,
-    .engage-card::before, .engage-card::after,
-    .client-item::before, .client-item::after {
-      content: ""; position: absolute; width: 12px; height: 12px; border-color: var(--cyan);
-      opacity: 0; transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease;
-      pointer-events: none; z-index: 2;
-    }
-    .cap-card::before, .engage-card::before, .client-item::before { top: 7px; left: 7px; border-top: 1.5px solid; border-left: 1.5px solid; }
-    .cap-card::after, .engage-card::after, .client-item::after { bottom: 7px; right: 7px; border-bottom: 1.5px solid; border-right: 1.5px solid; }
-    .cap-card:hover::before, .cap-card:hover::after,
-    .engage-card:hover::before, .engage-card:hover::after,
-    .client-item:hover::before, .client-item:hover::after { opacity: 1; width: 16px; height: 16px; }
 
     .section-divider { padding: 1.25rem 0; background: var(--bg); display: flex; align-items: center; justify-content: center; }
 
@@ -977,12 +965,10 @@
     @keyframes capHeadPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
     @media (prefers-reduced-motion: reduce) { .cap-rail-line::before, .cap-rail.live .cap-rail-fill::after { animation: none; } }
     /* Closing line of the Services section: the network of experts behind each engagement. */
-    .network-note { margin-top: 3rem; display: grid; gap: 1rem 4rem; grid-template-columns: 1fr; position: relative; z-index: 1; }
+    .network-note { margin-top: 3rem; position: relative; z-index: 1; }
     .network-note .eyebrow { margin-bottom: 0.75rem; }
-    .network-note h3 { font-size: 1.5rem; font-weight: 700; line-height: 1.25; margin: 0; text-wrap: balance; }
-    /* On wide screens the heading is one line that starts at the same left edge and runs out to the right edge of the boxes above. */
-    @media (min-width: 1100px) { .network-note h3 { font-size: clamp(1.4rem, 2.15vw, 1.95rem); white-space: nowrap; text-align: justify; text-align-last: justify; text-wrap: nowrap; } }
-    .network-note > p { margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; color: var(--ink-50); max-width: 42rem; }
+    .network-note h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin: 0 0 0.75rem; }
+    .network-note > p:last-child { margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; color: var(--ink-50); }
     .cap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; perspective: 1200px; position: relative; z-index: 1; }
     @media (min-width: 640px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -1100,7 +1086,7 @@
        the company name in it — unlike the others, the name stays as text
        alongside it instead of being replaced, so it's still legible. */
     .client-icon { height: 1.5rem; width: auto; display: block; }
-    .client-item:hover { border-color: rgba(0,229,255,0.35); color: var(--ink); transform: translateY(-2px); }
+    .client-item:hover { border-color: rgba(0,229,255,0.35); color: var(--ink); transform: translateY(-4px); }
     .client-item { transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease; }
     .client-tag { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); }
 
@@ -1161,7 +1147,8 @@
     .contact-row { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
     .contact-row:last-child { margin-bottom: 0; }
     .icon-box { width: 2.5rem; height: 2.5rem; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--cyan); transition: border-color .3s ease, background .3s ease; }
-    a.icon-box:hover { border-color: rgba(0,229,255,0.5); background: rgba(0,229,255,0.06); }
+    a.icon-box:hover { border-color: rgba(0,229,255,0.5); background: rgba(0,229,255,0.06); transform: translateY(-3px); }
+    a.icon-box { transition: border-color .3s ease, background .3s ease, transform .3s var(--ease-out-expo); }
     .contact-row .label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-30); margin: 0 0 0.125rem; }
     .contact-row .value { font-size: 0.9rem; color: var(--ink); margin: 0; white-space: pre-line; }
     .location-list { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; color: var(--ink); display: flex; flex-direction: column; gap: 0.15rem; }
@@ -1713,11 +1700,9 @@
           <div class="cap-card" style="--card-i:5"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">06</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="cap-part" style="--part-i:1">Adoption &amp; Change</h3><p class="cap-part" style="--part-i:2">People who actually use what is built. Training, communication and change support that turn delivery into lasting adoption.</p></div>
         </div>
         <div class="network-note reveal">
-          <div>
-            <p class="eyebrow">Extended Network</p>
-            <h3>The right expertise, brought in whenever the work calls for it</h3>
-          </div>
-          <p>I have access to a network of experts who have worked with me across many of the disciplines above, along with cutting-edge AI developers from recent engagements. They can be brought in to supplement the work where it is needed.</p>
+          <p class="eyebrow">Extended Network</p>
+          <h3>Access to a wider network</h3>
+          <p>I have access to a network of experts who have worked with me across many of the disciplines above, along with cutting-edge AI developers from recent engagements, who can supplement a project where it helps.</p>
         </div>
       </div>
     </section>
