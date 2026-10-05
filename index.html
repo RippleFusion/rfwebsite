@@ -1141,6 +1141,12 @@
     .contact-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; position: relative; }
     @media (min-width: 1024px) { .contact-grid { grid-template-columns: 2fr 3fr; gap: 5rem; } }
     .contact-block { margin-bottom: 2.5rem; }
+    /* Desktop: the details column is inset from the page edge and spans exactly the form's height, so "Contact Details" lines up with
+       FULL NAME at the top and the social icons line up with the bottom of the SEND MESSAGE button. */
+    @media (min-width: 1024px) {
+      .contact-grid > div:first-child { display: flex; flex-direction: column; justify-content: space-between; padding-left: 2.5rem; }
+      .contact-grid > div:first-child .contact-block:last-child { margin-bottom: 0; }
+    }
     .contact-block h3 { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 1.5rem; }
     .contact-row { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
     .contact-row:last-child { margin-bottom: 0; }
