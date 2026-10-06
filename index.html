@@ -881,8 +881,7 @@
        than the plain fade-up everywhere else — it's the one section where
        that literally is the point ("everyone can see the potential").
        Layered on top of the shared .reveal fade, not replacing it. */
-    .js .problem-section .reveal { filter: blur(6px); transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo), filter 1s var(--ease-out-expo); }
-    .problem-section .reveal.in-view { filter: blur(0); }
+    /* (no blur-in on this section: a blur filter right under the hero's edge is a heavy GPU layer and tore on some graphics cards) */
     .problem-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; }
     @media (min-width: 900px) { .problem-grid { grid-template-columns: 3fr 2fr; gap: 4rem; } }
     /* Same centering technique as founder-photo/meet-nina-photo: grid's
