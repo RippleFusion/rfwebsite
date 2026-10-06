@@ -241,7 +241,7 @@
 
     .hero {
       position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
-      overflow: hidden; perspective: 1200px;
+      overflow: hidden;   /* (no 3D perspective here: it forced a heavy GPU layer for the whole hero) */
       padding: 8rem 0 3rem;
     }
     .hero-bg-wrap { position: absolute; inset: 0; will-change: transform; }
