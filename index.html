@@ -1348,8 +1348,8 @@
 
     /* ---------- Phone spacing pass (max 640px only; desktop untouched) ---------- */
     @media (max-width: 640px) {
-      /* the first screen is sized to what is visible with Safari's bars showing, so "Data, AI & Transformation" is not hidden behind the toolbar */
-      .hero { min-height: 100vh; min-height: 100svh; padding-bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px)); }
+      /* keep the first screen full height (so the next section never peeks in at the bottom) and lift the headline clear of Safari's bottom bar */
+      .hero { min-height: 100vh; padding-bottom: calc(7.5rem + env(safe-area-inset-bottom, 0px)); }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
       .meet-nina-grid { gap: 1rem; }                                  /* the orb sits close under the text */
