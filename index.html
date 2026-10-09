@@ -1350,6 +1350,8 @@
     @media (max-width: 640px) {
       /* keep the first screen full height (so the next section never peeks in at the bottom) and lift the headline clear of Safari's bottom bar */
       .hero { min-height: 100vh; padding-bottom: calc(7.5rem + env(safe-area-inset-bottom, 0px)); }
+      /* where the browser reports it, lift the headline by exactly the height of Safari's bars (full height minus visible height) plus a margin */
+      @supports (height: 100svh) { .hero { padding-bottom: max(calc(8.5rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 4.5rem + env(safe-area-inset-bottom, 0px))); } }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
       .meet-nina-grid { gap: 1rem; }                                  /* the orb sits close under the text */
