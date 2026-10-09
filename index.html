@@ -1354,6 +1354,7 @@
       @supports (height: 100svh) { .hero { padding-bottom: max(calc(6rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 2rem + env(safe-area-inset-bottom, 0px))); } }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
+      .founder-photo { margin-top: -2.5rem; }                         /* the photo has empty space above his head: pull it up */
       .meet-nina-grid { gap: 1rem; }                                  /* the orb sits close under the text */
       #private-equity .client-logo { width: 100%; }                   /* two tiles per row, like Trusted By */
       .contact-grid { gap: 2rem; }
@@ -1565,7 +1566,7 @@
           <div class="client-item reveal"><span class="client-logo"><img src="images/logos/cgi.png" alt="CGI Inc." loading="lazy" decoding="async" /></span><span class="client-tag">Insurance</span></div>
           <div class="client-item reveal"><span class="client-logo client-logo-narrow"><img src="images/logos/pirelli.png" alt="Pirelli" loading="lazy" decoding="async" /></span><span class="client-tag">Manufacturing</span></div>
           <div class="client-item reveal"><span class="client-logo"><img src="images/logos/serco.webp" alt="Serco" loading="lazy" decoding="async" /></span><span class="client-tag">Industrials</span></div>
-          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/codesearch.webp" alt="CodeSearch" loading="lazy" decoding="async" /></span><span class="client-tag">Software</span></div>
+          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/codesearch.webp" alt="CodeSearch" loading="lazy" decoding="async" /></span><span class="client-tag">AI Software</span></div>
           <div class="client-item reveal"><span class="client-logo client-logo-narrow"><img src="images/logos/pest-control-partnership.png" alt="Pest Control Partnership" loading="lazy" decoding="async" /></span><span class="client-tag">Services</span></div>
           <div class="client-item reveal"><span class="client-logo client-logo-narrow"><img src="images/logos/vistra.svg" alt="Vistra" loading="lazy" decoding="async" /></span><span class="client-tag">Fund &amp; Corporate Services</span></div>
         </div>
@@ -1854,8 +1855,25 @@
     // next) section's edge visible. Re-checking a couple of times after the
     // scroll starts and snapping back if anything moved is what actually
     // makes the landing hold, regardless of what caused the drift.
+    // Phones only: the page's images are lazy, so they were still arriving (and pushing everything below them down by a few
+    // hundred pixels) while a menu tap was mid-scroll — which made the page glide to a line and then jump. Fetch them all as soon
+    // as the page has loaded, and if a tap beats them, wait for them (briefly) so there is one smooth scroll to the right place.
+    const phoneLayout = window.matchMedia('(max-width: 640px)').matches;
+    if (phoneLayout) window.addEventListener('load', () => setTimeout(() => document.querySelectorAll('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; }), 300));
     function preciseScrollTo(target, instant) {
       if (!target) return;
+      if (phoneLayout) {
+        const pending = [...document.images].filter(i => !i.complete);
+        if (pending.length) {
+          pending.forEach(i => { i.loading = 'eager'; });
+          const settled = Promise.all(pending.map(i => new Promise(r => { i.addEventListener('load', r, { once: true }); i.addEventListener('error', r, { once: true }); })));
+          Promise.race([settled, new Promise(r => setTimeout(r, 1500))]).then(() => preciseScrollToNow(target, instant));
+          return;
+        }
+      }
+      preciseScrollToNow(target, instant);
+    }
+    function preciseScrollToNow(target, instant) {
       const isHero = target.id === 'houseHero' || target.id === 'top';
       const computeY = () => {
         if (isHero) return 0;   // Home: the very top of the page
@@ -1864,12 +1882,18 @@
         return Math.max(target.getBoundingClientRect().top + window.scrollY - navOffset, 0);
       };
       window.scrollTo({ top: computeY(), behavior: (prefersReducedMotion || instant) ? 'auto' : 'smooth' });
-      [300, 700, 1300, 2500].forEach(delay => {
-        setTimeout(() => {
-          const drift = Math.abs(window.scrollY - computeY());
-          if (drift > 4) window.scrollTo({ top: computeY(), behavior: 'auto' });
-        }, delay);
-      });
+      // Check the landing spot only once the scroll has actually come to rest, so a correction never cuts into the glide
+      // (that was the "goes to a line, then jumps").
+      let last = -1, still = 0, ticks = 0;
+      const settle = setInterval(() => {
+        ticks++;
+        still = Math.abs(window.scrollY - last) < 1 ? still + 1 : 0;
+        last = window.scrollY;
+        if (still >= 3 || ticks > 40) {
+          clearInterval(settle);
+          if (Math.abs(window.scrollY - computeY()) > 4) window.scrollTo({ top: computeY(), behavior: 'auto' });
+        }
+      }, 90);
     }
 
   // ---------- Orb hero ----------
