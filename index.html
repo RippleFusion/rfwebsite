@@ -877,6 +877,7 @@
        where the fixed one didn't shrink but the others did. */
     .problem-section .lede, .founder-bio p { font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; }
     .problem-section .lede { max-width: 42rem; color: var(--ink-50); margin-top: 2rem; }
+    .problem-section .reveal + .lede { margin-top: 0.1rem; }   /* "Brought in..." sits one line closer to the heading */
     .problem-section .lede + .lede { margin-top: 1rem; }   /* three paragraphs now: keep the gap between them to one blank line, not two */
     /* The Problem's signature entrance: text sharpens into focus rather
        than the plain fade-up everywhere else — it's the one section where
