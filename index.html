@@ -1041,7 +1041,7 @@
     /* How I Engage / How I Work */
     .engage-section { padding: 3.5rem 0; background: var(--bg); }
     #how-i-work { padding-top: 0; padding-bottom: 2rem; margin-top: -2.5rem; }
-    #private-equity { padding-top: 0; margin-top: -3rem; }
+    #private-equity { padding-top: 0; margin-top: 0; }   /* private equity now comes first, so the tuck-up moves to the section after it */
     .engage-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 4rem; }
     #how-i-engage .engage-grid { margin-top: 1rem; }   /* tighter gap under "Choose the level of involvement you need"; How I Work keeps the larger gap */
     /* Was jumping straight to 3-up at 768px — exactly iPad portrait width —
@@ -1079,8 +1079,8 @@
 
     /* Trusted By */
     .clients-section { padding: 0 0 3.5rem; background: var(--bg); }
-    #trusted-by { margin-top: 0rem; }
-    #trusted-by .eyebrow { margin-bottom: -0.5rem; }
+    #trusted-by { margin-top: -3rem; }
+    #private-equity .eyebrow { margin-bottom: -0.5rem; }
     .clients-grid { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 1rem; margin-top: 0.25rem; }
     .client-item { flex: 0 1 calc(50% - 0.5rem); padding: 1.5rem 1rem; border: 1px solid var(--border); text-align: center; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink-70); background: rgba(255,255,255,0.015); transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s var(--ease-out-expo); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
     @media (min-width: 640px) { .client-item { flex: 0 1 calc(25% - 0.75rem); } }
@@ -1546,13 +1546,31 @@
     </section>
 
     <!-- About: Trusted By -->
+    <!-- About: Private Equity -->
+    <section id="private-equity" class="engage-section pe-section" style="background: var(--bg-alt);"><div class="section-glow section-glow-a"></div><div class="section-glow section-glow-b"></div>
+      <svg class="pe-trendline" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 C 33 10, 67 10, 100 60 S 167 110, 200 60 S 267 10, 300 60 S 367 110, 400 60" /></svg>
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">Trusted By</p>
+          <h2 class="heading-underline no-start-bar">Investors in <span class="kw-underline">private equity</span> companies:</h2>
+        </div>
+        <div class="clients-grid reveal-group" id="peGrid">
+          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/partners-group.png" alt="Partners Group" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity &amp; Growth</span></div>
+          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/providence.png" alt="Providence Equity Partners" loading="lazy" decoding="async" /></span><span class="client-tag">Growth Equity</span></div>
+          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/eqt.png" alt="EQT" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity</span></div>
+          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/tpg-capital.webp" alt="TPG Capital" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity</span></div>
+          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/cpp-investment-board-cropped.png" alt="CPP Investment Board" loading="lazy" decoding="async" /></span><span class="client-tag">Institutional Investor</span></div>
+          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/leonard-green-partners-cropped.jpg" alt="Leonard Green &amp; Partners" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity</span></div>
+        </div>
+      </div>
+    </section>
+
     <section id="trusted-by" class="clients-section pe-section" style="background: var(--bg-alt);"><div class="section-glow section-glow-b"></div>
       <svg class="trusted-line" id="trustedLine" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
         <path class="trusted-line-flow" pathLength="100" d="M0 60 C 60 60, 80 50, 130 50 S 200 70, 240 70 S 300 50, 340 50 S 380 65, 400 65" />
       </svg>
       <div class="wrap">
         <div class="reveal">
-          <p class="eyebrow">Trusted By</p>
           <h2 class="heading-underline no-start-bar">Leadership teams at <span class="kw-underline">organisations</span> including:</h2>
         </div>
         <div class="clients-grid reveal-group">
@@ -1571,24 +1589,6 @@
           <div class="client-item reveal"><span class="client-logo"><img src="images/logos/codesearch.webp" alt="CodeSearch" loading="lazy" decoding="async" /></span><span class="client-tag">AI Software</span></div>
           <div class="client-item reveal"><span class="client-logo client-logo-narrow"><img src="images/logos/pest-control-partnership.png" alt="Pest Control Partnership" loading="lazy" decoding="async" /></span><span class="client-tag">Services</span></div>
           <div class="client-item reveal"><span class="client-logo client-logo-narrow"><img src="images/logos/vistra.svg" alt="Vistra" loading="lazy" decoding="async" /></span><span class="client-tag">Financial</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- About: Private Equity -->
-    <section id="private-equity" class="engage-section pe-section" style="background: var(--bg-alt);"><div class="section-glow section-glow-a"></div><div class="section-glow section-glow-b"></div>
-      <svg class="pe-trendline" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60 C 33 10, 67 10, 100 60 S 167 110, 200 60 S 267 10, 300 60 S 367 110, 400 60" /></svg>
-      <div class="wrap">
-        <div class="reveal">
-          <h2 class="heading-underline no-start-bar">Investors in <span class="kw-underline">private equity</span> companies:</h2>
-        </div>
-        <div class="clients-grid reveal-group" id="peGrid">
-          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/partners-group.png" alt="Partners Group" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity &amp; Growth</span></div>
-          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/providence.png" alt="Providence Equity Partners" loading="lazy" decoding="async" /></span><span class="client-tag">Growth Equity</span></div>
-          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/eqt.png" alt="EQT" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity</span></div>
-          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/tpg-capital.webp" alt="TPG Capital" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity</span></div>
-          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/cpp-investment-board-cropped.png" alt="CPP Investment Board" loading="lazy" decoding="async" /></span><span class="client-tag">Institutional Investor</span></div>
-          <div class="client-item reveal"><span class="client-logo"><img src="images/logos/leonard-green-partners-cropped.jpg" alt="Leonard Green &amp; Partners" loading="lazy" decoding="async" /></span><span class="client-tag">Private Equity</span></div>
         </div>
       </div>
     </section>
