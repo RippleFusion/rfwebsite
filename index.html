@@ -1044,6 +1044,13 @@
     #private-equity { padding-top: 0; margin-top: 0; }   /* private equity now comes first, so the tuck-up moves to the section after it */
     .engage-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 4rem; }
     #how-i-engage .engage-grid { margin-top: 1rem; }   /* tighter gap under "Choose the level of involvement you need"; How I Work keeps the larger gap */
+    /* Five cards: three across, then two centred underneath (desktop only; phones and tablets keep the normal one and two column grid) */
+    @media (min-width: 1024px) {
+      #how-i-engage .engage-grid { grid-template-columns: repeat(6, 1fr); }
+      #how-i-engage .engage-card { grid-column: span 2; }
+      #how-i-engage .engage-card:nth-child(4) { grid-column: 2 / span 2; }
+      #how-i-engage .engage-card:nth-child(5) { grid-column: 4 / span 2; }
+    }
     /* Was jumping straight to 3-up at 768px — exactly iPad portrait width —
        which squeezed each card's inner text column down to ~144px and made
        every card's copy wrap into a cramped, ragged mess. Matches the
@@ -1657,44 +1664,32 @@
           <div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a1 1 0 0 1 1-1h13.3a1 1 0 0 1 .858 1.515l-2.7 4.485 2.7 4.485A1 1 0 0 1 18.3 15H6"/></svg></div>
-            <h3>Interim Programme Lead</h3>
-            <p class="audience">For organisations launching a transformation programme that needs a hands-on leader from day one</p>
-            <p class="body">Hands-on leadership of your transformation from first assessment through delivery, adoption and benefits realisation, with the governance and delivery discipline to scale it properly.</p>
+            <h3>Interim transformation</h3>
+            <p class="body">Working alongside leadership teams from first diagnosis through to benefits delivered</p>
           </div>
           <div class="engage-card reveal">
             <div class="cap-card-glow"></div>
-            <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg></div>
-            <h3>Rescue Project Specialist</h3>
-            <p class="audience">For programmes that have gone wrong and need an experienced leader to take control</p>
-            <p class="body">Stepping in when an ERP, CRM or other big-ticket transformation is struggling. Diagnosing what has gone wrong, shoring up governance and delivery, and getting the programme back on track.</p>
+            <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+            <h3>Operating model and shared services</h3>
+            <p class="body">One way of working across sales, operations and finance, with work moved to the right locations, quality held and productivity measured</p>
           </div>
           <div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
-            <h3>Embedded Strategist</h3>
-            <p class="audience">For teams already moving who need sharper prioritisation and ROI discipline</p>
-            <p class="body">Working alongside your leadership and technical teams to find the right opportunities, build the business case and keep transformation initiatives aligned to outcomes, not just activity.</p>
+            <h3>Private equity</h3>
+            <p class="body">Acquisition integration, carve-outs, programme resets and exit readiness</p>
           </div>
           <div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
-            <h3>Interim Chief Data and AI Officer</h3>
-            <p class="audience">For organisations that need senior data and AI ownership now, not later</p>
-            <p class="body">Full ownership of the data and AI agenda alongside the wider programme, covering strategy, governance, quality and delivery, until a permanent leader is in place.</p>
-          </div>
-          <div class="engage-card reveal">
-            <div class="cap-card-glow"></div>
-            <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
-            <h3>Advisory</h3>
-            <p class="audience">For leadership teams who need direction, not headcount</p>
-            <p class="body">Strategic advice at board or executive level on where transformation will create the most value, and how AI fits into it. Assessing the opportunity, setting priorities and building the roadmap, so you have credible thinking before you commit resources.</p>
+            <h3>Automation and AI where they pay back</h3>
+            <p class="body">Judgement on where work should sit and what should be automated, in partnership with digital and product leaders</p>
           </div>
           <div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-            <h3>Non-Executive Director (NED)</h3>
-            <p class="audience">For boards that want experienced transformation and technology expertise at the table</p>
-            <p class="body">An experienced voice at board level, challenging strategy, assessing risk and keeping transformation, data and AI decisions grounded in commercial reality.</p>
+            <h3>Board advisory and NED</h3>
+            <p class="body">An independent voice on where change will pay back</p>
           </div>
         </div>
       </div>
