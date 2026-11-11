@@ -796,7 +796,7 @@
     /* Corner-bracket hover accent — echoes the hero's own corner-UI motif
        (motion/menu toggles pinned to the viewport corners) so cards feel
        like they belong to the same visual system as the hero. */
-    .cap-card, .engage-card, .client-item { position: relative; }
+    .engage-card, .client-item { position: relative; }
 
     .section-divider { padding: 1.25rem 0; background: var(--bg); display: flex; align-items: center; justify-content: center; }
 
@@ -888,43 +888,21 @@
     }
 
     /* Capability Pillars */
-    .capability-section { padding: 0 0 3.5rem; background: var(--bg-alt); }
     #how-i-engage { padding-top: 0.5rem; padding-bottom: 1.5rem; }
-    .cap-rail { max-width: 56rem; margin: 1.25rem 0 0; position: relative; z-index: 1; }
-    .cap-rail-line { position: relative; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
-    .cap-rail-fill { position: absolute; inset: 0; width: 0%; background: linear-gradient(90deg, var(--cyan), var(--cyan-alt)); transition: width 0.15s linear; }
-    .cap-rail-ticks { display: flex; justify-content: space-between; margin-top: 0.6rem; }
-    .cap-rail-ticks span { font-size: 10px; letter-spacing: 0.15em; color: var(--ink-40); font-variant-numeric: tabular-nums; transition: color 0.3s ease; }
-    .cap-rail-ticks span.active { color: var(--cyan); }
     /* Alive rail: a glowing head rides the end of the fill, a light slowly travels along the track, and the active label lifts. */
-    .cap-rail-line { overflow: visible; }
-    .cap-rail-fill { overflow: visible; }
-    .cap-rail-fill::after { content: ''; position: absolute; right: -4px; top: 50%; width: 9px; height: 9px; margin-top: -4.5px; border-radius: 50%; background: #d8fbff; box-shadow: 0 0 10px 3px rgba(0,229,255,0.85), 0 0 22px 6px rgba(0,229,255,0.4); opacity: 0; transition: opacity 0.3s ease; }
-    .cap-rail.live .cap-rail-fill::after { opacity: 1; animation: capHeadPulse 1.6s ease-in-out infinite; }
-    .cap-rail-line::before { content: ''; position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(90deg, transparent, rgba(0,229,255,0.55), transparent) 0 0 / 22% 100% no-repeat; animation: capTrackSweep 3.6s ease-in-out infinite; }
-    .cap-rail-ticks span { transition: color 0.3s ease, transform 0.35s var(--ease-out-expo), text-shadow 0.3s ease; }
-    .cap-rail-ticks span.active { transform: translateY(-3px); text-shadow: 0 0 12px rgba(0,229,255,0.7); }
     @keyframes capTrackSweep { 0% { background-position: -30% 0; } 100% { background-position: 130% 0; } }
-    @keyframes capHeadPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
-    @media (prefers-reduced-motion: reduce) { .cap-rail-line::before, .cap-rail.live .cap-rail-fill::after { animation: none; } }
     /* Closing line of the Services section: the network of experts behind each engagement. */
     /* Same 3-column grid and gap as the boxes above: the heading column is exactly as wide as box 1 (it stops at box 1's right outer edge)
        and the text starts on box 2's left edge and runs to the right edge of box 3. */
+    #how-i-engage .engage-note { margin: 0.75rem 0 0; max-width: 42rem; color: var(--ink-50); font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; }
     .network-note { margin-top: 3rem; display: grid; grid-template-columns: 1fr; gap: 1rem 1.5rem; position: relative; z-index: 1; }
     @media (min-width: 640px) { .network-note { grid-template-columns: repeat(2, 1fr); align-items: start; } }
     @media (min-width: 1024px) { .network-note { grid-template-columns: repeat(3, 1fr); } .network-note > p { grid-column: 2 / -1; } }
     .network-note .eyebrow { margin-bottom: 0.75rem; }
     .network-note h3 { font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin: 0; max-width: 18.5rem; text-wrap: balance; }   /* narrow heading column, ending about where the 's' of 'experts' used to sit */
     .network-note > p { margin: 0; font-size: clamp(0.95rem, 0.85rem + 0.6vw, 1.125rem); line-height: 1.7; color: var(--ink-50); }
-    .cap-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2rem; perspective: 1200px; position: relative; z-index: 1; }
-    @media (min-width: 640px) { .cap-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1024px) { .cap-grid { grid-template-columns: repeat(3, 1fr); } }
-    .cap-card { position: relative; padding: 2rem; border: 1px solid var(--border); overflow: hidden; background: rgba(255,255,255,0.015); transform-style: preserve-3d; will-change: transform; transition: border-color 0.3s ease, box-shadow 0.35s ease, transform 0.15s ease-out; }
-    .cap-card:hover { border-color: rgba(0,229,255,0.35); box-shadow: 0 20px 44px rgba(0,229,255,0.07); }
     .cap-card-glow { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; background: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 50%), rgba(0,229,255,0.10), transparent 70%); }
     .cap-card:hover .cap-card-glow, .gap-card:hover .cap-card-glow, .engage-card:hover .cap-card-glow { opacity: 1; }
-    .cap-card-num { position: absolute; top: 1.25rem; right: 1.5rem; font-size: 2.75rem; font-weight: 800; color: rgba(255,255,255,0.04); line-height: 1; transition: color 0.4s ease; pointer-events: none; }
-    .cap-card:hover .cap-card-num { color: rgba(0,229,255,0.16); }
     .cap-card-icon {
       position: relative; z-index: 1; width: 3.25rem; height: 3.25rem; border-radius: 50%;
       background: radial-gradient(circle at 35% 30%, rgba(0,229,255,0.16), rgba(0,229,255,0.04) 70%);
@@ -936,14 +914,6 @@
       content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgba(0,229,255,0.12);
       transition: inset 0.45s var(--ease-out-expo), border-color 0.3s ease;
     }
-    .cap-card:hover .cap-card-icon::before { inset: -9px; border-color: rgba(0,229,255,0.3); }
-    .cap-card:nth-child(1) .cap-card-icon { box-shadow: 0 0 16px rgba(0,229,255,0.08); }
-    .cap-card:nth-child(2) .cap-card-icon { box-shadow: 0 0 20px rgba(0,229,255,0.12); }
-    .cap-card:nth-child(3) .cap-card-icon { box-shadow: 0 0 14px rgba(0,229,255,0.09); }
-    .cap-card:nth-child(4) .cap-card-icon { box-shadow: 0 0 22px rgba(0,229,255,0.13); }
-    .cap-card:nth-child(5) .cap-card-icon { box-shadow: 0 0 16px rgba(0,229,255,0.09); }
-    .cap-card:nth-child(6) .cap-card-icon { box-shadow: 0 0 20px rgba(0,229,255,0.11); }
-    .cap-card:hover .cap-card-icon { transform: scale(1.12) rotate(-6deg); background: rgba(0,229,255,0.16); border-color: rgba(0,229,255,0.45); box-shadow: 0 0 28px rgba(0,229,255,0.22); }
     /* A single ripple per hover, like a data packet firing off the icon —
        not a looping pulse, so it reads as a response to the hover rather
        than ambient noise competing with the rest of the card. */
@@ -951,7 +921,6 @@
       content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--cyan);
       opacity: 0; pointer-events: none;
     }
-    .cap-card:hover .cap-card-icon::after { animation: cap-icon-ripple 0.7s var(--ease-out-expo); }
     /* The same icon behaviour on every box that has one: How I Engage cards and the stats boxes. */
     .engage-card:hover .cap-card-icon::before { inset: -9px; border-color: rgba(0,229,255,0.3); }
     .engage-card:hover .cap-card-icon { transform: scale(1.12) rotate(-6deg); background: rgba(0,229,255,0.16); border-color: rgba(0,229,255,0.45); box-shadow: 0 0 28px rgba(0,229,255,0.22); }
@@ -967,16 +936,9 @@
        (not box-shadow, which the nth-child rules above already own) so it
        layers on top additively regardless of which card it is. */
     .cap-card-icon { filter: drop-shadow(0 0 calc(var(--proximity, 0) * 14px) rgba(0,229,255, calc(var(--proximity, 0) * 0.6))); }
-    @media (prefers-reduced-motion: reduce) { .cap-card:hover .cap-card-icon::after { animation: none; } }
-    .cap-card h3 { position: relative; z-index: 1; font-size: 1.15rem; font-weight: 700; margin: 0 0 0.75rem; }
-    .cap-card p { position: relative; z-index: 1; font-size: 0.875rem; line-height: 1.65; color: var(--ink-50); margin: 0; }
     .cap-card-icon svg > :first-child { stroke-dasharray: 60; stroke-dashoffset: 60; transition: stroke-dashoffset 0.7s var(--ease-out-expo); }
-    .cap-grid.in-view .cap-card-icon svg > :first-child { stroke-dashoffset: 0; }
     /* The draw-on above is only triggered by .cap-grid, so on the How I Engage cards the first stroke of every icon stayed hidden. */
     .engage-grid .cap-card-icon svg > :first-child { stroke-dasharray: none; stroke-dashoffset: 0; }
-    @keyframes cap-part-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    .cap-part { opacity: 0; }
-    .cap-grid.in-view .cap-card .cap-part { animation: cap-part-in 0.6s var(--ease-out-expo) forwards; animation-delay: calc(var(--card-i, 0) * 90ms + var(--part-i, 0) * 55ms); }
 
     /* How I Engage / How I Work */
     .engage-section { padding: 3.5rem 0; background: var(--bg); }
@@ -1167,10 +1129,7 @@
       .gap-connectors line { transition: none !important; stroke-dashoffset: 0 !important; }
       .engage-card:hover, .gap-card:hover { transform: none; }
       .click-ripple { display: none; }
-      .cap-card { transform: none !important; }
-      .cap-part { opacity: 1 !important; animation: none !important; }
       .cap-card-icon svg > :first-child { stroke-dashoffset: 0 !important; transition: none !important; }
-      .cap-rail-fill { transition: none !important; }
     }
 
     /* ======================================================================
@@ -1188,17 +1147,16 @@
        step at every section boundary. These strips fade the section's own background back in over its top and bottom edges, so the
        glow dissolves instead of being cut. (Content sits above them: it is in .wrap, which has z-index 1.) */
     /* each of these sections is its own stacking context, so the glow (-2) and edge fades (-1) stay beneath its content */
-    #trusted-by, #private-equity, #capabilities { isolation: isolate; }
+    #trusted-by, #private-equity { isolation: isolate; }
     #trusted-by, #private-equity { --sec-bg: var(--bg-alt); }
-    #capabilities { --sec-bg: var(--bg); }
-    #trusted-by::before, #private-equity::before, #capabilities::before,
-    #trusted-by::after,  #private-equity::after,  #capabilities::after {
+    #trusted-by::before, #private-equity::before,
+    #trusted-by::after,  #private-equity::after {
       content: ''; position: absolute; left: 0; right: 0; height: 160px; pointer-events: none; z-index: -1;
     }
-    #trusted-by::before, #private-equity::before, #capabilities::before { top: 0; background: linear-gradient(to bottom, var(--sec-bg), transparent); }
-    #trusted-by::after,  #private-equity::after,  #capabilities::after  { bottom: 0; background: linear-gradient(to top, var(--sec-bg), transparent); }
-    .capability-section, .clients-section { position: relative; overflow: hidden; }
-    .capability-section > .wrap, .clients-section > .wrap { position: relative; z-index: 1; }
+    #trusted-by::before, #private-equity::before { top: 0; background: linear-gradient(to bottom, var(--sec-bg), transparent); }
+    #trusted-by::after,  #private-equity::after  { bottom: 0; background: linear-gradient(to top, var(--sec-bg), transparent); }
+    .clients-section { position: relative; overflow: hidden; }
+    .clients-section > .wrap { position: relative; z-index: 1; }
 
 
 
@@ -1527,21 +1485,22 @@
         <div class="reveal">
           <p class="eyebrow">How I Engage</p>
           <h2 class="heading-underline no-start-bar">Choose the <span class="kw-underline">level</span> of involvement you need</h2>
+          <p class="engage-note">AI and automation are levers, used where the case is proven, never the starting point.</p>
         </div>
         <div class="engage-grid reveal-group">
-          <div class="engage-card reveal">
+<div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a1 1 0 0 1 1-1h13.3a1 1 0 0 1 .858 1.515l-2.7 4.485 2.7 4.485A1 1 0 0 1 18.3 15H6"/></svg></div>
             <h3>Interim transformation</h3>
             <p class="body">Working alongside leadership teams from first diagnosis through to benefits delivered. Priorities set, the operating model working and the results measured.</p>
           </div>
-          <div class="engage-card reveal">
+<div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
             <h3>Operating model and shared services</h3>
             <p class="body">One way of working across sales, operations and finance, with work moved to the right locations, quality held and productivity measured.</p>
           </div>
-          <div class="engage-card reveal">
+<div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 7"/></svg></div>
             <h3>Separation and transition</h3>
@@ -1550,46 +1509,23 @@
           <div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg></div>
-            <h3>Private equity</h3>
+            <h3>Acquisition integration and exit readiness</h3>
             <p class="body">Acquisition integration, carve-outs, programme resets and exit readiness. Value protected and service held, so the business is ready for its next owner.</p>
           </div>
           <div class="engage-card reveal">
             <div class="cap-card-glow"></div>
-            <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
-            <h3>Automation and AI where they pay back</h3>
-            <p class="body">Judgement on where work should sit and what should be automated, in partnership with digital and product leaders. Used where the case is proven, never as the starting point.</p>
+            <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div>
+            <h3>Sourcing and global delivery</h3>
+            <p class="body">Work moved to the right locations at lower cost, with service quality held. Requirements, RFI and RFP, partner selection and contract terms through to benefits delivered, with partners held to the business requirements.</p>
           </div>
-          <div class="engage-card reveal">
+<div class="engage-card reveal">
             <div class="cap-card-glow"></div>
             <div class="cap-card-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
             <h3>Board advisory and NED</h3>
             <p class="body">An independent voice on where change will pay back. Testing the plan, challenging assumptions and keeping decisions grounded in commercial reality.</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Services: Capability Pillars -->
-    <section id="capabilities" class="capability-section"><div class="section-glow section-glow-a"></div><div class="section-glow section-glow-b"></div>
-      <div class="wrap">
-        <div class="reveal">
-          <p class="eyebrow">My Capability Pillars</p>
-          <h2 class="heading-underline">From strategy to adoption, across transformation, data and AI</h2>
-        </div>
-        <div class="cap-rail">
-          <div class="cap-rail-line"><div class="cap-rail-fill" id="capRailFill"></div></div>
-          <div class="cap-rail-ticks" id="capRailTicks">
-            <span>Strategy</span><span>Data</span><span>AI</span><span>Delivery</span><span>Governance</span><span>Adoption</span>
-          </div>
-        </div>
-        <div class="cap-grid" id="capGrid">
-          <div class="cap-card" style="--card-i:0"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">01</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div><h3 class="cap-part" style="--part-i:1">Operating model</h3><p class="cap-part" style="--part-i:2">One way of working across finance, operations and technology, with productivity measured</p></div>
-          <div class="cap-card" style="--card-i:1"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">02</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><h3 class="cap-part" style="--part-i:1">Global delivery</h3><p class="cap-part" style="--part-i:2">Work moved to the right locations at lower cost, with service quality held</p></div>
-          <div class="cap-card" style="--card-i:2"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">03</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 7"/></svg></div><h3 class="cap-part" style="--part-i:1">Sourcing end to end</h3><p class="cap-part" style="--part-i:2">Requirements, RFI and RFP, partner selection and contract terms through to benefits delivered, with partners held to the business requirements</p></div>
-          <div class="cap-card" style="--card-i:3"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">04</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><h3 class="cap-part" style="--part-i:1">Integration and exit readiness</h3><p class="cap-part" style="--part-i:2">Acquisitions integrated at pace, and businesses ready for their next owner</p></div>
-          <div class="cap-card" style="--card-i:4"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">05</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 class="cap-part" style="--part-i:1">Governance and Risk</h3><p class="cap-part" style="--part-i:2">Guardrails that let the board say yes. Clear accountability, managed risk and responsible use of data and AI, without slowing delivery.</p></div>
-          <div class="cap-card" style="--card-i:5"><div class="cap-card-glow"></div><div class="cap-part cap-card-num" style="--part-i:0">06</div><div class="cap-card-icon cap-part" style="--part-i:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><h3 class="cap-part" style="--part-i:1">Adoption and Change</h3><p class="cap-part" style="--part-i:2">People who actually use what is built. Training, communication and change support that turn delivery into lasting adoption.</p></div>
-        </div>
         <div class="network-note reveal">
           <div>
             <p class="eyebrow">Extended Network</p>
@@ -2475,16 +2411,7 @@
     }, { threshold: 0.15 });
     revealEls.forEach(el => revealIo.observe(el));
 
-    // ---------- Capability Pillars: entrance cascade + progress rail ----------
-    const capGrid = document.getElementById('capGrid');
-    const capGridIo = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('in-view'); capGridIo.unobserve(entry.target); }
-      });
-    }, { threshold: 0.15 });
-    if (capGrid) capGridIo.observe(capGrid);
-
-    const capSectionEl = document.getElementById('capabilities');
+    const capSectionEl = document.getElementById('how-i-engage');   // the icon proximity glow now runs on the How I Engage cards
 
 // ---------- Contact: live local time per location ----------
     (function () {
@@ -2502,7 +2429,7 @@
       setInterval(updateLocationTimes, 30000);
     })();
 
-// ---------- Capability Pillars: cursor-proximity icon glow ----------
+// ---------- Cursor-proximity icon glow (How I Engage cards) ----------
     if (capSectionEl && !isCoarsePointer) {
       const capIcons = Array.from(capSectionEl.querySelectorAll('.cap-card-icon'));
       let proximityTicking = false;
@@ -2610,43 +2537,6 @@
       });
     }, { threshold: 0.15 });
     if (contactSection) contactGlowIo.observe(contactSection);
-
-    const capSection = document.getElementById('capabilities');
-    const capRailFill = document.getElementById('capRailFill');
-    const capRailTicks = document.querySelectorAll('#capRailTicks span');
-    if (capSection && capRailFill) {
-      function updateCapRail() {
-        const rect = capSection.getBoundingClientRect();
-        const total = rect.height - window.innerHeight;
-        const passed = -rect.top;
-        const progress = total > 0 ? Math.min(Math.max(passed / total, 0), 1) : 0;
-        capRailFill.style.width = (progress * 100) + '%';
-        const activeIdx = Math.min(Math.floor(progress * 6), 5);
-        capRailTicks.forEach((t, i) => t.classList.toggle('active', i === activeIdx && progress > 0 && progress < 1));
-      }
-      let capRailTicking = false;
-      window.addEventListener('scroll', () => {
-        if (capRailTicking) return;
-        capRailTicking = true;
-        requestAnimationFrame(() => { updateCapRail(); capRailTicking = false; });
-      }, { passive: true });
-      updateCapRail();
-
-      // Move across the six boxes and the rail follows: its fill runs to the matching label and that label lights up.
-      // Leaving the grid hands control back to the scroll-driven fill. (Touch devices keep the scroll-driven version.)
-      const capCards = document.querySelectorAll('#capGrid .cap-card'), capRail = document.querySelector('.cap-rail');
-      if (capCards.length && capRail && !isCoarsePointer) {
-        const stopAt = i => { const t = capRailTicks[i], r = capRail.getBoundingClientRect(), tr = t.getBoundingClientRect(); return Math.min(Math.max((tr.left + tr.width / 2 - r.left) / r.width, 0), 1); };
-        capCards.forEach((card, i) => {
-          card.addEventListener('mouseenter', () => {
-            capRail.classList.add('live');
-            capRailFill.style.width = (stopAt(i) * 100) + '%';
-            capRailTicks.forEach((t, k) => t.classList.toggle('active', k === i));
-          });
-        });
-        document.getElementById('capGrid').addEventListener('mouseleave', () => { capRail.classList.remove('live'); updateCapRail(); });
-      }
-    }
 
     // ---------- Gap-diagram connectors ----------
     document.querySelectorAll('.gap-diagram').forEach(el => {
