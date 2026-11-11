@@ -120,14 +120,14 @@
   .top.scrolled { border-bottom-color: var(--rule); }
   .top .wrap { padding-block: 0; min-height: var(--bar); display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; }
   .mark { display: inline-flex; align-items: center; gap: 12px; font: 800 1.02rem var(--display); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
-  .mark b { color: var(--orange); font-weight: 800; }
+  .mark img { display: block; width: 220px; height: auto; }
   .nav { display: flex; align-items: center; gap: 28px; font-size: 0.98rem; font-weight: 500; }
   .nav a:not(.btn) { text-decoration: none; position: relative; padding: 6px 0; }
   .nav a:not(.btn)::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
   .nav a:not(.btn):hover::after { transform: none; }
   .nav .btn { padding: 10px 18px 10px 20px; font-size: 0.95rem; box-shadow: none; }
   @media (max-width: 760px) { .nav a:not(.btn) { display: none; } }
-  @media (max-width: 420px) { .mark { font-size: 0.86rem; letter-spacing: 0.12em; gap: 9px; } .nav .btn { padding: 9px 14px 9px 16px; font-size: 0.9rem; } }
+  @media (max-width: 420px) { .mark img { width: 160px; } .nav .btn { padding: 9px 14px 9px 16px; font-size: 0.9rem; } }
 
   /* opening: the live ripple */
   .hero { position: relative; overflow: hidden; }
@@ -268,7 +268,7 @@
 
 <header class="top" id="bar">
   <div class="wrap">
-    <a class="mark" href="#top">Ripple <b>Fusion</b></a>
+    <a class="mark" href="#top" aria-label="Ripple Fusion, back to the top"><img src="images/wordmark.webp" alt="Ripple Fusion" width="496" height="34"></a>
     <nav class="nav" aria-label="Sections">
       <a href="#work">The work</a>
       <a href="#engagement">How it runs</a>
