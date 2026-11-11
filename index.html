@@ -245,7 +245,7 @@
     .hero {
       position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
       overflow: hidden;   /* (no 3D perspective here: it forced a heavy GPU layer for the whole hero) */
-      padding: 8rem 0 7rem;
+      padding: 8rem 0 6rem;
     }
     .hero-bg-wrap { position: absolute; inset: 0; will-change: transform; }
     /* Every looping/ambient effect on the house (glow breathing, ripple
@@ -581,7 +581,7 @@
     .founder-stats { margin-top: 1.25rem; margin-bottom: 2rem; }
     .hero > .wrap { position: relative; z-index: 1; }
     .hero-copy { text-align: center; max-width: 62rem; }
-    .hero-title { margin: 0 auto 1.75rem; max-width: 62rem; font-size: clamp(1.6rem, 2.9vw, 2.6rem); line-height: 1.15; font-weight: 800; text-wrap: balance; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+    .hero-title { margin: 0 auto 2.75rem; max-width: 62rem; font-size: clamp(1.6rem, 2.9vw, 2.6rem); line-height: 1.15; font-weight: 800; text-wrap: balance; text-shadow: 0 2px 20px rgba(0,0,0,0.4); }
     .nowrap { white-space: nowrap; }
     .hero-sub { margin: 0 auto 1.75rem; max-width: 40rem; color: var(--ink-70); font-size: clamp(0.95rem, 1.2vw, 1.1rem); line-height: 1.6; }
     .hero-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
@@ -1232,9 +1232,9 @@
     /* ---------- Phone spacing pass (max 640px only; desktop untouched) ---------- */
     @media (max-width: 640px) {
       /* keep the first screen full height (so the next section never peeks in at the bottom) and lift the headline clear of Safari's bottom bar */
-      .hero { min-height: 100vh; padding-bottom: calc(10.5rem + env(safe-area-inset-bottom, 0px)); }
+      .hero { min-height: 100vh; padding-bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px)); }
       /* where the browser reports it, lift the headline by exactly the height of Safari's bars (full height minus visible height) plus a margin */
-      @supports (height: 100svh) { .hero { padding-bottom: max(calc(9rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 5rem + env(safe-area-inset-bottom, 0px))); } }
+      @supports (height: 100svh) { .hero { padding-bottom: max(calc(8rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 4rem + env(safe-area-inset-bottom, 0px))); } }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
       .founder-photo { margin-top: -2.5rem; }                         /* the photo has empty space above his head: pull it up */
