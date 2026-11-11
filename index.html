@@ -704,7 +704,7 @@
     .founder { padding: 1rem var(--inset) 0; }
     .founder-grid { display: grid; grid-template-columns: 1fr; gap: 4.5rem; align-items: start; max-width: 60rem; }
     @media (min-width: 900px) { .founder-grid { grid-template-columns: minmax(0, 32rem) 1fr; gap: 6rem; max-width: none; } }
-    /* Every photo container on the page (this one, meet-nina-photo, and
+    /* Every photo container on the page (this one and
        problem-image below) uses the same centering technique now: grid's
        own justify-self/align-self to center the container within its grid
        cell (both axes, every breakpoint), plus display:flex + centered
@@ -716,76 +716,12 @@
     .founder-photo { max-width: 26rem; justify-self: center; align-self: center; display: flex; align-items: center; justify-content: center; }
     @media (min-width: 900px) { .founder-photo { max-width: none; align-self: stretch; align-items: flex-end; transform: translate(-2rem, -2rem); } }
     .founder-hello { font-size: clamp(3rem, 9vw, 6.5rem); font-weight: 800; color: var(--cyan); margin: 0 0 0.5rem; line-height: 1; }
-    /* "Hi there!" is longer than "Hello", so Nina's heading is a little smaller to stay on one line. */
-    #meet-nina .founder-hello { font-size: clamp(2.6rem, 8vw, 4.6rem); white-space: nowrap; }
     .founder-name { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 600; margin: 0 0 1.75rem; }
-    /* Typewriter cursor — a steady blink, only "on" while text is actively
-       being typed in by JS (see the intro cutscene script). */
-    .nina-cursor { display: inline-block; width: 2px; height: 1em; background: var(--cyan); margin-left: 2px; vertical-align: -0.15em; opacity: 0; }
-    .nina-cursor.typing { opacity: 1; animation: nina-cursor-blink 0.8s steps(1) infinite; }
-    @keyframes nina-cursor-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
-    /* Photo focus-pull: starts soft/out-of-focus and slightly zoomed, then
-       resolves to sharp full scale as the section arrives — a small
-       cinematic beat before the typewriter line starts. */
-    .meet-nina-photo img, .meet-nina-photo video, .meet-nina-photo canvas { filter: blur(10px); transform: scale(1.08); opacity: 0.5; transition: filter 1.3s var(--ease-out-expo), transform 1.3s var(--ease-out-expo), opacity 1.3s var(--ease-out-expo); }
-    #meet-nina.in-view .meet-nina-photo img, #meet-nina.in-view .meet-nina-photo video, #meet-nina.in-view .meet-nina-photo canvas { filter: blur(0); transform: scale(1); opacity: 1; }
-    /* The "say it back" dots — just the 3 jumping dots, inline right after
-       the sentence, no button chrome or label. Still clickable: Nina
-       replies inline underneath. */
-    .nina-ask-dots-inline { display: inline-flex; align-items: center; gap: 4px; margin-left: 0.5rem; padding: 0; border: none; background: none; cursor: pointer; vertical-align: middle; }
-    .nina-ask-dots-inline span { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); opacity: 0.4; filter: drop-shadow(0 0 3px rgba(0,229,255,0.7)); animation: nina-ask-bounce 1.3s ease-in-out infinite; }
-    .nina-ask-dots-inline span:nth-child(1) { animation-delay: 0s; }
-    .nina-ask-dots-inline span:nth-child(2) { animation-delay: 0.15s; }
-    .nina-ask-dots-inline span:nth-child(3) { animation-delay: 0.3s; }
-    .nina-ask-dots-inline:hover span, .nina-ask-dots-inline:focus-visible span { animation-duration: 0.6s; }
-    @keyframes nina-ask-bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-4px); opacity: 1; } }
-    .nina-ask-response { display: block; margin-top: 0.5rem; font-size: 0.9rem; font-style: italic; color: var(--cyan); opacity: 0; transform: translateY(-4px); transition: opacity 0.4s ease, transform 0.4s ease; }
-    .nina-ask-response.show { opacity: 1; transform: translateY(0); }
-    /* A quiet "scanning" sweep across Nina's photo on hover — a small
-       tech/AI cue rather than a plain static portrait. */
-    .nina-scan { position: absolute; left: 0; right: 0; top: -20%; height: 20%; background: linear-gradient(180deg, transparent, rgba(0,229,255,0.35), transparent); opacity: 0; pointer-events: none; }
-    .meet-nina-photo:hover .nina-scan { opacity: 1; animation: nina-scan-sweep 1.6s ease-in-out; }
-    @keyframes nina-scan-sweep { from { top: -20%; } to { top: 100%; } }
-    /* Nina's actual photo — sits over the orb video, hidden until the video
-       finishes its one play-through (see the "photo reveal" JS), then
-       crossfades in and stays, echoing the orb-then-photo reveal used on
-       the sibling Next.js site's Hero. A background-image div rather than
-       an <img> so it doesn't get caught by the generic photo focus-pull
-       rule above (which targets `img`/`video` tags directly). */
-    .nina-reveal-photo { position: absolute; inset: 0; background: url('images/nina.jpg') center/cover no-repeat; opacity: 0; transition: opacity 1.4s ease; z-index: 2; }
-    .meet-nina-photo.nina-revealed .nina-reveal-photo { opacity: 1; }
-    @media (prefers-reduced-motion: reduce) {
-      .nina-ask-dots-inline span { animation: none; opacity: 0.7; }
-      .nina-scan { display: none; }
-      .nina-cursor { display: none; }
-      .meet-nina-photo img, .meet-nina-photo video, .meet-nina-photo canvas { filter: none; transform: none; opacity: 1; transition: none; }
-      .nina-reveal-photo { opacity: 1; transition: none; }
-    }
     .founder-bio p { color: var(--ink-50); margin: 0 0 1.25rem; }
     .founder-photo { border-radius: 0.5rem; overflow: hidden; }
     .founder-photo img { width: 100%; height: auto; display: block; object-fit: cover; margin: auto; }
     @media (min-width: 900px) { .founder-photo img { height: calc(100% - 2rem); } }
 
-    .meet-nina { padding: 3rem var(--inset); }
-    #meet-nina { padding-top: 0; }
-    .meet-nina-bleed { margin-top: -1.5rem; }   /* the pull-up lives on the clipping wrapper, so the "Meet Nina" label is not cut off at its top edge */
-    .meet-nina-grid { display: grid; grid-template-columns: 1fr; gap: 4.5rem; align-items: start; max-width: 60rem; }
-    @media (min-width: 900px) { .meet-nina-grid { grid-template-columns: 3fr 2fr; gap: 6rem; } }
-    .meet-nina-photo { max-width: 26rem; justify-self: center; align-self: center; display: flex; align-items: center; justify-content: center; }
-    @media (min-width: 900px) { .meet-nina-photo { max-width: none; } }
-    .meet-nina-photo { border-radius: 0; overflow: visible; position: relative; aspect-ratio: 498 / 565; z-index: 2; background: transparent; }   /* above the neighbouring sections' edge fades, so the glow crosses into them */
-    /* The orb scene is not boxed in: its canvas extends well past the photo slot (centred on it), so the glow and the burst
-       fade out into the page like the hero's. Overflow is clipped at the section's edges so it can never cause sideways scroll. */
-    /* Same treatment as the sections around it: a full-width solid background, so the page's faint grid doesn't run through here.
-       The orb's canvas overflows its slot on purpose, so clip sideways at the viewport edges only. */
-    .meet-nina-bleed { position: relative; display: flow-root; background: var(--bg); overflow: clip; }   /* the orb's canvas is larger than its slot: clip it to this section so it can never draw over the sections above or below */
-    #meet-nina .meet-nina-photo { width: min(100%, 22rem); }
-    #ninaOrb { position: absolute; left: -80%; top: -65%; width: 260%; height: 230%; margin: 0; pointer-events: none; }
-    .nina-scan { display: none !important; }
-    .meet-nina-photo img, .meet-nina-photo video, .meet-nina-photo canvas { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; margin: auto; }
-    /* A rotating preview of the kind of thing Nina fields — not a real chat,
-       just makes "AI-first digital employee" feel concrete rather than a
-       generic claim. Fades between a few sample questions on a timer. */
     .btn-cyan {
       display: inline-block; padding: 0.9rem 1.75rem; background: var(--cyan); color: #041014;
       border-radius: 999px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.03em;
@@ -869,9 +805,9 @@
     /* The Problem */
     .problem-section { padding: 0 0 1rem; background: var(--bg); }   /* eyebrow lands on the same line as the other menu sections */
     /* Shared body-paragraph size for every long-form prose block on the page
-       (The Problem's .lede, Founder's .founder-bio p, Meet Nina's p.intro) —
+       (The Problem's .lede, Founder's .founder-bio p) —
        previously each had its own one-off value (.lede was a flat 18px with
-       no responsive scaling at all, while founder-bio/meet-nina used
+       no responsive scaling at all, while founder-bio used
        different clamp() ranges), so the same "type" of text rendered at a
        different size in each section, most visibly at tablet/mobile widths
        where the fixed one didn't shrink but the others did. */
@@ -886,7 +822,7 @@
     /* (no blur-in on this section: a blur filter right under the hero's edge is a heavy GPU layer and tore on some graphics cards) */
     .problem-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; }
     @media (min-width: 900px) { .problem-grid { grid-template-columns: 3fr 2fr; gap: 4rem; } }
-    /* Same centering technique as founder-photo/meet-nina-photo: grid's
+    /* Same centering technique as founder-photo: grid's
        justify-self/align-self centers the container within its cell (both
        axes, every breakpoint) instead of the old margin:auto-on-mobile,
        margin:0-0-0-auto-on-desktop (right-flush) split. .problem-grid keeps
@@ -1337,7 +1273,6 @@
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
       .founder-photo { margin-top: -2.5rem; }                         /* the photo has empty space above his head: pull it up */
-      .meet-nina-grid { gap: 1rem; }                                  /* the orb sits close under the text */
       #private-equity .client-logo { width: 100%; }                   /* two tiles per row, like Trusted By */
       .contact-grid { gap: 2rem; }
       #houseHero .hero-headline { font-size: clamp(0.8rem, 4vw, 1.2rem); white-space: nowrap; }   /* the longer phrases stay on one line */
@@ -1407,7 +1342,7 @@
         <a href="#contact" data-nav="contact">Contact</a>
       </div>
       <div class="nav-right">
-        <a href="#contact" class="btn-ghost">Speak with Nina</a>
+        <a href="#contact" class="btn-ghost">Speak with Ian</a>
         <button type="button" class="nav-mobile-toggle" id="navMobileToggle" aria-expanded="false" aria-controls="navMobileOverlay" aria-label="Menu">
           <span></span><span></span><span></span>
         </button>
@@ -1420,7 +1355,7 @@
     <a href="#the-problem">About</a>
     <a href="#how-i-engage">Services</a>
     <a href="#contact">Contact</a>
-    <a href="#contact" class="btn-cyan">Speak with Nina</a>
+    <a href="#contact" class="btn-cyan">Speak with Ian</a>
   </div>
 
   <main>
@@ -1575,27 +1510,6 @@
       </div>
     </section>
 
-    <div class="meet-nina-bleed">
-    <section id="meet-nina" class="meet-nina wrap">
-      <div class="meet-nina-grid">
-        <div>
-          <div class="reveal">
-            <p class="eyebrow">Meet Nina</p>
-            <h2 class="founder-hello">Hi there!</h2>
-            <p class="founder-name"><span id="ninaTypedName">Hi, I'm Nina. How can I help today?</span><span class="nina-cursor" id="ninaCursor" aria-hidden="true"></span></p>
-          </div>
-          <div class="founder-bio reveal-group">
-            <p class="reveal">Nina is my digital assistant. She helps me run my service company.</p>
-            <p class="reveal">Click to say &ldquo;hello&rdquo;, she might just say it back<button type="button" class="nina-ask-dots-inline" id="ninaAsk" aria-label="Say hello to Nina"><span></span><span></span><span></span></button></p>
-            <span class="nina-ask-response" id="ninaAskResponse" aria-live="polite"></span>
-          </div>
-        </div>
-        <div class="meet-nina-photo">
-          <canvas id="ninaOrb" role="img" aria-label="Nina, Ripple Fusion's Digital Employee, shown as a glowing particle orb"></canvas>
-        </div>
-      </div>
-    </section>
-    </div>
 
 
     <!-- Services: How I Engage -->
@@ -1686,8 +1600,8 @@
       <div class="wrap">
         <div class="contact-intro reveal">
           <p class="eyebrow">Get In Touch</p>
-          <h2>Speak With <span class="grad">Nina Today</span> <span class="tag">to create your ripple</span></h2>
-          <p class="lead">Ready to rethink how your transformation, data and AI actually work?</p>
+          <h2>Speak with <span class="grad">Ian</span></h2>
+          <p class="lead">Tell me what needs to change and by when.</p>
         </div>
 
         <div class="contact-grid">
@@ -1746,7 +1660,7 @@
                   <div class="field"><label for="cf-email">Email Address</label><input id="cf-email" name="email" type="email" placeholder="jane@company.com" required /></div>
                 </div>
                 <div class="field"><label for="cf-company">Company</label><input id="cf-company" name="company" type="text" placeholder="Acme Corporation" /></div>
-                <div class="field"><label for="cf-message">Message</label><textarea id="cf-message" name="message" rows="5" placeholder="Tell us about your data challenges..." required></textarea></div>
+                <div class="field"><label for="cf-message">Message</label><textarea id="cf-message" name="message" rows="5" placeholder="What needs to change, and by when?" required></textarea></div>
                 <p class="form-error" id="cf-error" role="alert" style="display:none;"></p>
                 <button type="submit" class="submit-btn" id="cf-submit" data-magnetic>
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13" stroke="currentColor" stroke-width="2" fill="none"/></svg>
@@ -1846,7 +1760,7 @@
 
   // ---------- Orb hero ----------
   // Cyan particles gather into a slowly morphing orb that ripples and
-  // stretches, then melt into a portrait of Nina built from her own photo.
+  // stretches, then melt into a portrait built from a photo.
   // The portrait holds, bursts outward, and the whole thing resets and gathers
   // again. A second stream of particles assembles the Ripple Fusion wordmark
   // beneath it, and the headline types itself in at the bottom of the page.
@@ -1860,7 +1774,7 @@
     const small = window.matchMedia('(max-width: 640px)').matches;
     const N = o.N || (small ? 2400 : 4500);
     const SLOW = 0.6;          // morph speed. 1 = the original intro's pace
-    // One loop (seconds): gather + orb, melt into Nina, hold, explode, reset.
+    // One loop (seconds): gather + orb, melt into the portrait, hold, explode, reset.
     const CYCLE = 19, T_FACE0 = 6, T_FACE1 = 9, T_BURST = 16, T_BURST_LEN = 1.4;
     let W = 0, H = 0, dpr = 1;
     function resize() {
@@ -1942,7 +1856,7 @@
     const NP = pts.length;
 
 
-    // ---- Nina's portrait: her photo sampled into particle targets ----
+    // ---- Portrait: the photo sampled into particle targets ----
     // Brighter pixels attract more particles, so tone comes from density as well as brightness.
     let photoReady = false;
     const photo = new Image();
@@ -1972,7 +1886,7 @@
         photoReady = true;
       } catch (e) { photoReady = false; }
     };
-    photo.src = 'images/nina.jpg';
+    photo.src = 'images/hero-portrait.jpg';
 
     // Wordmark: the real logo's pixels, sampled into particles.
     let word = [], wordAspect = 65 / 526, wordReadyAt = 0;
@@ -2012,7 +1926,7 @@
       const t = reduce ? 4 : (now - start) / 1000;   // reduced motion: settle on a still orb
       const mt = t * SLOW;                            // slowed clock, drives only the morphing
       const cyc = Math.floor(t / CYCLE), tc = t - cyc * CYCLE;   // time within this loop
-      const f = reduce ? 0 : smooth(T_FACE0, T_FACE1, tc);       // 0 = orb, 1 = Nina
+      const f = reduce ? 0 : smooth(T_FACE0, T_FACE1, tc);       // 0 = orb, 1 = portrait
       const bt = reduce ? 0 : Math.min(Math.max((tc - T_BURST) / T_BURST_LEN, 0), 1);   // explosion progress
       const burst = bt * bt;
       const photoMode = photoReady;
@@ -2129,12 +2043,6 @@
       (async () => { await wait(1800); for (let n = 0; ; n = (n + 1) % phrases.length) { const full = phrases[n]; await type(full); await wait(4000); await undo(full); await wait(500); } })();   // each phrase: type, hold, undo, then the next, round and round
     })();
     createOrbScene(document.getElementById('orbCanvas'), {});
-  })();
-
-  // Meet Nina: the same orb, melting into her portrait, without the wordmark
-  (function () {
-    const small = window.matchMedia('(max-width: 640px)').matches;
-    createOrbScene(document.getElementById('ninaOrb'), { cy: 0.5, R: 0.13, N: small ? 1800 : 3000, NB: small ? 7000 : 13000, wordmark: false, haloFrac: 0.3, haloAlpha: 0.06, pauseOffscreen: true });
   })();
 
   // Land precisely on the section named in the URL (e.g. #contact) once the page has settled.
@@ -2662,62 +2570,6 @@
       });
     }, { threshold: 0.2 });
     peSections.forEach(el => peSectionIo.observe(el));
-
-// ---------- Meet Nina: intro cutscene — photo focus-pull + typewriter ----------
-    (() => {
-      const section = document.getElementById('meet-nina');
-      const nameEl = document.getElementById('ninaTypedName');
-      const cursor = document.getElementById('ninaCursor');
-      if (!section || !nameEl || !cursor) return;
-      const fullText = nameEl.textContent;
-      if (prefersReducedMotion) return;
-      let started = false;
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting || started) return;
-          started = true;
-          section.classList.add('in-view');
-          nameEl.textContent = '';
-          cursor.classList.add('typing');
-          // Loops forever once triggered: type the line in full, hold, then
-          // erase it right-to-left and retype — a repeating cutscene beat
-          // rather than a one-shot intro.
-          const HOLD_FULL = 2200;
-          const HOLD_EMPTY = 500;
-          let i = 0;
-          const typeStep = () => {
-            i++;
-            nameEl.textContent = fullText.slice(0, i);
-            if (i < fullText.length) setTimeout(typeStep, 55);
-            else setTimeout(eraseStep, HOLD_FULL);
-          };
-          const eraseStep = () => {
-            i--;
-            nameEl.textContent = fullText.slice(0, i);
-            if (i > 0) setTimeout(eraseStep, 35);
-            else setTimeout(typeStep, HOLD_EMPTY);
-          };
-          setTimeout(typeStep, 900); // let the photo's focus-pull read first
-          io.unobserve(section);
-        });
-      }, { threshold: 0.3 });
-      io.observe(section);
-    })();
-
-    // ---------- Meet Nina: standalone "say hello" trigger ----------
-    (() => {
-      const askBtn = document.getElementById('ninaAsk');
-      const response = document.getElementById('ninaAskResponse');
-      if (!askBtn || !response) return;
-      const replies = ['Hello! 👋', 'Hi there, I’m Nina.', 'Hey, good to meet you.'];
-      let hideTimeout;
-      askBtn.addEventListener('click', () => {
-        response.textContent = replies[Math.floor(Math.random() * replies.length)];
-        response.classList.add('show');
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(() => response.classList.remove('show'), 3200);
-      });
-    })();
 
 // ---------- Trusted By: scroll-reactive energy on the neon line ----------
     (() => {
