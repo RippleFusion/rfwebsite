@@ -1245,6 +1245,15 @@
       .contact-section { padding-top: 1.5rem; }                       /* no big black gap above "Get in touch" when you land on Contact */
       #privacy-open { margin-left: -6px; }                            /* line the Privacy link up with the copyright text */
     }
+    /* ---------- Phone on its side: orb on the left, text on the right ---------- */
+    @media (orientation: landscape) and (max-height: 559px) {
+      .hero { min-height: 100vh; min-height: 100svh; justify-content: center; align-items: flex-end; padding: 4.5rem 0 1.25rem; }
+      .hero > .wrap.hero-copy { width: 56%; max-width: none; margin: 0 0 0 auto; padding-left: 1rem; padding-right: max(2rem, env(safe-area-inset-right, 0px)); }
+      .hero-title { font-size: clamp(1.15rem, 3.4vw, 1.7rem); margin-bottom: 1rem; }
+      .hero-sub { font-size: 0.85rem; line-height: 1.5; }
+    }
+
+    @media (max-width: 759px) { .nav-inner { grid-template-columns: 1fr auto; } }   /* menu button at the right edge on any width where it replaces the links (phone on its side too) */
   </style>
 </head>
 <body>
@@ -1703,17 +1712,19 @@
     // One loop (seconds): gather + orb, melt into the portrait, hold, explode, reset.
     const CYCLE = 19, T_FACE0 = 6, T_FACE1 = 9, T_BURST = 16, T_BURST_LEN = 1.4;
     let W = 0, H = 0, dpr = 1;
+    let lay = null;   // optional {cx, cy, R} in pixels from o.layout(W,H): lets the page place the orb relative to its own text
     function resize() {
       W = cv.clientWidth; H = cv.clientHeight;
       // cap the backing store (about 4 megapixels): on a big high-density monitor the full-size canvas ran to tens of MB and could glitch
       dpr = Math.max(1, Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(4e6 / Math.max(1, W * H))));
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      lay = o.layout ? o.layout(W, H) : null;
     }
     // The glow behind the orb is a pre-rendered, DITHERED texture rather than a canvas gradient. A smooth gradient on a dark
     // background is quantised by the display into visible concentric rings; random rounding of the glow's alpha breaks those
     // bands up into fine noise the eye can't see. It's rebuilt only when the canvas is resized.
     let glow = null, glowTimer = 0, glowX = 0, glowY = 0;
-    function glowGeom() { return { cx: W / 2, cy: H * (o.cy || (small ? 0.37 : 0.4)), R0: Math.min(W, H) * (o.R || (small ? 0.31 : 0.23)) }; }
+    function glowGeom() { if (lay) return { cx: lay.cx, cy: lay.cy, R0: lay.R }; return { cx: W / 2, cy: H * (o.cy || (small ? 0.37 : 0.4)), R0: Math.min(W, H) * (o.R || (small ? 0.31 : 0.23)) }; }
     function buildGlow() {
       const pw = cv.width, ph = cv.height; if (!pw || !ph) return;
       const gm = glowGeom(), radius = (o.haloFrac ? Math.min(W, H) * o.haloFrac : gm.R0 * 2.4) * dpr;
@@ -1860,7 +1871,7 @@
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, W, H);
       // the orb fills the page above the headline; the wordmark sits beneath it
-      const cx = W / 2, cy = H * (o.cy || (small ? 0.37 : 0.4)), R0 = Math.min(W, H) * (o.R || (small ? 0.31 : 0.23)), R = R0 * (1 + (photoMode ? 0 : 0.25) * f);
+      const cx = lay ? lay.cx : W / 2, cy = lay ? lay.cy : H * (o.cy || (small ? 0.37 : 0.4)), R0 = lay ? lay.R : Math.min(W, H) * (o.R || (small ? 0.31 : 0.23)), R = R0 * (1 + (photoMode ? 0 : 0.25) * f);
       const pulse = 1 + Math.sin(mt * 3.2) * 0.03 * (1 - f);
       // spin freely as an orb; swing round to face the viewer (with a gentle sway) as the portrait forms
       const rb = ((mt * 0.7 + Math.PI) % (Math.PI * 2)) - Math.PI;
@@ -1959,7 +1970,22 @@
 
     // smaller than before, so the headline and buttons fit on the first screen
     const heroSmall = window.matchMedia('(max-width: 640px)').matches;
-    createOrbScene(document.getElementById('orbCanvas'), heroSmall ? { cy: 0.29, R: 0.235, wordmark: false } : { cy: 0.365, R: 0.15, wordmark: false });
+    // Place the orb relative to the headline so they can never overlap, on any phone, in portrait or landscape.
+    function heroLayout(W, H) {
+      const t = document.querySelector('.hero-title'); if (!t) return null;
+      const r = t.getBoundingClientRect(), top = 76, EXT = 1.5;   // the orb's visible extent is about 1.5 times its radius
+      if (W > H && H < 560) {                                      // phone on its side: orb left, text right
+        const cx = Math.max(r.left / 2, W * 0.2), half = Math.min(cx - 16, (H - top - 8) / 2);
+        return { cx: cx, cy: top + (H - top) / 2 - 4, R: Math.max(30, half / EXT) };
+      }
+      const bottom = r.top - 14, half = (bottom - top) / 2;        // everything between the menu and the headline
+      const cap = Math.min(W, H) * (W < 700 ? 0.235 : 0.15);        // never bigger than before
+      return { cx: W / 2, cy: top + half, R: Math.max(30, Math.min(half / EXT, cap)) };
+    }
+    createOrbScene(document.getElementById('orbCanvas'), { wordmark: false, layout: heroLayout });
+    // the headline's final position is known once fonts have loaded: lay the orb out again then
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => window.dispatchEvent(new Event('resize')));
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 600);
   })();
 
   // Land precisely on the section named in the URL (e.g. #contact) once the page has settled.
