@@ -1264,6 +1264,14 @@
     .engage-card .done { position: relative; z-index: 1; margin: auto 0 0; padding-top: 0.9rem; border-top: 1px solid var(--border); font-size: 0.85rem; line-height: 1.5; color: rgba(255,255,255,0.86); }
     .engage-card .done-label { display: block; margin-bottom: 0.3rem; font-size: 11px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cyan); }
     .engage-also { margin: 2rem 0 0; max-width: 46rem; color: var(--ink-50); font-size: 0.95rem; line-height: 1.7; }
+    /* Cards in a row line up part by part (icon, title, when, points, done before) so the Done before rules sit on one line */
+    @supports (grid-template-rows: subgrid) {
+      @media (min-width: 640px) {
+        #how-i-engage .engage-grid { row-gap: 0; }
+        #how-i-engage .engage-card { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; margin-bottom: 1.5rem; }
+        #how-i-engage .engage-card .done { margin-top: 0; }
+      }
+    }
     @media (max-width: 640px) {
       #how-i-engage .engage-grid { gap: 1rem; }
       .engage-card { display: grid; grid-template-columns: auto 1fr; column-gap: 0.85rem; align-items: center; padding: 1.25rem; }
