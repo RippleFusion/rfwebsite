@@ -1233,9 +1233,9 @@
     /* ---------- Phone spacing pass (max 640px only; desktop untouched) ---------- */
     @media (max-width: 640px) {
       /* keep the first screen full height (so the next section never peeks in at the bottom) and lift the headline clear of Safari's bottom bar */
-      .hero { min-height: 100vh; padding-bottom: calc(2.5rem + env(safe-area-inset-bottom, 0px)); }
+      .hero { min-height: 100vh; padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); }
       /* where the browser reports it, lift the headline by exactly the height of Safari's bars (full height minus visible height) plus a margin */
-      @supports (height: 100svh) { .hero { padding-bottom: max(calc(2.5rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 1rem + env(safe-area-inset-bottom, 0px))); } }
+      @supports (height: 100svh) { .hero { padding-bottom: max(calc(1rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 0.5rem + env(safe-area-inset-bottom, 0px))); } }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
       .founder-photo { margin-top: -2.5rem; }                         /* the photo has empty space above his head: pull it up */
@@ -1287,6 +1287,19 @@
       .engage-card .points li { margin-bottom: 0.25rem; padding-left: 0.9rem; }
       .engage-card .done { padding-top: 0.65rem; font-size: 0.8rem; line-height: 1.4; }
       .engage-card .done-label { margin-bottom: 0.2rem; letter-spacing: 0.3em; }
+    }
+    /* Phone gap pass: tighter space between sections (phones only) */
+    @media (max-width: 640px) {
+      #how-i-engage .engage-grid { margin-top: -0.75rem; }
+      #how-i-engage .network-note { margin-top: 1.5rem; }
+      #how-i-engage { padding-bottom: 0.5rem; }
+      .section-divider { padding: 0.25rem 0; }
+      .contact-section { padding-top: 0.75rem; }
+      .contact-intro { margin-bottom: 2rem; }
+      .contact-block { margin-bottom: 2rem; }
+      #trusted-by { padding-bottom: 1.5rem; }
+      .contact-grid > div:first-child .contact-block:last-child { margin-bottom: 0; }
+      .contact-grid { gap: 2.25rem; }
     }
   </style>
 </head>
