@@ -213,6 +213,9 @@
       transition: background .3s ease; white-space: nowrap;
     }
     @media (min-width: 1024px) { .btn-ghost { display: inline-block; } }
+    .nav-book { display: none; padding: 0.55rem 1.2rem; border-radius: 999px; background: var(--cyan); color: #041014; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.03em; transition: opacity .3s ease; }
+    @media (min-width: 1024px) { .nav-book { display: inline-block; } }
+    .nav-book:hover { opacity: 0.85; }
     .btn-ghost:hover { background: rgba(217,217,217,0.28); }
 
     /* Mobile nav toggle + full-screen menu — .nav-links pill takes over from
@@ -242,7 +245,7 @@
     .hero {
       position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
       overflow: hidden;   /* (no 3D perspective here: it forced a heavy GPU layer for the whole hero) */
-      padding: 8rem 0 8.5rem;
+      padding: 8rem 0 11rem;
     }
     .hero-bg-wrap { position: absolute; inset: 0; will-change: transform; }
     /* Every looping/ambient effect on the house (glow breathing, ripple
@@ -1229,9 +1232,9 @@
     /* ---------- Phone spacing pass (max 640px only; desktop untouched) ---------- */
     @media (max-width: 640px) {
       /* keep the first screen full height (so the next section never peeks in at the bottom) and lift the headline clear of Safari's bottom bar */
-      .hero { min-height: 100vh; padding-bottom: calc(12rem + env(safe-area-inset-bottom, 0px)); }
+      .hero { min-height: 100vh; padding-bottom: calc(14.5rem + env(safe-area-inset-bottom, 0px)); }
       /* where the browser reports it, lift the headline by exactly the height of Safari's bars (full height minus visible height) plus a margin */
-      @supports (height: 100svh) { .hero { padding-bottom: max(calc(10.5rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 6.5rem + env(safe-area-inset-bottom, 0px))); } }
+      @supports (height: 100svh) { .hero { padding-bottom: max(calc(13rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 9rem + env(safe-area-inset-bottom, 0px))); } }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
       .founder-photo { margin-top: -2.5rem; }                         /* the photo has empty space above his head: pull it up */
@@ -1303,6 +1306,7 @@
         <a href="#contact" data-nav="contact">Contact</a>
       </div>
       <div class="nav-right">
+        <a href="https://calendly.com/ian-ianlloyd/30min" target="_blank" rel="noopener noreferrer" class="nav-book">Book a call</a>
         <a href="#contact" class="btn-ghost">Speak with Ian</a>
         <button type="button" class="nav-mobile-toggle" id="navMobileToggle" aria-expanded="false" aria-controls="navMobileOverlay" aria-label="Menu">
           <span></span><span></span><span></span>
@@ -1316,6 +1320,7 @@
     <a href="#the-problem">About</a>
     <a href="#how-i-engage">Services</a>
     <a href="#contact">Contact</a>
+    <a href="https://calendly.com/ian-ianlloyd/30min" target="_blank" rel="noopener noreferrer" class="btn-cyan">Book a call</a>
     <a href="#contact" class="btn-cyan">Speak with Ian</a>
   </div>
 
@@ -1366,9 +1371,6 @@
       <div class="wrap hero-copy">
         <h1 class="hero-title">Interim transformation director for <span class="nowrap">private equity-backed</span> and global businesses.</h1>
         <p class="hero-sub">Brought in by CEOs and private equity sponsors when a business needs to change how it operates as it scales or is sold.</p>
-        <div class="hero-cta">
-          <a class="hero-btn hero-btn-primary" href="https://calendly.com/ian-ianlloyd/30min" target="_blank" rel="noopener noreferrer">Book a call</a>
-        </div>
       </div>
     </section>
 
