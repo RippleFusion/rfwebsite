@@ -245,7 +245,7 @@
     .hero {
       position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
       overflow: hidden;   /* (no 3D perspective here: it forced a heavy GPU layer for the whole hero) */
-      padding: 8rem 0 11rem;
+      padding: 8rem 0 9rem;
     }
     .hero-bg-wrap { position: absolute; inset: 0; will-change: transform; }
     /* Every looping/ambient effect on the house (glow breathing, ripple
@@ -1232,9 +1232,9 @@
     /* ---------- Phone spacing pass (max 640px only; desktop untouched) ---------- */
     @media (max-width: 640px) {
       /* keep the first screen full height (so the next section never peeks in at the bottom) and lift the headline clear of Safari's bottom bar */
-      .hero { min-height: 100vh; padding-bottom: calc(14.5rem + env(safe-area-inset-bottom, 0px)); }
+      .hero { min-height: 100vh; padding-bottom: calc(12.5rem + env(safe-area-inset-bottom, 0px)); }
       /* where the browser reports it, lift the headline by exactly the height of Safari's bars (full height minus visible height) plus a margin */
-      @supports (height: 100svh) { .hero { padding-bottom: max(calc(13rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 9rem + env(safe-area-inset-bottom, 0px))); } }
+      @supports (height: 100svh) { .hero { padding-bottom: max(calc(11rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 7rem + env(safe-area-inset-bottom, 0px))); } }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
       .founder-photo { margin-top: -2.5rem; }                         /* the photo has empty space above his head: pull it up */
@@ -1977,7 +1977,7 @@
 
     // smaller than before, so the headline and buttons fit on the first screen
     const heroSmall = window.matchMedia('(max-width: 640px)').matches;
-    createOrbScene(document.getElementById('orbCanvas'), heroSmall ? { cy: 0.215, R: 0.235, wordmark: false } : { cy: 0.285, R: 0.15, wordmark: false });
+    createOrbScene(document.getElementById('orbCanvas'), heroSmall ? { cy: 0.245, R: 0.235, wordmark: false } : { cy: 0.315, R: 0.15, wordmark: false });
   })();
 
   // Land precisely on the section named in the URL (e.g. #contact) once the page has settled.
