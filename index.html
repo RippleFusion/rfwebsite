@@ -1290,6 +1290,9 @@
     }
     /* Phone gap pass: tighter space between sections (portrait phones only) */
     @media (max-width: 640px) and (orientation: portrait) {
+      /* the first screen is exactly the visible height (not the taller 'with the toolbar hidden' height), so no big empty band sits under the hero text */
+      .hero { min-height: 100vh; padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); }
+      @supports (height: 100svh) { .hero { min-height: 100svh; padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); } }
       .founder-photo { margin-top: -5rem; margin-bottom: 3rem; }
       #how-i-engage .engage-grid { margin-top: -0.75rem; }
       #how-i-engage .network-note { margin-top: 1.5rem; }
