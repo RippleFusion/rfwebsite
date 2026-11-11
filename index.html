@@ -1042,7 +1042,7 @@
 
     /* How I Engage / How I Work */
     .engage-section { padding: 3.5rem 0; background: var(--bg); }
-    #how-i-work { padding-top: 0; padding-bottom: 2rem; margin-top: -2.5rem; }
+    #how-i-engage { padding-top: 1px; }   /* "Services" now lands here: the label sits on the same line as the other menu sections */
     #private-equity { padding-top: 0; margin-top: 0; }   /* private equity now comes first, so the tuck-up moves to the section after it */
     .engage-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 4rem; }
     #how-i-engage .engage-grid { margin-top: 1rem; }   /* tighter gap under "Choose the level of involvement you need"; How I Work keeps the larger gap */
@@ -1057,7 +1057,6 @@
     .engage-card { position: relative; padding: 2rem; border: 1px solid var(--border); overflow: hidden; background: rgba(255,255,255,0.015); transition: border-color 0.3s ease, transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease; }
     .engage-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,229,255,0.08); }
     .engage-card h3 { position: relative; z-index: 1; font-size: 1.25rem; font-weight: 700; margin: 0 0 0.75rem; }
-    .engage-card .audience { position: relative; z-index: 1; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--cyan); line-height: 1.5; margin: 0 0 1rem; }
     .engage-card .body { position: relative; z-index: 1; font-size: 0.875rem; line-height: 1.6; color: var(--ink-50); margin: 0; }
 
     /* Proof Points + stats strip */
@@ -1251,39 +1250,19 @@
        step at every section boundary. These strips fade the section's own background back in over its top and bottom edges, so the
        glow dissolves instead of being cut. (Content sits above them: it is in .wrap, which has z-index 1.) */
     /* each of these sections is its own stacking context, so the glow (-2) and edge fades (-1) stay beneath its content */
-    #trusted-by, #private-equity, #how-i-work, #capabilities { isolation: isolate; }
+    #trusted-by, #private-equity, #capabilities { isolation: isolate; }
     #trusted-by, #private-equity { --sec-bg: var(--bg-alt); }
-    #how-i-work, #capabilities { --sec-bg: var(--bg); }
-    #trusted-by::before, #private-equity::before, #how-i-work::before, #capabilities::before,
-    #trusted-by::after,  #private-equity::after,  #how-i-work::after,  #capabilities::after {
+    #capabilities { --sec-bg: var(--bg); }
+    #trusted-by::before, #private-equity::before, #capabilities::before,
+    #trusted-by::after,  #private-equity::after,  #capabilities::after {
       content: ''; position: absolute; left: 0; right: 0; height: 160px; pointer-events: none; z-index: -1;
     }
-    #trusted-by::before, #private-equity::before, #how-i-work::before, #capabilities::before { top: 0; background: linear-gradient(to bottom, var(--sec-bg), transparent); }
-    #trusted-by::after,  #private-equity::after,  #how-i-work::after,  #capabilities::after  { bottom: 0; background: linear-gradient(to top, var(--sec-bg), transparent); }
-    .capability-section, #how-i-work, .clients-section { position: relative; overflow: hidden; }
-    .capability-section > .wrap, #how-i-work > .wrap, .clients-section > .wrap { position: relative; z-index: 1; }
+    #trusted-by::before, #private-equity::before, #capabilities::before { top: 0; background: linear-gradient(to bottom, var(--sec-bg), transparent); }
+    #trusted-by::after,  #private-equity::after,  #capabilities::after  { bottom: 0; background: linear-gradient(to top, var(--sec-bg), transparent); }
+    .capability-section, .clients-section { position: relative; overflow: hidden; }
+    .capability-section > .wrap, .clients-section > .wrap { position: relative; z-index: 1; }
 
 
-    /* "How I Work" — large ghost numerals, no card border, divided by hairlines
-       instead of boxes, so it reads as a distinct idea from the service-tier
-       cards in "How I Engage" right below it. */
-    #how-i-work .engage-grid { gap: 0; margin-top: 1.5rem; }
-    @media (min-width: 640px) { #how-i-work .engage-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (min-width: 1024px) { #how-i-work .engage-grid { grid-template-columns: repeat(3,1fr); } }
-    #how-i-work .engage-card {
-      background: none; border: none; padding: 2.5rem 0.5rem;
-      transition: background 0.3s ease;
-    }
-    /* Matches the 1024px breakpoint where #how-i-work .engage-grid actually
-       becomes a single row of 3 (see its grid-template-columns rules above)
-       — this used to switch at 768px instead, which is inside the 2-up
-       tablet/iPad tier, so a stray vertical divider showed up on the
-       right-hand card of that row with nothing to its right to divide. */
-    @media (min-width: 1024px) {
-      #how-i-work .engage-card { border-bottom: none; border-right: none; padding: 0 2rem; }   /* no divider lines between the three columns */
-    }
-    #how-i-work .engage-card:hover { transform: none; box-shadow: none; border-color: var(--border); background: rgba(0,229,255,0.02); }
-    #how-i-work .cap-card-glow { display: none; }
 
     /* ---------- Also Advising (private equity) — a bit more occasion than
        the other card sections, kept to the site's one accent colour so it
@@ -1364,7 +1343,6 @@
       #houseHero .hero-headline { font-size: clamp(0.8rem, 4vw, 1.2rem); white-space: nowrap; }   /* the longer phrases stay on one line */
       .js .reveal, .reveal.in-view { transform: none; }               /* fade in without sliding up, so a menu landing does not nudge up a line afterwards */
       .contact-section { padding-top: 1.5rem; }                       /* no big black gap above "Get in touch" when you land on Contact */
-      #how-i-work .engage-grid { margin-top: 2rem; gap: 0; }          /* the three "How I Work" blocks sit closer together */
       #privacy-open { margin-left: -6px; }                            /* line the Privacy link up with the copyright text */
     }
   </style>
@@ -1394,7 +1372,7 @@
     </button>
   </div>
   <div class="hero-corner hero-corner-bl">
-    <a href="#how-i-work" class="hero-corner-link">view services</a>
+    <a href="#how-i-engage" class="hero-corner-link">view services</a>
   </div>
   <div class="hero-corner hero-corner-br">
     <a href="#contact" class="hero-corner-link">get in touch</a>
@@ -1412,7 +1390,7 @@
   <div class="hero-menu-overlay" id="heroMenuOverlay">
     <a href="#top">Home</a>
     <a href="#the-problem">About</a>
-    <a href="#how-i-work">Services</a>
+    <a href="#how-i-engage">Services</a>
     <a href="#contact">Contact</a>
   </div>
 </div>
@@ -1425,7 +1403,7 @@
       <div class="nav-links">
         <a href="#top" data-nav="top">Home</a>
         <a href="#the-problem" data-nav="about">About</a>
-        <a href="#how-i-work" data-nav="services">Services</a>
+        <a href="#how-i-engage" data-nav="services">Services</a>
         <a href="#contact" data-nav="contact">Contact</a>
       </div>
       <div class="nav-right">
@@ -1440,7 +1418,7 @@
   <div class="nav-mobile-overlay" id="navMobileOverlay">
     <a href="#top">Home</a>
     <a href="#the-problem">About</a>
-    <a href="#how-i-work">Services</a>
+    <a href="#how-i-engage">Services</a>
     <a href="#contact">Contact</a>
     <a href="#contact" class="btn-cyan">Speak with Nina</a>
   </div>
@@ -1619,36 +1597,6 @@
     </section>
     </div>
 
-
-    <!-- About: How I Work -->
-    <section id="how-i-work" class="engage-section">
-      <div class="wrap">
-        <div class="reveal">
-          <p class="eyebrow">How I Work</p>
-          <h2 class="heading-underline">Three principles behind every piece of work I take on</h2>
-        </div>
-        <div class="engage-grid reveal-group">
-          <div class="engage-card reveal">
-            <div class="cap-card-glow"></div>
-            <h3>Business First</h3>
-            <p class="audience">Where every engagement starts</p>
-            <p class="body">Complex business problems diagnosed at the root, then solved with technology only where it earns its place. The right answer is often a smarter process, not a new platform.</p>
-          </div>
-          <div class="engage-card reveal">
-            <div class="cap-card-glow"></div>
-            <h3>Built For Delivery</h3>
-            <p class="audience">How the work actually gets done</p>
-            <p class="body">Delivery focused from the first day. Plans become programmes, teams are mobilised around outcomes, and momentum is built early instead of leaving a strategy deck on the shelf.</p>
-          </div>
-          <div class="engage-card reveal">
-            <div class="cap-card-glow"></div>
-            <h3>Operating Model Redesign</h3>
-            <p class="audience">What makes the change last</p>
-            <p class="body">Strategy, operating model, governance and organisation redesigned together, with management consulting rigour and a practical approach that makes change stick across the business.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Services: How I Engage -->
     <section id="how-i-engage" class="engage-section" style="background: var(--bg-alt);">
@@ -1857,7 +1805,7 @@
     // Phones only: the page's images are lazy, so they were still arriving (and pushing everything below them down by a few
     // hundred pixels) while a menu tap was mid-scroll — which made the page glide to a line and then jump. Fetch them all as soon
     // as the page has loaded, and if a tap beats them, wait for them (briefly) so there is one smooth scroll to the right place.
-    const phoneLayout = window.matchMedia('(max-width: 640px)').matches;
+    const phoneLayout = true;   // (name kept) now applies at every width, so Services lands on the right line on desktop too
     if (phoneLayout) window.addEventListener('load', () => setTimeout(() => document.querySelectorAll('img[loading="lazy"]').forEach(i => { i.loading = 'eager'; }), 300));
     function preciseScrollTo(target, instant) {
       if (!target) return;
@@ -2584,7 +2532,7 @@
     const spySections = [
       { id: 'top', el: document.getElementById('top') },
       { id: 'about', el: document.getElementById('the-problem') },
-      { id: 'services', el: document.getElementById('how-i-work') },
+      { id: 'services', el: document.getElementById('how-i-engage') },
       { id: 'contact', el: document.getElementById('contact') },
     ];
     function updateActiveNav() {
