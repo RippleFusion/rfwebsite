@@ -1238,7 +1238,7 @@
       @supports (height: 100svh) { .hero { padding-bottom: max(calc(1rem + env(safe-area-inset-bottom, 0px)), calc(100vh - 100svh + 0.5rem + env(safe-area-inset-bottom, 0px))); } }
       .nav-inner { grid-template-columns: 1fr auto; }                 /* the menu button sits at the right edge, not beside the logo */
       .founder-grid { gap: 2.5rem; }                                  /* less air between the bio and the photo */
-      .founder-photo { margin-top: -5rem; margin-bottom: 3rem; }                         /* the photo has empty space above his head: pull it up */
+      .founder-photo { margin-top: -2.5rem; }
       #private-equity .client-logo { width: 100%; }                   /* two tiles per row, like Trusted By */
       .contact-grid { gap: 2rem; }
       .js .reveal, .reveal.in-view { transform: none; }               /* fade in without sliding up, so a menu landing does not nudge up a line afterwards */
@@ -1288,8 +1288,9 @@
       .engage-card .done { padding-top: 0.65rem; font-size: 0.8rem; line-height: 1.4; }
       .engage-card .done-label { margin-bottom: 0.2rem; letter-spacing: 0.3em; }
     }
-    /* Phone gap pass: tighter space between sections (phones only) */
-    @media (max-width: 640px) {
+    /* Phone gap pass: tighter space between sections (portrait phones only) */
+    @media (max-width: 640px) and (orientation: portrait) {
+      .founder-photo { margin-top: -5rem; margin-bottom: 3rem; }
       #how-i-engage .engage-grid { margin-top: -0.75rem; }
       #how-i-engage .network-note { margin-top: 1.5rem; }
       #how-i-engage { padding-bottom: 0.5rem; }
