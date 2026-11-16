@@ -31,7 +31,7 @@
   "description": "Interim business transformation for private equity backed and global businesses.",
   "founder": { "@type": "Person", "name": "Ian Lloyd", "url": "https://ianlloyd.com/", "sameAs": ["https://www.linkedin.com/in/realianlloyd/"] },
   "areaServed": "Worldwide",
-  "knowsAbout": ["Separation and Transition Services Agreements", "Target Operating Model", "Acquisition Integration", "Programme Turnaround", "Cost, Sourcing and Global Delivery", "Exit Readiness and Transaction Support", "Interim Transformation", "Private Equity Value Creation"]
+  "knowsAbout": ["Separation and Transition Services Agreements", "Target Operating Model", "Acquisition Integration", "Programme Turnaround", "Cost, Sourcing and Global Delivery", "Exit Readiness and Transaction Support", "Interim Transformation", "Private Equity Value Creation", "Artificial Intelligence in Operations"]
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -393,6 +393,21 @@
   .top { background: #ffffff; }
   .top.scrolled { border-bottom-color: var(--rule); }
   body::before { background: #ffffff; }
+
+  /* AI band and marker */
+  .ai-tag { grid-column: 2; justify-self: start; margin-top: 8px; font-size: 0.72rem; font-weight: 600; line-height: 1; padding: 5px 10px; border: 1px solid var(--petrol); border-radius: 999px; color: var(--petrol); text-decoration: none; transition: background-color .25s, color .25s; }
+  .ai-tag:hover { background: var(--petrol); color: var(--chalk); }
+  #ai .wrap { padding-block: clamp(28px, 4vw, 56px); }
+  #ai .lede { max-width: 46ch; }
+  .ai-cols { display: grid; grid-template-columns: 1fr; gap: 28px; margin-bottom: clamp(28px, 4vw, 48px); }
+  @media (min-width: 860px) { .ai-cols { grid-template-columns: repeat(3, 1fr); gap: 40px; } }
+  .ai-col { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; align-content: start; }
+  .ai-col .tile { grid-row: span 2; }
+  .ai-col h3 { align-self: center; }
+  .ai-col p { grid-column: 2; color: var(--muted); }
+  @media (min-width: 860px) { .ai-col { grid-template-columns: 1fr; gap: 14px; } .ai-col .tile { grid-row: auto; } .ai-col p { grid-column: 1; } }
+  .ai-proof { max-width: 760px; margin: 0 auto; text-align: left; }
+  .ai-proof .done { margin-top: 0; }
 </style>
 </head>
 <body>
@@ -489,7 +504,7 @@
           <div><ul class="what"><li>Current state assessed, the gap set out, one model designed for every region</li><li>Sales, operations and finance on common processes and platforms</li><li>Shared services built onshore and offshore, with clear accountability</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li class="grp"><div class="who"><span class="wn">Global professional services group</span><span class="tag">Private equity backed</span><span class="sc">four regions</span></div><ul><li><strong>Operating costs down 25%, service quality held.</strong> One model across sales, operations and finance, with 60% of delivery moved to shared service centres.</li></ul></li><li class="grp"><div class="who"><span class="wn">Serial acquirer</span><span class="tag">Private equity backed</span><span class="sc">five countries</span></div><ul><li><strong>Board reporting from a single set of numbers</strong> across operations and finance.</li></ul></li><li class="grp"><div class="who"><span class="wn">Global healthcare data business</span><span class="tag">Private equity backed</span><span class="sc">ahead of its IPO</span></div><ul><li><strong>Every merged business on one platform</strong> and one way of working.</li></ul></li></ul></div></div></div>
         </li>
         <li>
-          <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-merge"/></svg></span><h3>Acquisition integration</h3><p class="when">A serial acquirer needs every deal integrated the same way, at pace.</p></div>
+          <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-merge"/></svg></span><h3>Acquisition integration</h3><p class="when">A serial acquirer needs every deal integrated the same way, at pace.</p><a class="ai-tag" href="#ai">AI used here</a></div>
           <div><ul class="what"><li>An acquisition production line, not a one off project each time</li><li>Day 1 planned for each business, across the whole business</li><li>Board reporting on operations and finance from a single set of numbers</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li class="grp"><div class="who"><span class="wn">Serial acquirer</span><span class="tag">Private equity backed</span><span class="sc">five countries</span></div><ul><li><strong>9 acquisitions integrated at 2 a month.</strong></li><li><strong>Integration effort down 70%, errors down 95%.</strong> The most complex migration cut from four days to one by building machine learning into onboarding.</li></ul></li><li class="grp"><div class="who"><span class="wn">Global professional services group</span><span class="tag">Private equity backed</span><span class="sc">four regions</span></div><ul><li><strong>Every acquired company ready on Day&nbsp;1,</strong> on one way of working across the whole business.</li></ul></li></ul></div></div></div>
         </li>
         <li>
@@ -505,6 +520,22 @@
           <div><ul class="what"><li>The change programme aligned to the sale timetable</li><li>Due diligence: buyer information prepared and questions answered</li><li>The programme presented to buyers and advisers</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li class="grp"><div class="who"><span class="wn">Global professional services group</span><span class="tag">Private equity backed</span><span class="sc">four regions</span></div><ul><li><strong>A significant factor in a $6.5bn sale.</strong> Led the $85m, 300+ person programme that made the business sale ready.</li><li><strong>In the room for due diligence:</strong> buyer information prepared, questions answered, programme presented to buyers and advisers.</li></ul></li><li class="grp"><div class="who"><span class="wn">Global healthcare data business</span><span class="tag">Private equity backed</span><span class="sc">ahead of its IPO</span></div><ul><li><strong>Critical platform delivered before the IPO:</strong> knowledge and IP brought in house, and the operating model built so the business went to market ready.</li></ul></li></ul></div></div></div>
         </li>
       </ul>
+    </div>
+  </section>
+
+  <section id="ai">
+    <div class="wrap">
+      <div class="head">
+        <p class="label">AI and automation</p>
+        <h2>AI, used where it pays back.</h2>
+        <p class="lede">AI runs through the work above. It is a lever I use where the case is proven, never the starting point.</p>
+      </div>
+      <div class="ai-cols">
+        <div class="ai-col"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-map"/></svg></span><h3>Where it belongs</h3><p>What to automate, what to keep with people, and which talent to hire.</p></div>
+        <div class="ai-col"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><h3>Whether the business is ready</h3><p>Data, process and controls checked first, with audit experience across pharma and financial services as regulation tightens.</p></div>
+        <div class="ai-col"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-pulse"/></svg></span><h3>Getting it into production</h3><p>Built into how the business runs and reported to the board, not left as a pilot.</p></div>
+      </div>
+      <div class="ai-proof"><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li class="grp"><div class="who"><span class="wn">Serial acquirer</span><span class="tag">Private equity backed</span><span class="sc">five countries</span></div><ul><li><strong>Integration effort down 70%, errors down 95%.</strong> Machine learning built into onboarding; the most complex migration cut from four days to one.</li></ul></li><li class="grp"><div class="who"><span class="wn">Global communications business</span><span class="tag">Private equity backed</span></div><ul><li><strong>An AI ready integration platform</strong> designed, costed and approved by the board.</li></ul></li><li class="grp"><div class="who"><span class="wn">AI consultancy and talent partner</span></div><ul><li><strong>Advising clients on where AI belongs in their operations,</strong> what to automate, what to keep with people and which talent to hire.</li></ul></li></ul></div></div></div>
     </div>
   </section>
 
