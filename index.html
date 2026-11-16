@@ -203,10 +203,14 @@
   .steps h3 small { font: 800 0.95rem var(--display); color: var(--orange-soft); font-variant-numeric: tabular-nums; }
   .steps p { grid-column: 2; color: var(--chalk-soft); max-width: 44ch; }
   @media (min-width: 900px) {
-    .steps { grid-template-columns: repeat(4, 1fr); gap: 0 28px; }
-    .track { left: 26px; right: 12%; top: 25px; bottom: auto; width: auto; height: 2px; }
+    .steps { grid-template-columns: repeat(4, 1fr); gap: 0 clamp(36px, 4.5vw, 72px); }
+    .track { left: 26px; right: 26px; top: 25px; bottom: auto; width: auto; height: 2px; opacity: .6; }
     .track b { transform: scaleX(var(--p, 1)); transform-origin: left; }
-    .steps li { grid-template-columns: 1fr; gap: 18px; align-content: start; }
+    .steps li { grid-template-columns: 1fr; gap: 20px; align-content: start; }
+    .steps h3 { align-self: start; min-height: 2.5em; }
+    .steps p { padding-top: 4px; font-size: 0.98rem; line-height: 1.6; }
+    .node { background: var(--petrol); }
+    .run-band .aside { margin-top: 56px; }
     .node { grid-row: auto; }
     .steps p { grid-column: 1; }
   }
