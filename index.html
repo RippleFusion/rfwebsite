@@ -289,6 +289,10 @@
   .ways b, .ways b a { font-size: 1rem; }
 
   #ian .wrap { padding-top: clamp(28px, 4vw, 56px); }
+
+  /* more space above the 30 minutes line; the contact boxes stay where they were */
+  .contact .lead p:not(.label) { margin-top: 20px; }
+  .contact { gap: calc(clamp(32px, 5vw, 80px) - 20px); }
 </style>
 </head>
 <body>
