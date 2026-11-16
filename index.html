@@ -45,7 +45,6 @@
     --chalk: #f1efe8;
     --paper: #faf9f5;
     --petrol: #0f3b40;
-    --petrol-deep: #0a2a2e;
     --ink: #101820;
     --muted: #55585c;
     --rule: rgba(16, 24, 32, 0.16);
@@ -54,7 +53,7 @@
     --orange: #bd5533;
     --orange-soft: #e9a48c;
     --orange-wash: rgba(189, 85, 51, 0.1);
-    --white: #ffffff;
+    --white: #ffffff;   /* button text only */
     --shadow: 0 18px 40px rgba(16, 24, 32, 0.1);
     --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
     --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
@@ -156,7 +155,7 @@
   dialog.policy section { margin-top: 18px; }
   dialog.policy h3 { font-size: 1.05rem; margin-bottom: 6px; }
   dialog.policy p { color: var(--muted); }
-  dialog.policy .x { position: sticky; top: 0; float: right; margin: 12px 12px 0 0; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--rule); background: var(--white); display: grid; place-items: center; cursor: pointer; }
+  dialog.policy .x { position: sticky; top: 0; float: right; margin: 12px 12px 0 0; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--rule); background: var(--paper); display: grid; place-items: center; cursor: pointer; }
   dialog.policy .x:hover { border-color: var(--orange); color: var(--orange); }
 
   /* six situations */
@@ -182,8 +181,7 @@
   @media (hover: hover) {
     .rows > li:hover { background: var(--paper); box-shadow: var(--shadow); border-color: transparent; border-radius: 22px; z-index: 1; }
     .rows > li:hover + li { border-top-color: transparent; }
-    .rows > li:hover .tile { background: var(--orange); color: var(--white); transform: rotate(-6deg) scale(1.06); }
-    .rows > li:hover .done { background: var(--white); border-color: transparent; }
+    .rows > li:hover .tile { transform: rotate(-6deg) scale(1.06); }
   }
   @media (min-width: 860px) { .rows > li { grid-template-columns: 0.82fr 1.18fr; align-items: start; } }
   .aside { margin-top: clamp(26px, 3vw, 40px); color: var(--muted); max-width: 70ch; }
@@ -198,7 +196,6 @@
   .track b { inset: 0; background: var(--orange-soft); transform: scaleY(var(--p, 1)); transform-origin: top; }
   .steps li { position: relative; display: grid; grid-template-columns: 52px 1fr; gap: 6px 20px; min-width: 0; }
   .node { grid-row: span 2; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--petrol); border: 1.5px solid var(--rule-dark); color: var(--chalk-soft); transition: background-color .4s, border-color .4s, color .4s, transform .4s cubic-bezier(.2, .8, .2, 1); }
-  .steps li.on .node { background: var(--orange); border-color: var(--orange); color: var(--white); transform: scale(1.06); }
   .steps h3 { align-self: center; display: flex; align-items: baseline; gap: 10px; }
   .steps h3 small { font: 800 0.95rem var(--display); color: var(--orange-soft); font-variant-numeric: tabular-nums; }
   .steps p { grid-column: 2; color: var(--chalk-soft); max-width: 44ch; }
@@ -218,7 +215,7 @@
   /* about */
   .about { display: grid; grid-template-columns: 1fr; gap: clamp(28px, 5vw, 72px); align-items: center; }
   .about .text { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; max-width: 60ch; min-width: 0; }
-  .handle { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; border-radius: 999px; background: var(--white); border: 1px solid var(--rule); font-weight: 600; text-decoration: none; transition: border-color .25s, color .25s, transform .25s; }
+  .handle { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 10px; border-radius: 999px; background: var(--paper); border: 1px solid var(--rule); font-weight: 600; text-decoration: none; transition: border-color .25s, color .25s, transform .25s; }
   .handle span { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--petrol); color: var(--chalk); transition: background-color .25s; }
   .handle span svg.i { width: 16px; height: 16px; }
   .handle:hover { border-color: var(--orange); color: var(--orange); transform: translateY(-2px); }
@@ -293,6 +290,36 @@
   /* more space above the 30 minutes line; the contact boxes stay where they were */
   .contact .lead p:not(.label) { margin-top: 20px; }
   .contact { gap: calc(clamp(32px, 5vw, 80px) - 20px); }
+
+  /* ---- Colour pass: petrol at the top and bottom, chalk and paper between, orange only for buttons, small labels and the headline underlines ---- */
+  .hero h1, .hero .lede { color: var(--chalk); }
+  .hero .lede { color: var(--chalk-soft); }
+  .hero .text-link { color: var(--chalk); }
+  .contact-band { background: var(--petrol); }
+  .foot { background: var(--petrol); border-top: 1px solid var(--rule-dark); }
+  dialog.policy .x:hover { border-color: var(--petrol); color: var(--petrol); }
+  .handle:hover { border-color: var(--petrol); color: var(--petrol); }
+  .handle:hover span { background: var(--petrol); }
+  .tile { background: rgba(15, 59, 64, 0.08); color: var(--petrol); }
+  .rows > li:hover .tile { background: var(--petrol); color: var(--chalk); }
+  @media (hover: hover) { .rows > li:hover .done { background: var(--chalk); border-color: var(--rule); } }
+  .rows .what li::before, .done .ex li::before { background: rgba(16, 24, 32, 0.45); }
+  .done svg.i { color: var(--petrol); }
+  .ways li:hover { border-color: rgba(241, 239, 232, 0.45); }
+  .ways .ic { background: rgba(241, 239, 232, 0.1); color: var(--chalk-soft); }
+  .ways b a:hover { color: var(--chalk); text-decoration: underline; }
+  /* How every engagement runs: light section on chalk */
+  #engagement { border-top: 1px solid var(--rule); }
+  #engagement .track { background: var(--rule); }
+  #engagement .track b { background: var(--rule); }
+  .node, .steps li.on .node { background: var(--petrol); border-color: var(--petrol); color: var(--chalk); transform: none; }
+  .steps h3 small { color: var(--muted); }
+  .steps p { color: var(--muted); }
+  .run-band .aside { color: var(--muted); }
+  /* Done before: three proof lines, result first */
+  .done .ex { gap: 12px; margin-top: 6px; }
+  .done .ex li { font-weight: 400; font-size: 0.97rem; line-height: 1.45; }
+  .done .ex strong { font-weight: 700; }
 </style>
 </head>
 <body>
@@ -330,7 +357,7 @@
 </header>
 
 <main id="top">
-  <section class="hero" id="hero">
+  <section class="hero dark" id="hero">
     <div class="wrap">
       <p class="label" style="--d:0">Interim business transformation</p>
       <h1 style="--d:1">When a business <span class="u" style="--u:0">scales</span> or is <span class="u" style="--u:1">sold</span>, I transform how it operates.</h1>
@@ -382,33 +409,33 @@
       <ul class="rows">
         <li>
           <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-split"/></svg></span><h3>Separation and transition</h3><p class="when">A business has to leave its parent or its incumbent service provider.</p></div>
-          <div><ul class="what"><li>Transition services agreement negotiated alongside legal counsel</li><li>Day 1 planned across finance, HR, IT, suppliers and contracts</li><li>Stranded and double running costs sized, tracked and negotiated down</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><div class="ex"><div class="grp"><span class="who">Global consumer goods business, 180+ markets</span><ul><li>Separated from its incumbent service provider through a two year transition, exited on the contractual date.</li><li>Kept a separation on track through a last minute counter offer from the incumbent: renegotiated, replanned Day&nbsp;1 and moved the rest of the services to a new partner.</li><li>Sized and tracked stranded and double running costs every month, and negotiated them down with an incumbent that had lost the RFI.</li></ul></div><div class="grp"><span class="who">Global professional services business, four regions</span><ul><li>Planned Day&nbsp;1 for each acquired company across finance, HR, IT, suppliers and contracts.</li></ul></div></div></div></div></div>
+          <div><ul class="what"><li>Transition services agreement negotiated alongside legal counsel</li><li>Day 1 planned across finance, HR, IT, suppliers and contracts</li><li>Stranded and double running costs sized, tracked and negotiated down</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li><strong>Exited on the contractual date</strong>, with penalties for any slippage, after a two year transition across 180+ markets. Listed consumer goods group.</li><li><strong>Kept the separation moving through a late counter offer</strong> from the incumbent: terms renegotiated, Day&nbsp;1 replanned, services split across two suppliers.</li><li><strong>Double running costs negotiated down</strong> with the outgoing supplier and tracked monthly to the end.</li></ul></div></div></div>
         </li>
         <li>
           <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-grid"/></svg></span><h3>Target operating model</h3><p class="when">Every region or acquired business works a different way.</p></div>
-          <div><ul class="what"><li>Current state assessed, the gap set out, one model designed for every region</li><li>Sales, operations and finance on common processes and platforms</li><li>Shared services built onshore and offshore, with clear accountability</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><div class="ex"><div class="grp"><span class="who">Global professional services business, four regions</span><ul><li>Designed one operating model across sales, operations and finance, so every region worked the same way.</li><li>Built shared services for operations, finance and IT, onshore and offshore: operating costs down 25%, service quality held.</li></ul></div><div class="grp"><span class="who">Private equity backed serial acquirer, 5 countries</span><ul><li>Put a new operating model into production, with board reporting on operations and finance from one version of the truth.</li></ul></div><div class="grp"><span class="who">Global healthcare data business</span><ul><li>Built the operating model that embedded a new platform after delivery, so clients got the full value of their data.</li></ul></div></div></div></div></div>
+          <div><ul class="what"><li>Current state assessed, the gap set out, one model designed for every region</li><li>Sales, operations and finance on common processes and platforms</li><li>Shared services built onshore and offshore, with clear accountability</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li><strong>Operating costs down 25%, service quality held.</strong> One model across sales, operations and finance in four regions, with 60% of delivery moved to shared service centres. Private equity backed professional services group.</li><li><strong>Board reporting from a single set of numbers</strong> across operations and finance. Private equity backed acquirer in five countries.</li><li><strong>Every merged business on one platform and one way of working.</strong> Global healthcare data business.</li></ul></div></div></div>
         </li>
         <li>
           <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-merge"/></svg></span><h3>Acquisition integration</h3><p class="when">A serial acquirer needs every deal integrated the same way, at pace.</p></div>
-          <div><ul class="what"><li>An acquisition production line, not a one off project each time</li><li>Day 1 planned for each business: people, process, technology and finance</li><li>Board reporting on operations and finance from one version of the truth</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><div class="ex"><div class="grp"><span class="who">Private equity backed serial acquirer, 5 countries</span><ul><li>Integrated 9 businesses across 5 countries at 2 a month, with 2 more always in flight.</li><li>Built AI into onboarding: the most complex migration now takes 1 day, not 4, with effort down 70% and errors down 95%.</li></ul></div><div class="grp"><span class="who">Global professional services business, four regions</span><ul><li>Planned Day&nbsp;1 for each acquired company and moved it onto one way of working across people, process, technology and finance.</li><li>Brought acquired businesses into the global operating model, so every region worked the same way.</li></ul></div><div class="grp"><span class="who">Global healthcare data business, ahead of its IPO</span><ul><li>Moved each merged or integrated business onto the same platform and way of working.</li></ul></div><div class="grp"><span class="who">Every time</span><ul><li>Assessed the current state, set out the gap and moved each business onto the common model.</li><li>Faster consolidation, lower integration cost and earlier synergy realisation.</li></ul></div></div></div></div></div>
+          <div><ul class="what"><li>An acquisition production line, not a one off project each time</li><li>Day 1 planned for each business: people, process, technology and finance</li><li>Board reporting on operations and finance from a single set of numbers</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li><strong>9 acquisitions in 5 countries, integrated at 2 a month.</strong> Private equity backed serial acquirer.</li><li><strong>Integration effort down 70%, errors down 95%.</strong> The most complex migration cut from four days to one by building AI into onboarding.</li><li><strong>Each acquired company on one way of working from Day&nbsp;1,</strong> including payroll moved from previous providers. Private equity backed professional services group.</li></ul></div></div></div>
         </li>
         <li>
           <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-turn"/></svg></span><h3>Programme turnaround</h3><p class="when">A critical programme is late, over budget or has lost the board's confidence.</p></div>
-          <div><ul class="what"><li>Fast diagnosis: risks, dependencies and what to stop</li><li>Governance reset, with failing teams and partners replaced</li><li>Stabilised, delivered and handed over able to run without me</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><div class="ex"><div class="grp"><span class="who">Global professional services business, four regions</span><ul><li>Turned around a failing $47m finance transformation with a team of 100+, delivering it for 20% less.</li></ul></div><div class="grp"><span class="who">Global healthcare data business, ahead of its IPO</span><ul><li>Turned around a failing $40m programme: $50m of revenue restored and $13m a year of customer revenue defended.</li></ul></div><div class="grp"><span class="who">Private equity backed global communications business</span><ul><li>Took over a transformation designed by a major consulting firm and cut the projected overspend from $3m to $1m.</li></ul></div><div class="grp"><span class="who">Private equity backed serial acquirer, 5 countries</span><ul><li>Brought a stalled programme at the heart of how the business sells and operates back on track, delivering within 4 months.</li></ul></div></div></div></div></div>
+          <div><ul class="what"><li>Fast diagnosis: risks, dependencies and what to stop</li><li>Governance reset, with failing teams and partners replaced</li><li>Stabilised, delivered and handed over able to run without me</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li><strong>$50m of revenue restored, $13m a year defended.</strong> A failing $40m programme turned around ahead of an IPO. Healthcare data business.</li><li><strong>A failing $47m finance transformation delivered for 20% less,</strong> with a team of 100+. Private equity backed professional services group.</li><li><strong>Projected overspend cut from $3m to $1m</strong> on a programme designed by a major strategy firm. Private equity backed communications business.</li></ul></div></div></div>
         </li>
         <li>
           <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span><h3>Cost, sourcing and global delivery</h3><p class="when">The cost base is too high and work sits in the wrong places.</p></div>
-          <div><ul class="what"><li>Partner selection from RFI to contract, with terms that pay for outcomes, not effort</li><li>Work moved offshore and nearshore, with knowledge transfer managed</li><li>Vendors consolidated and savings tracked by the business year after year</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><div class="ex"><div class="grp"><span class="who">Global consumer goods business, 180+ markets</span><ul><li>Delivered $130m+ of annual savings.</li><li>Moved 80% of a high cost workforce to offshore and nearshore centres, taking a partner from RFI to full delivery: 30% annual savings.</li></ul></div><div class="grp"><span class="who">Private equity backed global communications business</span><ul><li>Consolidated 20+ vendors on better terms and replaced high cost outsourced delivery with lower cost teams in three countries.</li></ul></div><div class="grp"><span class="who">Global healthcare data business</span><ul><li>Replaced 130+ consultants and vendors with an offshore, nearshore and onshore delivery model, cutting spend by 20%.</li></ul></div></div></div></div></div>
+          <div><ul class="what"><li>Partner selection from RFI to contract, with terms that pay for outcomes, not effort</li><li>Work moved offshore and nearshore, with knowledge transfer managed</li><li>Vendors consolidated and savings tracked by the business year after year</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li><strong>$130m+ of annual savings</strong> across 180+ markets. Listed consumer goods group.</li><li><strong>80% of a high cost workforce moved offshore and nearshore, saving 30% a year,</strong> with one partner paid for outcomes, not effort.</li><li><strong>130+ consultants and vendors replaced by one global delivery model:</strong> spend down 20%, now saving $35m a year. Healthcare data business.</li></ul></div></div></div>
         </li>
         <li>
           <div class="title"><span class="tile"><svg class="i" aria-hidden="true"><use href="#i-flag"/></svg></span><h3>Exit readiness and transaction support</h3><p class="when">A sale or IPO is on the horizon.</p></div>
-          <div><ul class="what"><li>The change programme aligned to the sale timetable</li><li>Due diligence: buyer information prepared and questions answered</li><li>The programme presented to buyers and advisers</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><div class="ex"><div class="grp"><span class="who">Global professional services business, four regions, sold for $6.5bn</span><ul><li>Supported due diligence: prepared buyer information and answered their questions.</li><li>Presented the programme to buyers and advisers, and kept the programme and the sale process aligned.</li><li>Led an $85m programme with 300+ people across four regions that made the business sale ready.</li></ul></div><div class="grp"><span class="who">Global healthcare data business, ahead of its IPO</span><ul><li>Delivered the key platform programme so the business went to market with it in place.</li></ul></div></div></div></div></div>
+          <div><ul class="what"><li>The change programme aligned to the sale timetable</li><li>Due diligence: buyer information prepared and questions answered</li><li>The programme presented to buyers and advisers</li></ul><div class="done"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><div><small>Done before</small><ul class="ex"><li><strong>Sold for $6.5bn.</strong> Led the $85m, 300+ person programme that made the business sale ready. Private equity backed professional services group.</li><li><strong>In the room for due diligence:</strong> buyer information prepared, questions answered, programme presented to buyers and their advisers.</li><li><strong>Critical platform delivered before the IPO.</strong> Private equity backed healthcare data business.</li></ul></div></div></div>
         </li>
       </ul>
     </div>
   </section>
 
-  <section class="dark run-band" id="engagement">
+  <section class="run-band" id="engagement">
     <div class="wrap">
       <div class="head">
         <p class="label">How every engagement runs</p>
