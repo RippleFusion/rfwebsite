@@ -361,6 +361,11 @@
   .ways .ic svg.i { width: 14px; height: 14px; }
   .ways small { font-size: 0.56rem; letter-spacing: 0.14em; }
   .ways b, .ways b a { font-size: 0.86rem; }
+
+  /* Contact fills the screen under the menu bar, so no light band shows above it when you land here */
+  .contact-band { min-height: calc(100vh - var(--bar) - env(safe-area-inset-top, 0px) - 68px); display: flex; flex-direction: column; justify-content: center; }
+  @supports (height: 100svh) { .contact-band { min-height: calc(100svh - var(--bar) - env(safe-area-inset-top, 0px) - 68px); } }
+  .contact-band > .wrap { width: 100%; }
 </style>
 </head>
 <body>
