@@ -261,6 +261,10 @@
   .contact .lead { align-items: center; }
   .contact .lead p { margin-left: auto; margin-right: auto; }
   .ways { text-align: left; }
+
+  /* current section in the menu */
+  .nav a:not(.btn)[aria-current="true"] { color: var(--orange); }
+  .nav a:not(.btn)[aria-current="true"]::after { transform: none; }
 </style>
 </head>
 <body>
@@ -450,6 +454,25 @@
     history.replaceState(null, '', location.pathname + location.search);
     window.addEventListener('load', function () { var el = document.getElementById(id0); if (el) el.scrollIntoView({ block: 'start' }); });
   }
+
+  /* mark the menu link for the section on screen */
+  var spy = [['top', 'hero'], ['ian', 'ian'], ['work', 'work'], ['work', 'engagement'], ['contact', 'contact']];
+  var links = {};
+  document.querySelectorAll('.nav a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  function spyNow() {
+    var line = window.innerHeight * 0.35, current = 'top';
+    spy.forEach(function (p) {
+      var el = document.getElementById(p[1]);
+      if (el && el.getBoundingClientRect().top <= line) current = p[0];
+    });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = 'contact';
+    Object.keys(links).forEach(function (k) {
+      if (k === current) links[k].setAttribute('aria-current', 'true'); else links[k].removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('scroll', spyNow, { passive: true });
+  window.addEventListener('resize', spyNow);
+  spyNow();
 
   var dlg = document.getElementById('privacy-dialog'), open = document.getElementById('privacy-open'), close = document.getElementById('privacy-close');
   if (dlg && open && dlg.showModal) {
