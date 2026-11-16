@@ -366,6 +366,8 @@
   .contact-band { min-height: calc(100vh - var(--bar) - env(safe-area-inset-top, 0px) - 68px); display: flex; flex-direction: column; justify-content: center; }
   @supports (height: 100svh) { .contact-band { min-height: calc(100svh - var(--bar) - env(safe-area-inset-top, 0px) - 68px); } }
   .contact-band > .wrap { width: 100%; }
+
+  .rows > li:first-child { border-top: 0; }
 </style>
 </head>
 <body>
