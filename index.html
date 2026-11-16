@@ -319,12 +319,8 @@
   .done .ex li { font-weight: 400; font-size: 0.97rem; line-height: 1.45; }
   .done .ex strong { font-weight: 700; }
 
-  /* header turns teal while it sits over the Contact section; no line above the footer */
+  /* no line above the footer */
   .top, .top .mark img { transition: none; }
-  .top.on-contact { background: rgba(15, 59, 64, 0.94); border-bottom-color: var(--rule-dark); color: var(--chalk); }
-  .top.on-contact .mark img { filter: brightness(0) invert(1) sepia(0.08); }
-  .top.on-contact .nav a:not(.btn)[aria-current="true"] { color: var(--orange-soft); }
-  body.on-contact::before { background: var(--petrol); }
   .foot { border-top: 0; }
 
   /* Done before, grouped by client */
@@ -369,7 +365,6 @@
 
   .rows > li:first-child { border-top: 0; }
 
-  .top.on-contact { background: var(--petrol); border-bottom-color: var(--petrol); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .contact-band { min-height: calc(100vh - var(--bar) - env(safe-area-inset-top, 0px) - 56px); }
   @supports (height: 100svh) { .contact-band { min-height: calc(100svh - var(--bar) - env(safe-area-inset-top, 0px) - 56px); } }
 
@@ -387,6 +382,9 @@
   .contact .lead h2 .u { background: linear-gradient(var(--orange), var(--orange)) 0 92% / 100% 0.09em no-repeat; }
 
   #contact > .wrap { padding-block: clamp(24px, 5vh, 56px); }
+
+  /* the menu bar is the same solid chalk everywhere, including over Contact */
+  .top { background: var(--chalk); -webkit-backdrop-filter: none; backdrop-filter: none; }
 </style>
 </head>
 <body>
