@@ -122,12 +122,13 @@
   .mark { display: inline-flex; align-items: center; gap: 12px; font: 800 1.02rem var(--display); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
   .mark img { display: block; width: 220px; height: auto; }
   .nav { display: flex; align-items: center; gap: 28px; font-size: 0.98rem; font-weight: 500; }
-  .nav a:not(.btn) { text-decoration: none; position: relative; padding: 6px 0; }
+  .nav a:not(.btn) { text-decoration: none; position: relative; padding: 6px 0; white-space: nowrap; }
   .nav a:not(.btn)::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--orange); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
   .nav a:not(.btn):hover::after { transform: none; }
   .nav .btn { padding: 10px 18px 10px 20px; font-size: 0.95rem; box-shadow: none; }
-  @media (max-width: 760px) { .nav a:not(.btn) { display: none; } }
+  @media (max-width: 900px) { .nav a:not(.btn) { display: none; } }
   @media (max-width: 420px) { .mark img { width: 160px; } .nav .btn { padding: 9px 14px 9px 16px; font-size: 0.9rem; } }
+  @media (max-width: 360px) { .mark img { width: 128px; } .nav .btn { padding: 8px 12px; font-size: 0.85rem; gap: 7px; } .nav .btn svg.i { width: 16px; height: 16px; } .top .wrap { gap: 8px; } }
 
   /* opening: the live ripple */
   .hero { position: relative; overflow: hidden; }
@@ -269,9 +270,10 @@
   <div class="wrap">
     <a class="mark" href="#top" aria-label="Ripple Fusion, back to the top"><img src="images/wordmark.webp" alt="Ripple Fusion" width="496" height="34"></a>
     <nav class="nav" aria-label="Sections">
+      <a href="#top">Home</a>
       <a href="#work">The work</a>
       <a href="#engagement">How it runs</a>
-      <a href="#ian">About Ian</a>
+      <a href="#ian">About</a>
       <a href="#contact">Contact</a>
       <a class="btn" href="https://calendly.com/ian-ianlloyd/30min" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Book a call</a>
     </nav>
@@ -380,7 +382,7 @@
         <div class="lead">
           <p class="label">Get in touch</p>
           <h2>Tell me what needs to change and by when.</h2>
-          <p>A first call takes 30 minutes.</p>
+          <p>A first call takes only 30 minutes.</p>
           <a class="btn" href="https://calendly.com/ian-ianlloyd/30min" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Book a call</a>
         </div>
         <ul class="ways">
