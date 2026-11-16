@@ -62,7 +62,7 @@
     color-scheme: light;
   }
   *, *::before, *::after { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar) + env(safe-area-inset-top, 0px) + 8px); }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar) + env(safe-area-inset-top, 0px)); }
   html, body { overflow-x: clip; }
   body { margin: 0; background: var(--chalk); color: var(--ink); font: 400 17px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
   body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--chalk); }
@@ -257,7 +257,7 @@
   .about { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .about .text { align-items: center; }
   .about .actions { justify-content: center; }
-  .portrait { justify-self: center; }
+  .portrait { justify-self: center; margin-top: -2.5rem; }
   .contact { grid-template-columns: 1fr; max-width: 680px; margin: 0 auto; text-align: center; }
   .contact .lead { align-items: center; }
   .contact .lead p { margin-left: auto; margin-right: auto; }
@@ -283,7 +283,7 @@
   .ways small { font-size: 0.66rem; }
   .ways b, .ways b a { font-size: 1rem; }
 
-  #ian .wrap { padding-top: clamp(28px, 4vw, 56px); }
+  #ian .wrap { padding-top: clamp(12px, 2vw, 28px); }
 
   /* more space above the 30 minutes line; the contact boxes stay where they were */
   .contact .lead p:not(.label) { margin-top: 20px; }
@@ -535,7 +535,8 @@
   document.querySelectorAll('.nav a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
   function spyNow() {
     var ct = document.getElementById('contact');
-    var onC = !!ct && ct.getBoundingClientRect().top <= (bar ? bar.offsetHeight : 68);
+    var atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+    var onC = !!ct && (ct.getBoundingClientRect().top <= (bar ? bar.offsetHeight : 68) || (atEnd && ct.getBoundingClientRect().top < window.innerHeight * 0.6));
     if (bar) bar.classList.toggle('on-contact', onC);
     document.body.classList.toggle('on-contact', onC);
     var line = window.innerHeight * 0.35, current = 'top';
