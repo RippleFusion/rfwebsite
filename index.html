@@ -380,6 +380,13 @@
 
   .contact .ways { gap: 12px; }
   .ways li { padding: 8px 14px; }
+
+  /* Contact headline: a step larger, with the same orange underlines as the opening */
+  .contact .lead h2 { font-size: clamp(2.2rem, 4.6vw, 3.9rem); max-width: 21ch; }
+  .contact .lead h2 .u { white-space: nowrap; }
+  .contact .lead h2 .u { background: linear-gradient(var(--orange), var(--orange)) 0 92% / 100% 0.09em no-repeat; }
+
+  #contact > .wrap { padding-block: clamp(24px, 5vh, 56px); }
 </style>
 </head>
 <body>
@@ -518,7 +525,7 @@
       <div class="contact">
         <div class="lead">
           <p class="label">Get in touch</p>
-          <h2>Tell me what needs to change and by when.</h2>
+          <h2>What needs to <span class="u">change</span>, and <span class="u">by when</span>? Let&rsquo;s talk.</h2>
           <p>A first call takes only 30 minutes.</p>
           <a class="btn" href="https://calendly.com/ian-ianlloyd/30min" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Book a call</a>
         </div>
