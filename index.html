@@ -413,6 +413,20 @@
 
   #work .wrap { padding-bottom: clamp(12px, 2vw, 28px); }
   #ai .wrap { padding-top: clamp(8px, 1.5vw, 20px); }
+
+  .contact .ways { width: min(330px, 100%); }
+  .contact .lead { max-width: 100%; }
+
+  /* phones on their side: smaller opening so the headline and button fit the short screen */
+  @media (orientation: landscape) and (max-height: 520px) {
+    h1 { font-size: clamp(1.7rem, 9vh, 2.7rem); max-width: 22ch; }
+    .hero .wrap { padding-block: 20px 28px; gap: 12px; }
+    .hero .lede { font-size: 1rem; line-height: 1.4; max-width: 56ch; }
+    h2 { font-size: clamp(1.7rem, 8vh, 2.4rem); }
+    .contact-band { min-height: 0; }
+  }
+
+  @media (max-width: 640px) { .portrait { margin-top: -1.25rem; } }
 </style>
 </head>
 <body>
