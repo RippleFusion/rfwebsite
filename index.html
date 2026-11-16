@@ -368,6 +368,18 @@
   .contact-band > .wrap { width: 100%; }
 
   .rows > li:first-child { border-top: 0; }
+
+  .top.on-contact { background: var(--petrol); border-bottom-color: var(--petrol); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .contact-band { min-height: calc(100vh - var(--bar) - env(safe-area-inset-top, 0px) - 56px); }
+  @supports (height: 100svh) { .contact-band { min-height: calc(100svh - var(--bar) - env(safe-area-inset-top, 0px) - 56px); } }
+
+  /* contact boxes: original text size back, boxes stay compact */
+  .contact .ways { width: 330px; }
+  .ways small { font-size: 0.72rem; letter-spacing: 0.16em; line-height: 1.3; }
+  .ways b, .ways b a { font-size: clamp(1.02rem, 1.6vw, 1.25rem); line-height: 1.25; }
+
+  .contact .ways { gap: 12px; }
+  .ways li { padding: 8px 14px; }
 </style>
 </head>
 <body>
