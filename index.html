@@ -388,6 +388,11 @@
 
   /* only one underline at a time in the menu: while pointing at a link, the current section's underline steps aside */
   .nav:hover a:not(.btn)[aria-current="true"]:not(:hover)::after { transform: scaleX(0); }
+
+  /* the menu bar is white on every section */
+  .top { background: #ffffff; }
+  .top.scrolled { border-bottom-color: var(--rule); }
+  body::before { background: #ffffff; }
 </style>
 </head>
 <body>
