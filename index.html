@@ -385,6 +385,9 @@
 
   /* the menu bar is the same solid chalk everywhere, including over Contact */
   .top { background: var(--chalk); -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+  /* only one underline at a time in the menu: while pointing at a link, the current section's underline steps aside */
+  .nav:hover a:not(.btn)[aria-current="true"]:not(:hover)::after { transform: scaleX(0); }
 </style>
 </head>
 <body>
