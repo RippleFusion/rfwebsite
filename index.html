@@ -320,6 +320,14 @@
   .done .ex { gap: 12px; margin-top: 6px; }
   .done .ex li { font-weight: 400; font-size: 0.97rem; line-height: 1.45; }
   .done .ex strong { font-weight: 700; }
+
+  /* header turns teal while it sits over the Contact section; no line above the footer */
+  .top, .top .mark img { transition: none; }
+  .top.on-contact { background: rgba(15, 59, 64, 0.94); border-bottom-color: var(--rule-dark); color: var(--chalk); }
+  .top.on-contact .mark img { filter: brightness(0) invert(1) sepia(0.08); }
+  .top.on-contact .nav a:not(.btn)[aria-current="true"] { color: var(--orange-soft); }
+  body.on-contact::before { background: var(--petrol); }
+  .foot { border-top: 0; }
 </style>
 </head>
 <body>
@@ -515,6 +523,10 @@
   var links = {};
   document.querySelectorAll('.nav a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
   function spyNow() {
+    var ct = document.getElementById('contact');
+    var onC = !!ct && ct.getBoundingClientRect().top <= (bar ? bar.offsetHeight : 68);
+    if (bar) bar.classList.toggle('on-contact', onC);
+    document.body.classList.toggle('on-contact', onC);
     var line = window.innerHeight * 0.35, current = 'top';
     spy.forEach(function (p) {
       var el = document.getElementById(p[1]);
