@@ -225,7 +225,7 @@
   @media (min-width: 860px) { .about { grid-template-columns: 1.25fr 0.75fr; } .portrait { justify-self: end; } }
 
   /* contact */
-  .contact-band { position: relative; overflow: hidden; }
+  .contact-band { position: relative; overflow: hidden; background: var(--petrol-deep); }
   .contact { position: relative; display: grid; grid-template-columns: 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
   .contact .lead { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; min-width: 0; }
   .contact .lead p { color: var(--chalk-soft); max-width: 36ch; font-size: 1.12rem; }
@@ -239,7 +239,7 @@
   .ways b { user-select: all; }
   .ways b a:hover { color: var(--orange-soft); }
   @media (min-width: 900px) { .contact { grid-template-columns: 1fr 1fr; } }
-  .foot { background: var(--petrol-deep); color: var(--chalk-soft); }
+  .foot { background: var(--petrol-deep); color: var(--chalk-soft); border-top: 1px solid var(--rule-dark); }
   .foot .wrap { padding-block: 22px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; font-size: 0.9rem; }
 
 
@@ -272,8 +272,7 @@
     <nav class="nav" aria-label="Sections">
       <a href="#top">Home</a>
       <a href="#ian">About</a>
-      <a href="#work">The work</a>
-      <a href="#engagement">How it runs</a>
+      <a href="#work">Services</a>
       <a href="#contact">Contact</a>
       <a class="btn" href="https://calendly.com/ian-ianlloyd/30min" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-cal"/></svg>Book a call</a>
     </nav>
@@ -302,6 +301,24 @@
       <div class="row">
         <p class="label">Businesses I've worked in</p>
         <div class="belt"><ul><li><img src="images/logos-mono/vistra.webp" alt="Vistra" width="392" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/bat.webp" alt="BAT" width="211" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/iqvia.webp" alt="IQVIA" width="406" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/marlink.webp" alt="Marlink" width="318" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/pcp.webp" alt="Pest Control Partnership" width="339" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/astrazeneca.webp" alt="AstraZeneca" width="288" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/gsk.webp" alt="GSK" width="235" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/roche.webp" alt="Roche" width="139" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/esa.webp" alt="European Space Agency" width="198" height="72" loading="lazy" decoding="async"></li><li class="tall"><img src="images/logos-mono/vodafone.webp" alt="Vodafone" width="106" height="72" loading="lazy" decoding="async"></li><li class="tall"><img src="images/logos-mono/boots.webp" alt="Boots" width="136" height="72" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/cgi.webp" alt="CGI" width="112" height="52" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/pirelli.webp" alt="Pirelli" width="151" height="32" loading="lazy" decoding="async"></li><li><img src="images/logos-mono/serco.webp" alt="Serco" width="232" height="72" loading="lazy" decoding="async"></li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ian">
+    <div class="wrap about">
+      <div class="text">
+        <p class="label">About Ian</p>
+        <h2>Ian Lloyd</h2>
+        <p>I'm an interim transformation director with 20+ years' experience in private equity backed and global businesses. I work alongside CEOs, boards and leadership teams, and I take accountability for the outcome.</p>
+        <p>Audit and regulatory experience across pharma and financial services keeps me close to the data and process detail that matters as regulation tightens. Based in the UK, working across Europe and beyond.</p>
+        <div class="actions">
+          <a class="handle" href="https://www.linkedin.com/in/realianlloyd/" target="_blank" rel="noopener"><span><svg class="i" aria-hidden="true"><use href="#i-in"/></svg></span>Ian Lloyd</a>
+          <a class="handle" href="https://ianlloyd.com" target="_blank" rel="noopener"><span><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span>ianlloyd.com</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <img alt="Ian Lloyd, interim transformation director" width="842" height="1022" src="images/ian-lloyd.webp" decoding="async">
       </div>
     </div>
   </section>
@@ -358,23 +375,6 @@
     </div>
   </section>
 
-  <section class="paper" id="ian">
-    <div class="wrap about">
-      <div class="text">
-        <p class="label">About Ian</p>
-        <h2>Ian Lloyd</h2>
-        <p>I'm an interim transformation director with 20+ years' experience in private equity backed and global businesses. I work alongside CEOs, boards and leadership teams, and I take accountability for the outcome.</p>
-        <p>Audit and regulatory experience across pharma and financial services keeps me close to the data and process detail that matters as regulation tightens. Based in the UK, working across Europe and beyond.</p>
-        <div class="actions">
-          <a class="handle" href="https://www.linkedin.com/in/realianlloyd/" target="_blank" rel="noopener"><span><svg class="i" aria-hidden="true"><use href="#i-in"/></svg></span>Ian Lloyd</a>
-          <a class="handle" href="https://ianlloyd.com" target="_blank" rel="noopener"><span><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span>ianlloyd.com</a>
-        </div>
-      </div>
-      <div class="portrait">
-        <img alt="Ian Lloyd, interim transformation director" width="842" height="1022" src="images/ian-lloyd.webp" decoding="async">
-      </div>
-    </div>
-  </section>
 
   <section class="dark contact-band" id="contact">
     <div class="wrap">
