@@ -427,6 +427,7 @@
   }
 
   @media (max-width: 640px) { .portrait { margin-top: -1.25rem; } }
+  #ian .wrap { padding-bottom: clamp(16px, 2.6vw, 36px); }
 
   .rows > li:last-child { border-bottom: 0; }
 
@@ -444,7 +445,7 @@
   @media (min-width: 900px) { #contact > .wrap { position: relative; top: 42px; } }
 
   /* Testimonials */
-  #testimonials .wrap { padding-block: clamp(12px, 2vw, 28px) clamp(28px, 4vw, 56px); }
+  #testimonials .wrap { padding-block: 0 clamp(28px, 4vw, 56px); }
   .tgrid { display: grid; grid-template-columns: 1fr; gap: 20px; }
   @media (min-width: 760px) { .tgrid { grid-template-columns: 1fr 1fr; gap: 24px; } .tcard.feat { grid-column: 1 / -1; } }
   .tcard { position: relative; overflow: hidden; margin: 0; padding: clamp(24px, 3vw, 36px); background: var(--paper); border: 1px solid var(--rule); border-radius: 18px; display: flex; flex-direction: column; text-align: left; transition: border-color .3s; }
