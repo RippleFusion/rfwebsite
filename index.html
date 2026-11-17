@@ -431,6 +431,11 @@
   .rows > li:last-child { border-bottom: 0; }
 
   @media (max-width: 640px) and (orientation: portrait) { .contact .lead .btn { margin-bottom: 28px; } }
+
+  /* one hover for every Book a call button: a deeper orange, the same on light and dark sections */
+  .btn::before, .dark .btn::before { background: #9e4328; }
+  .btn:hover, .dark .btn:hover { color: var(--white); }
+  .dark .btn:hover { box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28); }
 </style>
 </head>
 <body>
