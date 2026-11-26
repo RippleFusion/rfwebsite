@@ -103,7 +103,7 @@ ul { list-style: none; }
 .foot-logo { display: block; width: 220px; height: auto; }
 .foot-brand p { margin-top: 18px; font-size: 14px; line-height: 1.7; color: var(--muted); max-width: 28em; }
 .foot-brand .small { font-size: 12px; margin-top: 14px; color: #6f6f6f; }
-.foot-sub { width: fit-content; max-width: 100%; margin: -12px 0 0 auto; }
+.foot-sub { width: fit-content; max-width: 100%; margin: -20px 0 0 auto; }
 .foot-sub .signup { width: 380px; max-width: 100%; margin: 0 auto; justify-content: center; }
 .foot-sub .btn { padding: 0 24px; }
 .foot-social { margin: 14px 0 0; text-align: left; }
