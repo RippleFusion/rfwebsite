@@ -1,7 +1,8 @@
 (function () {
-  // Where signups go. Paste your Beehiiv or Substack subscribe endpoint here.
-  // Beehiiv: use the embed form's action URL. Leave empty to show a "coming soon" message.
-  var SUBSCRIBE_URL = "";
+  // Your Substack publication subdomain, e.g. "programmezero" for programmezero.substack.com.
+  // Leave empty to show a "signups open soon" message until the publication exists.
+  var SUBSTACK = "";
+  var SUBSCRIBE_URL = SUBSTACK ? "https://" + SUBSTACK + ".substack.com/api/v1/free?nojs=true" : "";
 
   var issues = window.PZ_ISSUES || [];
   var cards = document.getElementById("cards");

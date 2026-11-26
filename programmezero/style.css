@@ -99,6 +99,15 @@ p { margin: 0 0 1em; }
 .card p { color: var(--muted); font-size: 15px; margin: 0; }
 .empty { color: var(--muted); }
 
+/* hosts */
+.about-lede { font-size: 19px; color: #d6d6d6; max-width: 62ch; }
+.hosts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 26px 0; }
+.host { display: flex; gap: 18px; align-items: flex-start; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); padding: 20px; min-width: 0; }
+.host h3 { color: #fff; margin: 0 0 4px; }
+.host p { color: var(--muted); font-size: 15px; margin: 0; }
+.avatar { flex: none; width: 72px; height: 72px; border-radius: 50%; object-fit: cover; object-position: 50% 12%; background: #fff; border: 2px solid var(--orange-hi); }
+.avatar-ph { display: flex; align-items: center; justify-content: center; background: var(--panel); color: var(--orange-hi); font-size: 28px; font-weight: 700; }
+
 /* listen */
 .listen { list-style: none; padding: 0; margin: 22px 0 8px; display: flex; flex-wrap: wrap; gap: 12px; }
 
