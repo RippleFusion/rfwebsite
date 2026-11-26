@@ -106,7 +106,8 @@ ul { list-style: none; }
 .foot-sub { text-align: right; }
 .foot-sub .signup { margin: 0 0 0 auto; max-width: 380px; justify-content: flex-end; }
 .foot-sub .btn { padding: 0 24px; }
-.foot-social { width: fit-content; max-width: 100%; margin: 22px 0 0 auto; text-align: left; }
+.foot-social { width: fit-content; max-width: 100%; margin: 14px 0 0 auto; text-align: left; }
+.foot-sub .form-note:empty { min-height: 0; margin: 0; }
 .foot-sub .socials { justify-content: flex-start; }
 
 @media (max-width: 800px) {
