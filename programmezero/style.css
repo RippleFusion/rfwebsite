@@ -31,7 +31,7 @@ ul { list-style: none; }
 .btn:hover { background: var(--orange-hi); }
 
 /* hero */
-.hero { position: relative; padding: 56px max(20px, env(safe-area-inset-left, 0px)) 36px; text-align: center; overflow: hidden; }
+.hero { position: relative; padding: 0 max(20px, env(safe-area-inset-left, 0px)) 36px; text-align: center; overflow: hidden; }
 .hero-in { position: relative; max-width: 720px; margin: 0 auto; }
 .hero h1 { font-weight: 300; font-size: clamp(30px, 5vw, 46px); line-height: 1.18; letter-spacing: -.02em; margin: 22px 0 20px; text-wrap: balance; }
 .sub { color: var(--muted); font-size: 17px; line-height: 1.7; max-width: 34em; margin: 0 auto 36px; text-wrap: balance; }
@@ -117,7 +117,6 @@ ul { list-style: none; }
   .foot-sub { width: 100%; }
   .foot-sub .signup { width: 100%; margin-top: 0; }
   .foot-social { margin-top: 14px; }
-  .hero { padding-top: 56px; }
 }
 @media (max-width: 520px) {
   .band { --sw: 22vw; }
