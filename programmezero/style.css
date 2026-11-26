@@ -99,18 +99,18 @@ ul { list-style: none; }
 
 /* footer */
 .foot { border-top: 1px solid var(--line); padding: 48px 0 calc(24px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(to bottom, #000, #0a0604); }
-.foot-grid { display: grid; grid-template-columns: 1.3fr 1.2fr; gap: 40px; }
-.foot-logo { display: block; width: 220px; height: auto; }
-.foot-brand p { margin-top: 18px; font-size: 14px; line-height: 1.7; color: var(--muted); max-width: 28em; }
+.foot-grid { display: grid; grid-template-columns: auto auto; justify-content: end; gap: 56px; text-align: right; }
+.foot-logo { display: block; width: 220px; height: auto; margin-left: auto; }
+.foot-brand p { margin-top: 18px; margin-left: auto; font-size: 14px; line-height: 1.7; color: var(--muted); max-width: 28em; }
 .foot-brand .small { font-size: 12px; margin-top: 14px; color: #6f6f6f; }
-.foot-sub .signup { margin: 0; max-width: 380px; justify-content: flex-start; }
+.foot-sub .signup { margin: 0 0 0 auto; max-width: 380px; justify-content: flex-end; }
 .foot-sub .btn { padding: 0 24px; }
-.foot-sub .socials { margin-top: 20px; }
+.foot-sub .socials { margin-top: 20px; justify-content: flex-end; }
 
 @media (max-width: 800px) {
   .card { grid-template-columns: 1fr; gap: 18px; }
   .card-body { padding: 0 6px 8px; }
-  .foot-grid { grid-template-columns: 1fr; }
+  .foot-grid { grid-template-columns: 1fr; justify-content: stretch; gap: 32px; }
   .hero { padding-top: 56px; }
 }
 @media (max-width: 520px) {
