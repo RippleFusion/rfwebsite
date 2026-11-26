@@ -30,10 +30,10 @@
     if (page > pages) page = pages;
     var slice = list.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
     cards.innerHTML = slice.map(function (i) {
-      return '<a class="card" href="' + esc(i.url) + '"><div class="thumb" aria-hidden="true"><i>Issue</i><b>' + i.n + "</b></div>" +
+      return '<a class="card" href="' + esc(i.url) + '"><div class="thumb" aria-hidden="true"><span class="bars"><i></i><i></i><i></i><i></i></span><em>Issue</em><b>' + i.n + "</b></div>" +
         '<div class="card-body"><div class="card-date">' + fmt(i.date) + " &middot; " + esc(i.topics.join(", ")) + "</div>" +
         "<h3>" + esc(i.title) + "</h3><p>" + esc(i.summary) + "</p>" +
-        '<div class="card-by"><span class="av av-ph" aria-hidden="true">PZ</span>Programme Zero</div></div></a>';
+        '<div class="card-by"><img src="images/favicon.png" alt="" width="22" height="22">Programme Zero</div></div></a>';
     }).join("");
     empty.hidden = list.length > 0;
     renderPager(pages);
