@@ -68,7 +68,7 @@ ul { list-style: none; }
 .soc:hover { border-color: var(--orange-hi); color: var(--orange-hi); }
 
 /* archive */
-.archive { padding-bottom: 96px; }
+.archive { padding-bottom: 40px; }
 .archive-in { max-width: 880px; }
 .archive h2 { font-weight: 300; font-size: clamp(30px, 4vw, 40px); letter-spacing: -.02em; line-height: 1.1; margin-bottom: 28px; }
 .field-search input { height: 48px; padding-left: 48px; }
@@ -90,6 +90,7 @@ ul { list-style: none; }
 .card-by { display: flex; align-items: center; gap: 10px; font: 400 12px/1 var(--font); color: #bdbdbd; margin-top: 4px; }
 .card-by img { width: 22px; height: 22px; border-radius: 50%; }
 .empty { color: var(--muted); margin-top: 28px; }
+.pager[hidden] { display: none; }
 .pager { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 44px; }
 .pager button { min-width: 40px; height: 40px; padding: 0 14px; font: 400 13px var(--font); color: #fff; background: transparent; border: 1px solid var(--line-hi); border-radius: 999px; cursor: pointer; }
 .pager button:hover:not(:disabled) { border-color: var(--orange-hi); }
