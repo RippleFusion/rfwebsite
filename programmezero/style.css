@@ -103,10 +103,10 @@ ul { list-style: none; }
 .foot-logo { display: block; width: 220px; height: auto; }
 .foot-brand p { margin-top: 18px; font-size: 14px; line-height: 1.7; color: var(--muted); max-width: 28em; }
 .foot-brand .small { font-size: 12px; margin-top: 14px; color: #6f6f6f; }
-.foot-sub { width: fit-content; max-width: 100%; margin: -20px 0 0 auto; }
-.foot-sub .signup { width: 380px; max-width: 100%; margin: 0 auto; justify-content: center; }
+.foot-sub { width: fit-content; max-width: 100%; margin: 0 0 0 auto; }
+.foot-sub .signup { width: 380px; max-width: 100%; margin: -19px auto 0; justify-content: center; }
 .foot-sub .btn { padding: 0 24px; }
-.foot-social { margin: 14px 0 0; text-align: left; }
+.foot-social { margin: 33px 0 0; text-align: left; }
 .foot-sub .form-note:empty { min-height: 0; margin: 0; }
 .foot-sub .socials { justify-content: flex-start; }
 
@@ -114,8 +114,9 @@ ul { list-style: none; }
   .card { grid-template-columns: 1fr; gap: 18px; }
   .card-body { padding: 0 6px 8px; }
   .foot-grid { grid-template-columns: 1fr; gap: 32px; }
-  .foot-sub { width: 100%; margin-top: 0; }
-  .foot-sub .signup { width: 100%; }
+  .foot-sub { width: 100%; }
+  .foot-sub .signup { width: 100%; margin-top: 0; }
+  .foot-social { margin-top: 14px; }
   .hero { padding-top: 56px; }
 }
 @media (max-width: 520px) {
