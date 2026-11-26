@@ -106,7 +106,8 @@ ul { list-style: none; }
 .foot-sub { text-align: right; }
 .foot-sub .signup { margin: 0 0 0 auto; max-width: 380px; justify-content: flex-end; }
 .foot-sub .btn { padding: 0 24px; }
-.foot-sub .socials { margin-top: 20px; justify-content: flex-end; }
+.foot-label { margin-top: 22px; }
+.foot-sub .socials { justify-content: flex-end; }
 
 @media (max-width: 800px) {
   .card { grid-template-columns: 1fr; gap: 18px; }
